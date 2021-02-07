@@ -47,3 +47,5 @@ jeżeli 1.b: to:
 jeżeli 1.c: to:
 --> przenosi do walla
 
+## Filtrowanie wall
+all, projects, random
