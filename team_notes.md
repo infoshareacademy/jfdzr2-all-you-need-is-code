@@ -50,4 +50,8 @@ jeżeli 1.c: to:
 ## Filtrowanie wall
 all, projects, random
 
-test
+
+
+Dodać prettier, husky i ...
+components - button
+views - podtsrony
