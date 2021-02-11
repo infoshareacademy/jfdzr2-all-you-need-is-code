@@ -1,0 +1,26 @@
+.primary-survey {
+    margin: 0;
+    display: flex;
+}
+
+.logo-column {
+    width: 20%;
+    height: 100vh;
+    
+}
+
+.survey-column {
+    width: 60%;
+    height: 100vh;
+    background-color: #4853A4;
+}
+
+.right-column {
+    width: 20%;
+    height: 100vh;
+    background-color: #4853A4;
+}
+
+.white-text {
+    color: white;
+}
