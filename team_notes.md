@@ -50,4 +50,6 @@ jeżeli 1.c: to:
 ## Filtrowanie wall
 all, projects, random
 
-test
+
+## DO zapamiętania:
+https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/sign-in-side
