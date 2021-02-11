@@ -34,21 +34,21 @@ const useStyles = makeStyles((theme) => ({
     backgroundImage: `url(${Logo})`,
     backgroundRepeat: 'no-repeat',
     backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-    // backgroundSize: 'cover',
+    theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
     backgroundPosition: 'center',
   },
   paper: {
     margin: theme.spacing(8, 4),
+    // backgroundColor: theme.palette.primary.main,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-  },
+    },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
   },
-  form: {
+   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },

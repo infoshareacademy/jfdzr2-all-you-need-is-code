@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-import logo from './logo.svg';
-import './App.css';
-import './WelcomePage'
-=======
 import { PrimarySurvey } from './components/PrimarySurvey';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 
@@ -16,7 +11,6 @@ const theme = createMuiTheme({
       },
   },
 });
->>>>>>> main
 
 function App() {
   return (
