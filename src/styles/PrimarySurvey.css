@@ -49,6 +49,11 @@
     border: none;
 }
 
+.general-info, .survey-skills {
+    height: 50vh;
+    margin-top: 50px;
+}
+
 .general-info-btn {
     height: 80px;
     cursor: pointer;
@@ -65,31 +70,30 @@
     background-color: white;
 }
 
-.first-question{
-    margin-top: 30px;
-}
-
 .next-prev-btns-section {
     display: flex;
     justify-content: center;
+    margin-bottom: 20px;
+}
+
+
+.skip-btn, .next-prev-btn {
+    width: 200px;
+    height: 80px;
+    background-color: #4853A4;
+    border: none;
+    outline: none;
+    cursor: pointer;
 }
 
 .next-prev-btn {
-    width: 200px;
-    height: 80px;
-    background-color: #4853A4;
-    border: none;
-    outline: none;
-    cursor: pointer;
     border-right: white solid 2px;
-
 }
 
-.skip-btn {
-    width: 200px;
-    height: 80px;
-    background-color: #4853A4;
-    border: none;
-    outline: none;
-    cursor: pointer;
+.next-prev-btn:hover, .skip-btn:hover {
+    background-color: #6C7ED6;
+}
+
+label {
+    color: white;
 }

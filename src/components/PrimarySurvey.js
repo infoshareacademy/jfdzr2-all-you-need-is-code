@@ -5,6 +5,7 @@ import logo from '../logo/FindITRotated.png';
 import { SurveySteps } from './SurveySteps';
 import { GeneralInfo } from './GeneralInfo';
 import { NextPrevBtns } from './NextPrevBtns';
+import { SurveySkills } from './SurveySkills'
 
 export const PrimarySurvey = () => {
   return (
@@ -18,11 +19,10 @@ export const PrimarySurvey = () => {
         <Typography variant="h5" color='primary'>
           Answer a few simple questions
         </Typography>
-        </div>
-        <div>
         <SurveySteps />
-        <GeneralInfo />
         </div>
+        <SurveySkills/>
+        {/* <GeneralInfo /> */}
         <NextPrevBtns />
       </div>
       <div className="right-column"></div>
