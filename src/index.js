@@ -2,12 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import SignInSide from './WelcomePage'
-
+import WelcomePage from './views/WelcomePage';
 
 ReactDOM.render(
   <React.StrictMode>
-    <SignInSide />
+    <WelcomePage />
   </React.StrictMode>,
   document.getElementById('root')
 );
