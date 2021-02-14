@@ -1,26 +1,99 @@
 .primary-survey {
     margin: 0;
     display: flex;
+    height: 100vh;
 }
 
 .logo-column {
     width: 20%;
-    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     
 }
 
 .survey-column {
     width: 60%;
-    height: 100vh;
+    
     background-color: #4853A4;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 40px;
 }
 
 .right-column {
     width: 20%;
-    height: 100vh;
+
     background-color: #4853A4;
 }
 
 .white-text {
+    color: white;
+}
+
+.survey-steps, .option-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.survey-single-step, .general-info-btn {
+    margin-top: 20px;
+    width: 230px;
+    background-color: #6C7ED6;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+
+.general-info, .survey-skills {
+    height: 50vh;
+    margin-top: 50px;
+}
+
+.general-info-btn {
+    height: 80px;
+    cursor: pointer;
+}
+
+.general-info-btn:focus {
+    background-color: white;
+    color: #6C7ED6;
+    outline: none;
+    border: none;   
+}
+
+.survey-single-step[data='active'], .general-info-btn[data='active']{
+    background-color: white;
+}
+
+.next-prev-btns-section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+
+.skip-btn, .next-prev-btn {
+    width: 200px;
+    height: 80px;
+    background-color: #4853A4;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.next-prev-btn {
+    border-right: white solid 2px;
+}
+
+.next-prev-btn:hover, .skip-btn:hover {
+    background-color: #6C7ED6;
+}
+
+label {
     color: white;
 }
