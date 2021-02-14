@@ -51,7 +51,12 @@ jeżeli 1.c: to:
 all, projects, random
 
 
+<<<<<<< HEAD
+## DO zapamiętania:
+https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/sign-in-side
+=======
 
 Dodać prettier, husky i ...
 components - button
 views - podtsrony
+>>>>>>> main
