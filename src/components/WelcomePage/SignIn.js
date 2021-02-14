@@ -7,7 +7,7 @@ import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import useStyles from '../views/WelcomePage'
+import useStyles from '../../views/WelcomePage'
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 
 const theme = createMuiTheme({
