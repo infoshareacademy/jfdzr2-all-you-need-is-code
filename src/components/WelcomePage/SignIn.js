@@ -13,14 +13,14 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 const theme = createMuiTheme({
   palette: {
       primary: {
-          main: '#E5E5E5',
+          main: '#FFF',
       },
       secondary: {
           main: '#6C7ED6',
       },
-form: {
-    backgroundColor: '#fff',
-  }
+// form: {
+//     backgroundColor: '#fff',
+//   }
       
   },
 });
@@ -32,10 +32,9 @@ export default function SignIn() {
 
     return (
         <ThemeProvider theme={theme}>
-
-        <div className={classes.paper}>
+        <div>
               <CssBaseline />
-            <Typography component="h1" variant="h5">
+            <Typography component="h1" variant="h5" align="center">
               Sign in
             </Typography>
             <form className={classes.theme} noValidate>
@@ -43,6 +42,7 @@ export default function SignIn() {
                 variant="outlined"
                 margin="normal"
                 color="primary"
+                borderColor="primary!important"
                 required
                 fullWidth
                 id="email"
@@ -53,6 +53,7 @@ export default function SignIn() {
               />
               <TextField
                 variant="outlined"
+                color="primary"
                 margin="normal"
                 required
                 fullWidth
@@ -62,11 +63,7 @@ export default function SignIn() {
                 id="password"
                 autoComplete="current-password"
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-              <Button
+                          <Button
                 type="submit"
                 fullWidth
                 variant="contained"

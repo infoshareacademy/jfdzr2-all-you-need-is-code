@@ -9,6 +9,8 @@
 
 [React - best practice](https://alexkondov.com/tao-of-react/)
 
+[Divider](https://material-ui.com/components/dividers/)
+
 
 
 ## Ustalenia

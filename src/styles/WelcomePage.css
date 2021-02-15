@@ -1,0 +1,28 @@
+.login-btn, .signin-btn {
+    margin-top: 20px;
+    /* width: auto; */
+    height: 50px;
+    background-color: #4853A4;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+
+
+.login-btn {
+    /* border-right: white solid 1px; */
+    padding-right: 150px;
+    margin: 0;
+    
+}
+
+.signin-btn {
+    border-left: white solid 1px;
+    padding-left: 150px;
+    text-align: right;
+    margin: 0;
+}
+
+
+
