@@ -1,11 +1,11 @@
-.login-btn, .signin-btn {
-    margin-top: 20px;
-    /* width: auto; */
+.login-btn, .signin-btn { 
+    width: auto;
     height: 50px;
     background-color: #4853A4;
     border: none;
     outline: none;
     cursor: pointer;
+    padding-left: 0!important;
 }
 
 
@@ -14,14 +14,19 @@
     /* border-right: white solid 1px; */
     padding-right: 150px;
     margin: 0;
-    
+    width: 100%;
+    float: left;
+    text-align: left;
+
 }
 
 .signin-btn {
     border-left: white solid 1px;
     padding-left: 150px;
-    text-align: right;
     margin: 0;
+    float: right;
+    text-align: right;
+    width: 100%
 }
 
 
