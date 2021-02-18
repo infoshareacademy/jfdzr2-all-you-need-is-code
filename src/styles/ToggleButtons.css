@@ -1,0 +1,52 @@
+.general-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.toggle-button{
+    margin-top: 20px;
+    width: 230px;
+    height: 80px;
+    border-radius: 30px;
+    background-color: #6C7ED6;
+    position: relative;
+  }
+  
+.toggle-button label,
+.toggle-button input {
+    width: 230px;
+    height: 80px;
+    border-radius: 30px;
+    display: block;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .toggle-button input[type="radio"] {
+    opacity: 0.01;
+    z-index: 100;
+  }
+  
+  
+  .toggle-button label {
+      cursor: pointer;
+      z-index: 90;
+      font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto;
+      font-size: 20px;
+      font-weight: 500;
+    }
+    
+    .toggle-button label:hover {
+        background: #DDD;
+    }
+    
+    .toggle-button input[type="radio"]:checked + label{
+        background-color: white;
+        color: #4853A4;
+        outline: none;
+        border: none; 
+    }

@@ -1,6 +1,6 @@
 import { Typography } from "@material-ui/core";
 
-export const NextPrevBtns = () => {
+export const SurveyNavBtns = () => {
     return (
       <div className="next-prev-btns-section">
             <button className="next-prev-btn">

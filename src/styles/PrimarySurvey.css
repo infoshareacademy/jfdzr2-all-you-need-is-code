@@ -9,13 +9,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-    
 }
 
 .survey-column {
     width: 60%;
-    
     background-color: #4853A4;
     display: flex;
     flex-direction: column;
@@ -25,7 +22,6 @@
 
 .right-column {
     width: 20%;
-
     background-color: #4853A4;
 }
 
@@ -38,7 +34,7 @@
     justify-content: space-between;
 }
 
-.survey-single-step, .general-info-btn {
+.survey-single-step{
     margin-top: 20px;
     width: 230px;
     background-color: #6C7ED6;
@@ -52,11 +48,6 @@
 .general-info, .survey-skills {
     height: 50vh;
     margin-top: 50px;
-}
-
-.general-info-btn {
-    height: 80px;
-    cursor: pointer;
 }
 
 .general-info-btn:focus {
