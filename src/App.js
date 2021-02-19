@@ -1,6 +1,6 @@
 import { PrimarySurvey } from './components/PrimarySurvey';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
-
+import {NavBar} from './components/navBar/NavBar'
 const theme = createMuiTheme({
   palette: {
       primary: {
@@ -14,9 +14,12 @@ const theme = createMuiTheme({
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
+    <>
+    <NavBar/>
+    {/* <ThemeProvider theme={theme}>
     <PrimarySurvey />
-    </ThemeProvider>
+    </ThemeProvider> */}
+    </>
   );
 }
 
