@@ -36,7 +36,7 @@
 
 .survey-single-step{
     margin-top: 20px;
-    width: 230px;
+    width: 20%;
     background-color: #6C7ED6;
     border-radius: 30px;
     display: flex;
@@ -45,7 +45,7 @@
     border: none;
 }
 
-.general-info, .survey-skills {
+.general-info-container, .survey-skills-container,.general-info, .survey-skills, .about-you-section  {
     height: 50vh;
     margin-top: 50px;
 }
@@ -87,4 +87,11 @@
 
 label {
     color: white;
+}
+
+.about-you-section {
+display: flex;
+flex-direction: column;
+justify-content: flex-start;
+width: 100%;
 }
