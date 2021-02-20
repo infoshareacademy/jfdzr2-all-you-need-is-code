@@ -11,6 +11,8 @@
 
 [Divider](https://material-ui.com/components/dividers/)
 
+[onClick](https://flaviocopes.com/react-show-different-component-on-click/)
+
 
 
 ## Ustalenia

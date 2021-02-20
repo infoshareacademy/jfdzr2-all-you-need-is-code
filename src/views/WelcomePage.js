@@ -8,6 +8,9 @@ import { Typography } from "@material-ui/core";
 import "../styles/WelcomePage.css";
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
+import {LogInBtn} from '../components/WelcomePage/Buttons'
+import {SignInBtn} from '../components/WelcomePage/Buttons'
+import {useState} from 'react'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 export default function WelcomePage() {
   const classes = useStyles();
 
+
   return (
     <Grid container spacing={0} className={classes.root}>
       <CssBaseline />
@@ -69,18 +73,10 @@ export default function WelcomePage() {
           </Typography>
         <Grid container>
           <Grid item xs={6}>
-            <button className="login-btn">
-              <Typography variant="h6" color="primary">
-                Log In
-              </Typography>
-            </button>
+          <LogInBtn /> 
           </Grid>
           <Grid item xs={6}>
-            <button className="signin-btn">
-              <Typography variant="h6" color="primary">
-                Sign In
-              </Typography>
-            </button>
+           <SignInBtn />
           </Grid>
           {/* </div> */}
           {/* <SignIn /> */}
