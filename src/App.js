@@ -1,6 +1,7 @@
 import { PrimarySurvey } from './views/PrimarySurvey';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
-
+import {NavBar} from './components/navBar/NavBar'
+import MainPage from './views/MainPage'
 const theme = createMuiTheme({
   palette: {
       primary: {
@@ -14,10 +15,12 @@ const theme = createMuiTheme({
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-    {/* <WelcomePage /> */}
-    <PrimarySurvey />
-    </ThemeProvider>
+ 
+    <MainPage/>
+
+//     <PrimarySurvey />
+//     </ThemeProvider> */}
+    </>
   );
 }
 
