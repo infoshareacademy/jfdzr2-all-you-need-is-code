@@ -9,13 +9,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-    
 }
 
 .survey-column {
     width: 60%;
-    
     background-color: #4853A4;
     display: flex;
     flex-direction: column;
@@ -25,7 +22,6 @@
 
 .right-column {
     width: 20%;
-
     background-color: #4853A4;
 }
 
@@ -38,9 +34,9 @@
     justify-content: space-between;
 }
 
-.survey-single-step, .general-info-btn {
+.survey-single-step{
     margin-top: 20px;
-    width: 230px;
+    width: 20%;
     background-color: #6C7ED6;
     border-radius: 30px;
     display: flex;
@@ -49,14 +45,9 @@
     border: none;
 }
 
-.general-info, .survey-skills {
+.general-info-container, .survey-skills-container,.general-info, .survey-skills, .about-you-section  {
     height: 50vh;
     margin-top: 50px;
-}
-
-.general-info-btn {
-    height: 80px;
-    cursor: pointer;
 }
 
 .general-info-btn:focus {
@@ -96,4 +87,11 @@
 
 label {
     color: white;
+}
+
+.about-you-section {
+display: flex;
+flex-direction: column;
+justify-content: flex-start;
+width: 100%;
 }
