@@ -40,12 +40,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justify: "center",
   },
-  TextField: {
-    border: '1px solid yellow',
-  },
 }));
 
-export default function WelcomePage() {
+export default function SignInPage() {
   const classes = useStyles();
 
 
@@ -55,34 +52,13 @@ export default function WelcomePage() {
       <Grid item xs={false} sm={4} md={5} className={classes.image} />
       <Grid item xs={12} sm={8} md={7}>
         <Paper className={classes.paper} elevation={6} square>
-          <Typography variant="h4" color="white" align="left">
-            <div className={classes.welcome}>Welcome</div>
+          <Typography variant="h5" color="white" align="left">
+            <div className={classes.welcome}>Sign In</div>
           </Typography>
           <Typography align="justify" variant="body4">
-            FindIT is a place ... Here some text Lorem ipsum dolor sit amet
-            consectetur adipisicing elit. Sint, quidem molestiae ut, amet
-            dolore, id atque debitis minima non iusto sequi autem alias
-            obcaecati sunt vel eum! Aspernatur, dolorem ut. Here some text Lorem
-            ipsum dolor sit amet consectetur adipisicing elit. Sint, quidem
-            molestiae ut, amet dolore, id atque debitis minima non iusto sequi
-            autem alias obcaecati sunt vel eum! Aspernatur, dolorem ut. Here
-            some text Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Sint, quidem molestiae ut, amet dolore, id atque debitis minima non
-            iusto sequi autem alias obcaecati sunt vel eum! Aspernatur, dolorem
-            ut. Here some text Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Sint, quidem molestiae ut, amet dolore, id atque
-            debitis minima non iusto sequi autem alias obcaecati sunt vel eum!
-            Aspernatur, dolorem ut.
           </Typography>
         <Grid container>
-          <Grid item xs={6}>
-          <LogInBtn /> 
-          </Grid>
-          <Grid item xs={6}>
-           <SignInBtn />
-          </Grid>
-          {/* </div> */}
-          {/* <SignIn /> */}
+          <SignIn />
           </Grid>
         </Paper>
       </Grid>

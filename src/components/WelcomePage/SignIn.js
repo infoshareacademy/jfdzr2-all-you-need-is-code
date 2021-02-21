@@ -13,16 +13,13 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 const theme = createMuiTheme({
   palette: {
       primary: {
-          main: '#FFF',
+          main: '#grey',
       },
       secondary: {
           main: '#6C7ED6',
       },
-// form: {
-//     backgroundColor: '#fff',
-//   }
       
-  },
+    },
 });
 
 
@@ -35,14 +32,14 @@ export default function SignIn() {
         <div>
               <CssBaseline />
             <Typography component="h1" variant="h5" align="center">
-              Sign in
+              {/* Sign in */}
             </Typography>
             <form className={classes.theme} noValidate>
               <TextField
                 variant="outlined"
                 margin="normal"
-                color="primary"
-                borderColor="primary!important"
+                // color="primary"
+                // borderColor="primary!important"
                 required
                 fullWidth
                 id="email"
@@ -53,7 +50,7 @@ export default function SignIn() {
               />
               <TextField
                 variant="outlined"
-                color="primary"
+                // color="primary"
                 margin="normal"
                 required
                 fullWidth
@@ -72,7 +69,7 @@ export default function SignIn() {
               >
                 Sign In
               </Button>
-              <Grid container>
+              {/* <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">
                     Forgot password?
@@ -83,7 +80,7 @@ export default function SignIn() {
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
-              </Grid>
+              </Grid> */}
               <Box mt={5}>
               </Box>
             </form>
