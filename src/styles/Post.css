@@ -1,0 +1,106 @@
+body{
+    color: rgba(0, 0, 0, 0.32);
+}
+.modalOfPost{
+    margin-top: 7%;
+    margin-left: 10%;
+    width: 800px;
+    height: 350px;
+    background-color:white;
+}
+.informationAboutTheWriter{
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+    margin-top:20px ;
+    margin-left: -7px;
+    align-items: top;
+}
+.informationAboutTheWriter>*{
+    margin-top: 10px;
+    font-family: Roboto;
+}
+.positionInProgramming{
+    padding-top:5px ;
+    color: rgba(0, 0, 0, 0.32);
+}
+   
+.nameOfWriter{
+    color: #4853A4; 
+}
+.profile-Post-Photo{
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    color:rgba(0, 0, 0, 0.32);
+    border-radius: 100%;
+    height: 75px;
+}
+.data{
+    width: 60%;
+    font-family: Roboto;
+    padding-top:-50px ;
+    text-align: end;
+    color:rgba(0, 0, 0, 0.32);
+}
+.likesSection{
+    display: flex;
+}
+.likesPhoto{
+    margin-top: -7px;
+    width: 50px;
+    height: 40px;
+}
+.comentPhoto{
+    margin-top: -7px;
+    width: 50px;
+    height: 40px; 
+}
+.sharePhoto{
+    margin-left: 10px;
+    margin-top: -7px;
+    width: 50px;
+    height: 40px; 
+}
+.likesSection>*{
+    padding-left: 10px;
+}
+.comentSection{
+    display: flex;
+}
+.comentSection>*{
+    padding-left: 10px;
+}
+.postStatus{
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.contentOfThePost{
+    
+    padding-left: 100px;
+    padding-right:100px;
+}
+
+.textOfPost{
+    font-size: 1.2em;
+    color:#A8A8A8;
+}
+.photoOfComentator{
+    width: 70px;
+    border-radius: 100%;
+}
+.coment{
+    margin-top: 10px;
+    display: flex;
+}
+.comentatorName{
+    color: #4853A4;
+    margin: 0;
+}
+.comentContent>*{
+    padding-left: 20px;
+}
+
+.comentText{
+    color:#A8A8A8
+}

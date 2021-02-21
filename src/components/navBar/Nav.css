@@ -1,11 +1,12 @@
+
 .navbar{ 
     padding-top: 13vh;
-    position: absolute;
+    position: fixed;
     top: 2vh;
     left: 2vh;
     display: block;
     background-color: #4853A4;
-    width: 10%;
+    width: 250px;
     height: 96vh;
     color: #000000; 
 }
@@ -19,12 +20,17 @@
 }
 
 .logoPhoto{
-    top: -2vh;
+    width: 300px;
+    height: 200px;
+    top: -30px;
    position: absolute;
-   left: -2.3vw;
-    width: 15vw; 
+   left: -30px;
+    
+}.profilePhotoSection{
+    text-align: center;
 }
 .profilePhoto{
+    width: 60%;
     padding-bottom: 15%;
     border-radius: 15%;
 }
@@ -43,3 +49,6 @@
         background-color: #656CA2;
     
     }
+.navItem:hover{
+    opacity: 0.7;
+}
