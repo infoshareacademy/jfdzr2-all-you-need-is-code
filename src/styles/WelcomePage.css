@@ -17,6 +17,7 @@
     width: 100%;
     float: left;
     text-align: left;
+    margin-top: 30px;
 
 }
 
@@ -26,7 +27,8 @@
     margin: 0;
     float: right;
     text-align: right;
-    width: 100%
+    width: 100%;
+    margin-top: 30px;
 }
 
 

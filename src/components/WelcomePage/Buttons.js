@@ -1,24 +1,19 @@
 import { Typography } from "@material-ui/core";
 import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
-import Fade from '@material-ui/core/Fade';
-import Zoom from '@material-ui/core/Zoom';
+import { Link } from 'react-router-dom';
+
 
 
 export const LogInBtn = () => {
   
-  const handleClick = () => {
-    console.log('Hello LogIn');
-  }
-  
     return (
-      <Tooltip TransitionComponent={Zoom} title="Add">
-    <button className="login-btn" onClick={handleClick}>
+    <button className="login-btn">
+    <Link to="/log-in">
     <Typography variant="h6" color="primary">
       Log In
     </Typography>
-  </button>
-  </Tooltip>
+    </Link>
+    </button>
     );
 }
 
@@ -31,10 +26,12 @@ export const SignInBtn = () => {
   }
 
 return (
-<button className="signin-btn" onClick={handleClick}>
+<button className="signin-btn">
+<Link to="/sign-in">
     <Typography variant="h6" color="primary">
       Sign In
     </Typography>
+    </Link>
     </button>
 )
 }
