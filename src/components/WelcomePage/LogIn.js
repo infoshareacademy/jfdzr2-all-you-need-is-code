@@ -3,14 +3,12 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-// import Link from '@material-ui/core/Link';
+import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import useStyles from '../../views/WelcomePage'
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
-import firebase from 'firebase'
-import {useState} from 'react'
 
 const theme = createMuiTheme({
   palette: {
@@ -25,36 +23,23 @@ const theme = createMuiTheme({
 });
 
 
-export default function LogIn() {
+export default function SignIn() {
     const classes = useStyles();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
-    const signInWithEmailAndPasswordHandler = 
-        (event, email, password) => {
-          event.preventDefault();
-        }
-    }
-    
-    const onChangeHandler = (event) => {
-      const {name, value} = event.currentTarget;
-      if(name === 'userEmail') {
-        setEmail(value);
-    }
-    else if(name === 'userPassword'){
-      setPassword(value);
-    }
+  
 
-   return (
+    return (
         <ThemeProvider theme={theme}>
         <div>
-            <CssBaseline />
+              <CssBaseline />
             <Typography component="h1" variant="h5" align="center">
+              {/* Sign in */}
             </Typography>
             <form className={classes.theme} noValidate>
               <TextField
                 variant="outlined"
                 margin="normal"
+                // color="primary"
+                // borderColor="primary!important"
                 required
                 fullWidth
                 id="email"
@@ -62,11 +47,10 @@ export default function LogIn() {
                 name="email"
                 autoComplete="email"
                 autoFocus
-                value = {email}
-                onChange = {(event) => onChangeHandler(event)}
               />
               <TextField
                 variant="outlined"
+                // color="primary"
                 margin="normal"
                 required
                 fullWidth
@@ -75,11 +59,8 @@ export default function LogIn() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                value = {password}
-                onChange = {(event) => onChangeHandler(event)}
-
               />
-                <Button
+                          <Button
                 type="submit"
                 fullWidth
                 variant="contained"
