@@ -6,6 +6,7 @@ import MainPage from './views/MainPage';
 import SignInPage from './views/SignInPage';
 import LogInPage from './views/LogInPage';
 import { Switch, Route } from 'react-router-dom';
+import UserProvider from "./providers/UserProvider"
 
 const theme = createMuiTheme({
   palette: {
@@ -20,6 +21,7 @@ const theme = createMuiTheme({
 
 function App() {
   return (
+    <UserProvider>
     <ThemeProvider theme={theme}>
       <Switch>
         <Route exact path="/"><WelcomePage /></Route>
@@ -31,7 +33,7 @@ function App() {
     {/* <SignInPage/> */}
     <WelcomePage />
     </ThemeProvider>
- 
+    </UserProvider>
     // <MainPage/>
 
     
