@@ -1,14 +1,14 @@
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import useStyles from '../../views/WelcomePage'
+import useStyles from '../../views/WelcomePage';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+import { auth } from "../../firebase";
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import {useRef} from 'react';
 
 const theme = createMuiTheme({
   palette: {
@@ -23,9 +23,12 @@ const theme = createMuiTheme({
 });
 
 
+
+
 export default function SignIn() {
     const classes = useStyles();
-  
+    const emailRef = useRef()  
+    const passwordRef = passwordRef()  
 
     return (
         <ThemeProvider theme={theme}>
@@ -38,19 +41,17 @@ export default function SignIn() {
               <TextField
                 variant="outlined"
                 margin="normal"
-                // color="primary"
-                // borderColor="primary!important"
                 required
                 fullWidth
                 id="email"
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                ref={emailRef}
                 autoFocus
               />
               <TextField
                 variant="outlined"
-                // color="primary"
                 margin="normal"
                 required
                 fullWidth
@@ -59,17 +60,19 @@ export default function SignIn() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                ref={passwordRef}
               />
-                          <Button
+                <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 color="secondary"
                 className={classes.submit}
+                onCLick={()=> authenticateUser(email, password, true)}
               >
                 Sign In
               </Button>
-              {/* <Grid container>
+              <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">
                     Forgot password?
@@ -80,7 +83,7 @@ export default function SignIn() {
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
-              </Grid> */}
+              </Grid>
               <Box mt={5}>
               </Box>
             </form>
