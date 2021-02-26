@@ -3,7 +3,7 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Logo from "../logo/FindIT.png";
-import Signup from "../components/WelcomePage/Signup";
+import SignIn from "../components/WelcomePage/SignIn";
 import { Typography } from "@material-ui/core";
 import "../styles/WelcomePage.css";
 import Button from '@material-ui/core/Button';
@@ -11,6 +11,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import {LogInBtn} from '../components/WelcomePage/Buttons'
 import {SignInBtn} from '../components/WelcomePage/Buttons'
 import {useState} from 'react'
+import { link } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   root: {
