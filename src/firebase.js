@@ -11,5 +11,5 @@ messagingSenderId: "574792841871",
 appId: "1:574792841871:web:9037a9e96fea73c0744efa"
 });
 
-export const auth = app.auth();
+export const auth = app.auth()
 export default app

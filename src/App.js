@@ -3,10 +3,10 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import WelcomePage from "./views/WelcomePage";
 import {NavBar} from './components/navBar/NavBar';
 import MainPage from './views/MainPage';
-import SignInPage from './views/SignInPage';
+import SignInPage from './views/SignupPage';
 import LogInPage from './views/LogInPage';
 import { Switch, Route } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
+import { AuthProvider } from '../components/WelcomePage/AuthContext';
 
 const theme = createMuiTheme({
   palette: {

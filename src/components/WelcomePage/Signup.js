@@ -8,7 +8,7 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import {useRef} from 'react';
-import {useAuth} from '../contexts/AuthContext';
+import {useAuth} from 'AuthContext'
 
 const theme = createMuiTheme({
   palette: {
