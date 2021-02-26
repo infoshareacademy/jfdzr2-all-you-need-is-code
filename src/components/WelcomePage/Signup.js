@@ -1,14 +1,25 @@
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
+<<<<<<< HEAD:src/components/WelcomePage/Signup.js
+=======
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+// import Link from '@material-ui/core/Link';
+>>>>>>> parent of be106e6... returning to previous commit:src/components/WelcomePage/SignIn.js
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import useStyles from '../../views/WelcomePage';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+<<<<<<< HEAD:src/components/WelcomePage/Signup.js
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import {useRef} from 'react';
 import {useAuth} from 'AuthContext'
+=======
+import firebase from 'firebase'
+import {useState} from 'react'
+>>>>>>> parent of be106e6... returning to previous commit:src/components/WelcomePage/SignIn.js
 
 const theme = createMuiTheme({
   palette: {
@@ -22,7 +33,27 @@ const theme = createMuiTheme({
     },
 });
 
+export const SignIn = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const [error, setError] = useState(null);
+  const createUserWithEmailAndPasswordHandler = (event, email, password) => {
+    event.preventDefault();
+    setEmail("");
+    setPassword("");
+    setDisplayName("");
+  };
+  const onChangeHandler = event => {
+    const { name, value } = event.currentTarget;
+    if (name === "userEmail") {
+      setEmail(value);
+    } else if (name === "userPassword") {
+      setPassword(value);
+    } 
+  };
 
+<<<<<<< HEAD:src/components/WelcomePage/Signup.js
 export default function Signup() {
     const classes = useStyles();
     const emailRef = useRef()  
@@ -35,12 +66,15 @@ export default function Signup() {
     }
     
 
+=======
+    const classes = useStyles();
+>>>>>>> parent of be106e6... returning to previous commit:src/components/WelcomePage/SignIn.js
     return (
+
         <ThemeProvider theme={theme}>
         <div>
-              <CssBaseline />
+            <CssBaseline />
             <Typography component="h1" variant="h5" align="center">
-              {/* Sign in */}
             </Typography>
             <form className={classes.theme} noValidate>
               <TextField
@@ -54,6 +88,8 @@ export default function Signup() {
                 autoComplete="email"
                 ref={emailRef}
                 autoFocus
+                value = {email}
+                onChange = {(event) => onChangeHandler(event)}
               />
               <TextField
                 variant="outlined"
@@ -65,7 +101,13 @@ export default function Signup() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+<<<<<<< HEAD:src/components/WelcomePage/Signup.js
                 ref={passwordRef}
+=======
+                value = {password}
+                onChange = {(event) => onChangeHandler(event)}
+
+>>>>>>> parent of be106e6... returning to previous commit:src/components/WelcomePage/SignIn.js
               />
                 <Button
                 type="submit"
@@ -73,7 +115,13 @@ export default function Signup() {
                 variant="contained"
                 color="secondary"
                 className={classes.submit}
+<<<<<<< HEAD:src/components/WelcomePage/Signup.js
                 onCLick={()=> authenticateUser(email, password, true)}
+=======
+                onClick={event => {
+                  createUserWithEmailAndPasswordHandler(evemt, email, password);
+                }}
+>>>>>>> parent of be106e6... returning to previous commit:src/components/WelcomePage/SignIn.js
               >
                 Sign In
               </Button>

@@ -11,7 +11,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import {LogInBtn} from '../components/WelcomePage/Buttons'
 import {SignInBtn} from '../components/WelcomePage/Buttons'
 import {useState} from 'react'
-import { link } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   root: {

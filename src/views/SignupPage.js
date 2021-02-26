@@ -3,7 +3,11 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Logo from "../logo/FindIT.png";
+<<<<<<< HEAD:src/views/SignupPage.js
 import Signup from "../components/WelcomePage/Signup";
+=======
+import {SignIn} from "../components/WelcomePage/SignIn";
+>>>>>>> parent of be106e6... returning to previous commit:src/views/SignInPage.js
 import { Typography } from "@material-ui/core";
 import "../styles/WelcomePage.css";
 import Button from '@material-ui/core/Button';
