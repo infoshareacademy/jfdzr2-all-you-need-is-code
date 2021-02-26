@@ -6,6 +6,7 @@ import MainPage from './views/MainPage';
 import SignInPage from './views/SignInPage';
 import LogInPage from './views/LogInPage';
 import { Switch, Route } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
 
 const theme = createMuiTheme({
   palette: {
@@ -20,6 +21,7 @@ const theme = createMuiTheme({
 
 function App() {
   return (
+    <AuthProvider>
     <ThemeProvider theme={theme}>
       <Switch>
         <Route exact path="/"><WelcomePage /></Route>
@@ -34,7 +36,7 @@ function App() {
  
     // <MainPage/>
 
-    
+    </AuthProvider>
   );
 }
 

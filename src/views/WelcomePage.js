@@ -3,7 +3,7 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Logo from "../logo/FindIT.png";
-import SignIn from "../components/WelcomePage/SignIn";
+import Signup from "../components/WelcomePage/Signup";
 import { Typography } from "@material-ui/core";
 import "../styles/WelcomePage.css";
 import Button from '@material-ui/core/Button';

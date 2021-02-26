@@ -5,10 +5,10 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import useStyles from '../../views/WelcomePage';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
-import { auth } from "../../firebase";
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import {useRef} from 'react';
+import {useAuth} from '../contexts/AuthContext';
 
 const theme = createMuiTheme({
   palette: {
@@ -23,12 +23,17 @@ const theme = createMuiTheme({
 });
 
 
-
-
-export default function SignIn() {
+export default function Signup() {
     const classes = useStyles();
     const emailRef = useRef()  
-    const passwordRef = passwordRef()  
+    const passwordRef = useRef()
+    const {signup} = useAuth()  
+
+    function handleSubmit (e) {
+      e.preventDefault()
+      signup(emailRef.current.value, passwordRef.current.value)
+    }
+    
 
     return (
         <ThemeProvider theme={theme}>
