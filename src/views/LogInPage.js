@@ -8,10 +8,10 @@ import { Typography } from "@material-ui/core";
 import "../styles/WelcomePage.css";
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
-import {LogInBtn} from '../components/WelcomePage/Buttons'
-import {SignInBtn} from '../components/WelcomePage/Buttons'
-import {useState} from 'react'
-
+import {LogInBtn} from '../components/WelcomePage/Buttons';
+import {SignInBtn} from '../components/WelcomePage/Buttons';
+import {useState} from 'react';
+import {handleLogin} from '../components/WelcomePage/Login';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,6 +45,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignInPage() {
   const classes = useStyles();
+  const [user, setUser] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [hasAccount, setHasAccount] = useState(false);
 
 
   return (
@@ -59,7 +65,17 @@ export default function SignInPage() {
           <Typography align="justify" variant="body4">
           </Typography>
         <Grid container>
-          <LogIn />
+          <LogIn 
+          setEmail={setEmail}
+          setPassword={setPassword}
+          handleLogin={handleLogin}
+          handleSignup={handleSignup}
+          hasAccount={hasAccount}
+          setHasAccount={setHasAccount}
+          emailError={emailError}
+          passwordError={passwordError}
+
+          />
           </Grid>
         </Paper>
       </Grid>
