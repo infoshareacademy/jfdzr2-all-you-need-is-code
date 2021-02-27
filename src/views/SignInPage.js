@@ -1,3 +1,4 @@
+import React from 'react'
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -10,7 +11,9 @@ import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import {LogInBtn} from '../components/WelcomePage/Buttons'
 import {SignInBtn} from '../components/WelcomePage/Buttons'
-import {useState} from 'react'
+import {useState, useEffect} from 'react';
+import fire from "../fire";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,7 +47,45 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignInPage() {
   const classes = useStyles();
+  const [user, setUser] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [hasAccount, setHasAccount] = useState(false);
 
+  const handleSignup = () => {
+    setEmailError("");
+    setPasswordError("");
+    fire
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .catch((err) => {
+        switch (err.code) {
+          case "auth/email-already-in-use":
+          case "auth/ivalid-email":
+            setEmailError(err.message);
+            break;
+          case "auth/weak-password":
+            setPasswordError(err.message);
+            break;
+        }
+      });
+      // fire.firestore().collection("Users").add
+      };
+
+
+useEffect(() => {
+  fire.auth().onAuthStateChanged((user) => {
+      if (user) {
+          setEmail('');
+          setPassword('');
+          setUser(user);
+      } else {
+      setUser("");
+  }
+      });
+}, []);
 
   return (
     <Grid container spacing={0} className={classes.root}>
@@ -58,7 +99,15 @@ export default function SignInPage() {
           <Typography align="justify" variant="body4">
           </Typography>
         <Grid container>
-          <SignIn />
+          <SignIn
+          setEmail={setEmail}
+          setPassword={setPassword}
+          handleSignup={handleSignup}
+          hasAccount={hasAccount}
+          setHasAccount={setHasAccount}
+          emailError={emailError}
+          passwordError={passwordError}
+          />
           </Grid>
         </Paper>
       </Grid>

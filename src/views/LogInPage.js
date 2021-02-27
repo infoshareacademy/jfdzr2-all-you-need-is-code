@@ -10,8 +10,9 @@ import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import {LogInBtn} from '../components/WelcomePage/Buttons';
 import {SignInBtn} from '../components/WelcomePage/Buttons';
-import {useState} from 'react';
-import {handleLogin} from '../components/WelcomePage/Login';
+import {useState, useEffect} from 'react';
+import fire from "../fire";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,14 +44,56 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignInPage() {
+export default function LogInPage() {
   const classes = useStyles();
-  const [user, setUser] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+  const [user, setUser] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [hasAccount, setHasAccount] = useState(false);
+
+  
+  
+
+  const handleLogin = () => {
+    setEmailError("");
+    setPasswordError("");
+    fire
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .catch((err) => {
+        switch (err.code) {
+          case "auth/invalid-email":
+          case "auth/user-disabled":
+          case "auth//user-not-found":
+            setEmailError(err.message);
+            break;
+          case "auth/wrong-password":
+            setPasswordError(err.message);
+            break;
+        }
+      });
+  };
+
+
+  const AuthListener = () => {
+    const [user, setUser] = useState('');
+    fire.auth().onAuthStateChanged((user) => {
+        if (user) {
+          setEmail('');
+          setPassword('');
+          setUser(user);
+        } else {
+        setUser("");
+    }
+        });
+}
+
+useEffect(() => {
+    AuthListener();
+}, []);
+
 
 
   return (
@@ -66,10 +109,9 @@ export default function SignInPage() {
           </Typography>
         <Grid container>
           <LogIn 
-          setEmail={setEmail}
-          setPassword={setPassword}
+          email={email}
+          password={password}
           handleLogin={handleLogin}
-          handleSignup={handleSignup}
           hasAccount={hasAccount}
           setHasAccount={setHasAccount}
           emailError={emailError}
