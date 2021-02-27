@@ -3,7 +3,7 @@ body{
 }
 .modalOfPost{
     margin-top: 7%;
-    margin-left: 10%;
+    /* margin-left: 10%; */
     width: 800px;
     height: 350px;
     background-color:white;
@@ -13,7 +13,7 @@ body{
     justify-content: space-between;
     width: 500px;
     margin-top:20px ;
-    margin-left: -7px;
+    margin-left: 7px;
     align-items: top;
 }
 .informationAboutTheWriter>*{
