@@ -1,0 +1,17 @@
+
+.ModalCreatePost{
+    display: flex;
+    justify-content: center;
+    
+    width: 100%;
+    
+    
+}
+.ModalForm{
+    position: absolute;
+    top: 150px;
+    width: 800px;
+    background-color:#4853A4;
+    border-radius: 6px;
+    opacity: 1;
+}

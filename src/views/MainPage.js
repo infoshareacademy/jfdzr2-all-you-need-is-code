@@ -30,12 +30,12 @@ export default function MainPage() {
                     
             </div>      
             <Post/> 
-            <ModalToCreatePost/>
+            
             <NavBar/>
             </div>
             
             </MainPageWrapper>
-            
+            <ModalToCreatePost/>
     </>)
   }
   
