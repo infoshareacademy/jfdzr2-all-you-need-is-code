@@ -4,14 +4,15 @@ body{
 .modalOfPost{
     margin-top: 7%;
     /* margin-left: 10%; */
-    width: 800px;
-    height: 350px;
+    width: 45vw;
+    height: 80%;
     background-color:white;
+    border-radius: 2%;
 }
 .informationAboutTheWriter{
     display: flex;
     justify-content: space-between;
-    width: 500px;
+    width: 70%;
     margin-top:20px ;
     margin-left: 7px;
     align-items: top;

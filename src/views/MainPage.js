@@ -3,35 +3,37 @@ import  {NavBar} from '../components/navBar/NavBar';
 import "../styles/MainPage.css"
 import {Post} from '../components/Post'
 import {MainPageWrapper} from '../common/MainPageWrapper'
+import ModalToCreatePost from '../components/ModalToCreatePost'
+import React, {useState} from 'react';
 export default function MainPage() {
-  
-  
-    return (
 
+
+    
+    const [postActive,setpostActive]=useState(false);
+    function CreatePost(){
+        if(!postActive){
+            document.querySelector('#body').setAttribute('class','bodyOfPageOpacity')
+            setpostActive(true)     
+        }
+        else{
+            document.querySelector('#body').setAttribute('class','bodyOfPage')
+            setpostActive(false)
+        }     
+    }
+    return (
         <>
         <MainPageWrapper>
-        <div>
+        <div id="body"className="bodyOfPage">
             <div className="buttonSection">
-                    <button className="btn btn-writeMessage">Write a message</button>
-                    <div className="form-group form-check">
-                        <input type="checkbox" className="buttonYourNetwork" id="buttonYourNetwork"/>
-                        <label className="buttonYourNetwork" for="buttonYourNetwork">Your Network</label>
-                    </div>
+                    <button onClick={CreatePost} className="btn btn-writeMessage">Write a message</button>
                     <button className="btn-sortBy">Sort by: <b>Popular</b> v</button>
                     
-            </div>
-           
-              
-             
-       
-            
-
-
-       
-        <Post/>
-        
+            </div>      
+            <Post/> 
+            <ModalToCreatePost/>
             <NavBar/>
             </div>
+            
             </MainPageWrapper>
             
     </>)
