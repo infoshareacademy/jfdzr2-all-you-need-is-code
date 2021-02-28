@@ -1,4 +1,5 @@
 import { PrimarySurvey } from './views/PrimarySurvey';
+import WelcomePage from './views/WelcomePage';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 
 const theme = createMuiTheme({

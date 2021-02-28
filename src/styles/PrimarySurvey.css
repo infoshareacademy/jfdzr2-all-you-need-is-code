@@ -45,7 +45,7 @@
     border: none;
 }
 
-.general-info-container, .survey-skills-container,.general-info, .survey-skills, .about-you-section  {
+.general-info-container, .survey-skills-container,.survey-skills, .about-you-section  {
     height: 50vh;
     margin-top: 50px;
 }

@@ -12,6 +12,25 @@ import { Step4 } from './Step4'
 
 export const WizardForm = () => {
     const [step, setStep] = useState(1);
+    const [step1Values, setStep1Values] = useState({});
+    const [step2Values, setStep2Values] = useState({});
+    const [step3Values, setStep3Values] = useState({});
+    const [step4Values, setStep4Values] = useState({});
+
+    const handleStep1Change = (event) => {
+        setStep1Values({[event.target.id]: event.target.checked});
+    }
+    const handleStep2Change = (event) => {
+        setStep2Values({...step2Values,[event.target.id]: event.target.checked});
+    }
+    const handleStep3Change = (event) => {
+        setStep3Values({[event.target.id]: event.target.checked});
+    }
+    const handleStep4Change = (event) => {
+        setStep4Values(event.target.value);
+    }
+
+    // console.log({values})
 
     return (
         <>
@@ -20,10 +39,10 @@ export const WizardForm = () => {
             {step === 3 && <SurveySteps3 />}
             {step === 4 && <SurveySteps4 />}
             <form>
-                {step === 1 && <Step1 />}
-                {step === 2 && <Step2 />}
-                {step === 3 && <Step3 />}
-                {step === 4 && <Step4 />}
+                {step === 1 && <Step1 state={step1Values} onChange={handleStep1Change} />}
+                {step === 2 && <Step2 state={step2Values} onChange={handleStep2Change} />}
+                {step === 3 && <Step3 state={step3Values} onChange={handleStep3Change}/>}
+                {step === 4 && <Step4 state={step4Values} onChange={handleStep4Change} />}
             </form>
             <SurveyNavBtns currentStep={step} onClick={setStep} />
         </>

@@ -1,10 +1,7 @@
 import { Typography } from "@material-ui/core";
 import "../../styles/ToggleButtons.css";
-import { useState } from "react";
 
-export const Step3 = () => {
-  const [radio, setRadio] = useState('');
-  const handleChange = (event) => { setRadio(event.target.value) }
+export const Step3 = ({state, onChange: handleStep3Change}) => {
 
   return (
     <div className="general-info-container">
@@ -13,21 +10,21 @@ export const Step3 = () => {
       </Typography>
       <div className="general-info">
       <div className="toggle-button" style={{width: '20%'}}>
-        <input type="radio" name="step3" id="student" onChange={handleChange} value={radio} />
+        <input type="radio" name="step3" id="student" onChange={handleStep3Change} checked={state.student} />
         <label className="student" htmlFor="project-partner">
           Student
         </label>
       </div>
       <div className="toggle-button" style={{width: '20%'}}>
-        <input type="radio" name="step3" id="junior" onChange={handleChange} value={radio}/>
+        <input type="radio" name="step3" id="junior" onChange={handleStep3Change} checked={state.junior}/>
         <label htmlFor="junior">{'Junior (<2y)'}</label>
       </div>
       <div className="toggle-button" style={{width: '20%'}}>
-        <input type="radio" name="step3" id="mid" onChange={handleChange} value={radio}/>
+        <input type="radio" name="step3" id="mid" onChange={handleStep3Change} checked={state.mid}/>
         <label htmlFor="mid"> Mid (2-4y)</label>
       </div>
       <div className="toggle-button" style={{width: '20%'}}>
-        <input type="radio" name="step3" id="senior" onChange={handleChange} value={radio}/>
+        <input type="radio" name="step3" id="senior" onChange={handleStep3Change} checked={state.senior}/>
         <label htmlFor="senior"> {'Senior (>4y)'}</label>
       </div>
       </div>
