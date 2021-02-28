@@ -53,9 +53,6 @@ export default function LogInPage() {
   const [passwordError, setPasswordError] = useState("");
   const [hasAccount, setHasAccount] = useState(false);
 
-  
-  
-
   const handleLogin = () => {
     setEmailError("");
     setPasswordError("");

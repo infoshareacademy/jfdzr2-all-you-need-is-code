@@ -1,5 +1,6 @@
 // https://www.youtube.com/watch?v=cFgoSrOui2M
 import firebase from 'firebase'
+import "@firebase/firestore"
 
 var firebaseConfig = {
  apiKey: "AIzaSyA0krGAx1NtVOd1cTap5b-h1FKNCfIq4JA",
@@ -11,4 +12,6 @@ var firebaseConfig = {
 }
 
 const fire = firebase.initializeApp(firebaseConfig);
+export const db = firebase.firestore();
 export default fire;
+

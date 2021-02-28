@@ -13,6 +13,8 @@ import {LogInBtn} from '../components/WelcomePage/Buttons'
 import {SignInBtn} from '../components/WelcomePage/Buttons'
 import {useState, useEffect} from 'react';
 import fire from "../fire";
+import db from '../fire';
+import MainPage from './MainPage'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -55,8 +57,8 @@ export default function SignInPage() {
   const [hasAccount, setHasAccount] = useState(false);
 
   const handleSignup = () => {
-    setEmailError("");
-    setPasswordError("");
+    // setEmailError("");
+    // setPasswordError("");
     fire
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -71,9 +73,11 @@ export default function SignInPage() {
             break;
         }
       });
-      // fire.firestore().collection("Users").add
-      };
+    };
 
+     const addCollection = () => {
+      db.collection("Users").doc("uid").set('new')
+     } 
 
 useEffect(() => {
   fire.auth().onAuthStateChanged((user) => {
@@ -87,18 +91,18 @@ useEffect(() => {
       });
 }, []);
 
-  return (
-    <Grid container spacing={0} className={classes.root}>
+  return ( 
+
+  <Grid container spacing={0} className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={5} className={classes.image} />
       <Grid item xs={12} sm={8} md={7}>
         <Paper className={classes.paper} elevation={6} square>
           <Typography variant="h5" color="white" align="left">
-            <div className={classes.welcome}>Sign In</div>
           </Typography>
-          <Typography align="justify" variant="body4">
+          <Typography variant="body4">
           </Typography>
-        <Grid container>
+        <Grid container alignItems="center">
           <SignIn
           setEmail={setEmail}
           setPassword={setPassword}
@@ -107,6 +111,7 @@ useEffect(() => {
           setHasAccount={setHasAccount}
           emailError={emailError}
           passwordError={passwordError}
+          addCollection={addCollection}
           />
           </Grid>
         </Paper>

@@ -25,9 +25,9 @@ function App() {
         <Route exact path="/"><WelcomePage /></Route>
         <Route path="/sign-in"><SignInPage /></Route>
         <Route path="/log-in"><LogInPage /></Route>
-    
-
-      </Switch>
+        <Route path="/main-page"><MainPage /></Route>
+        
+        </Switch>
     {/* <SignInPage/> */}
     <WelcomePage />
     </ThemeProvider>

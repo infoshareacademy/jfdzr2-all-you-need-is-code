@@ -35,11 +35,10 @@ export default function SignIn(props) {
     hasAccount,
     setHasAccount,
     emailError,
-    passwordError
+    passwordError,
+    // addCollection
         } = props;
   
-
-
         
   const classes = useStyles();
 
@@ -48,7 +47,7 @@ export default function SignIn(props) {
       <div>
         <CssBaseline />
         <Typography component="h1" variant="h5" align="center">
-          {/* Sign in */}
+          Sign in
         </Typography>
         <form className={classes.theme} noValidate>
           <TextField
@@ -79,9 +78,13 @@ export default function SignIn(props) {
             onChange={(e) => setPassword(e.target.value)}
           />
           <p className="errorMsg">{passwordError}</p>
-          <button onClick={handleSignup}>
+          <Button 
+          fullWidth
+            variant="contained"
+            color="secondary"
+          onClick={handleSignup}>
             Sign In
-          </button>
+          </Button>
           {/* <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">
