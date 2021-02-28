@@ -13,12 +13,16 @@ import { Step4 } from './Step4'
 export const WizardForm = () => {
     const [step, setStep] = useState(1);
     const [step1Values, setStep1Values] = useState({});
+    const [step1Name, setStep1Name] = useState('');
     const [step2Values, setStep2Values] = useState({});
     const [step3Values, setStep3Values] = useState({});
     const [step4Values, setStep4Values] = useState({});
 
     const handleStep1Change = (event) => {
         setStep1Values({[event.target.id]: event.target.checked});
+    }
+    const handleStep1NameChange = (event) => {
+        setStep1Name(event.target.value);
     }
     const handleStep2Change = (event) => {
         setStep2Values({...step2Values,[event.target.id]: event.target.checked});
