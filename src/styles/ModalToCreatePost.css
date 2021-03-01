@@ -1,17 +1,44 @@
 
 .ModalCreatePost{
-    display: flex;
+    display: none;
     justify-content: center;
     
     width: 100%;
     
     
 }
+
 .ModalForm{
     position: absolute;
-    top: 150px;
-    width: 800px;
+    top: 100px;
+    height: 50vh;
+    width: 50%;
     background-color:#4853A4;
     border-radius: 6px;
     opacity: 1;
+}
+.ModalForm>*{
+    margin: 6px;
+}
+.describeProject{
+    margin-top: 150px;
+    position: absolute;
+
+    width: 350px;
+    height: 120px;
+}
+.tech{
+    width: 90%;
+}
+.submit{
+  position: absolute;
+  top: 90%;
+}
+.close{
+
+    position: absolute;
+    top: 0;
+    right: 10px;
+    border: none;
+    outline: none;
 }

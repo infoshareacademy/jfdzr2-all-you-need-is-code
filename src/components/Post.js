@@ -6,7 +6,7 @@ import Share from '../photos/share.png'
 import Coment from '../photos/coment.png'
 export const Post = () => {
     return (
-      
+      <div className="Modal">
         <div className="modalOfPost">
           <div className="informationAboutTheWriter">
               <img className="profile-Post-Photo" src={profilePhoto}></img>
@@ -38,6 +38,7 @@ export const Post = () => {
                </div>
                
             </div>
+        </div>
         </div>
     
   );

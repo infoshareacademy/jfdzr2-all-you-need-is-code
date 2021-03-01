@@ -18,8 +18,8 @@ function App() {
 
     <MainPage/>
   // <>
-    // <PrimarySurvey />
-    // <ThemeProvider/>
+  //   <PrimarySurvey />
+  //   <ThemeProvider/>
   //   </>
   );
 }

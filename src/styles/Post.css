@@ -1,9 +1,7 @@
-body{
-    color: rgba(0, 0, 0, 0.32);
-}
 .modalOfPost{
-    margin-top: 7%;
-    /* margin-left: 10%; */
+    color: rgba(0, 0, 0, 0.32);
+    margin-top: 4%;
+    
     width: 45vw;
     height: 370px;
     background-color:white;
