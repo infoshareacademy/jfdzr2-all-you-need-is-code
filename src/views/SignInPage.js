@@ -45,6 +45,15 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justify: "center",
   },
+  background1: {
+    backgroundColor:
+      theme.palette.type === "light"
+        ? theme.palette.grey[50]
+        : theme.palette.grey[900],
+    margin: "20px",
+    padding: "80px 50px",
+  },
+  
 }));
 
 export default function SignInPage() {
@@ -56,16 +65,38 @@ export default function SignInPage() {
   const [passwordError, setPasswordError] = useState('');
   const [hasAccount, setHasAccount] = useState(false);
 
+  
+  const handleLogin = () => {
+    setEmailError("");
+    setPasswordError("");
+    fire
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .catch((err) => {
+        switch (err.code) {
+          case "auth/invalid-email":
+          case "auth/user-disabled":
+          case "auth//user-not-found":
+            setEmailError(err.message);
+            break;
+          case "auth/wrong-password":
+            setPasswordError(err.message);
+            break;
+        }
+      });
+  };
+
+
   const handleSignup = () => {
-    // setEmailError("");
-    // setPasswordError("");
+    setEmailError("");
+    setPasswordError("");
     fire
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .catch((err) => {
         switch (err.code) {
           case "auth/email-already-in-use":
-          case "auth/ivalid-email":
+          case "auth/invalid-email":
             setEmailError(err.message);
             break;
           case "auth/weak-password":
@@ -104,14 +135,10 @@ useEffect(() => {
   <Grid container spacing={0} className={classes.root}>
 
       <CssBaseline />
-      <Grid item xs={false} sm={4} md={5} className={classes.image} />
-      <Grid item xs={12} sm={8} md={7}>
+      <Grid item xs={4}/>
+      {/* <Grid item xs={12} sm={8} md={7}> */}
         <Paper className={classes.paper} elevation={6} square>
-          <Typography variant="h5" color="white" align="left">
-          </Typography>
-          <Typography variant="body4">
-          </Typography>
-        <Grid container alignItems="center">
+          <Paper className={classes.background1} elevation={3}>
           <SignIn
           setEmail={setEmail}
           setPassword={setPassword}
@@ -122,10 +149,10 @@ useEffect(() => {
           passwordError={passwordError}
           addCollection={addCollection}
           />
-          </Grid>
+          </Paper>
         </Paper>
       </Grid>
-    </Grid>
+    // </Grid>
       )}
 </div>
   );

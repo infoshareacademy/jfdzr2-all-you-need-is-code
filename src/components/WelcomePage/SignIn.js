@@ -12,6 +12,7 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import fire from "../../fire";
 import { clearErrors } from "./ClearErrors";
+import { spacing } from '@material-ui/system';
 
 const theme = createMuiTheme({
   palette: {
@@ -45,7 +46,6 @@ export default function SignIn(props) {
   return (
     <ThemeProvider theme={theme}>
       <div>
-        <CssBaseline />
         <Typography component="h1" variant="h5" align="center">
           Sign in
         </Typography>
@@ -63,7 +63,7 @@ export default function SignIn(props) {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <p className="errorMsg">{emailError}</p>
+          <p>{emailError}</p>
           <TextField
             variant="outlined"
             margin="normal"
@@ -77,7 +77,7 @@ export default function SignIn(props) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <p className="errorMsg">{passwordError}</p>
+          <p>{passwordError}</p>
           <Button 
           fullWidth
             variant="contained"
