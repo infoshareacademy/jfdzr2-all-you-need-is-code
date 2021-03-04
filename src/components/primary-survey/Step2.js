@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Typography,
   Checkbox,
@@ -17,16 +16,17 @@ export const Step2 = ({ state, onChange: handleStep2Change }) => {
       </Typography>
       <div className="survey-skills">
         <FormGroup row>
-          {technologies.map((technology) => {
+          {technologies.map((technology, index) => {
             return (
               <FormControlLabel
                 control={
                   <Checkbox
                     id={technology}
-                    checked={state.technology}
+                    defaultChecked={state[technology]}
                     onChange={handleStep2Change}
                     name={technology}
                     color="primary"
+                    key={index}
                   />
                 }
                 label={technology}
