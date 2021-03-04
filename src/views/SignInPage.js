@@ -65,8 +65,14 @@ export default function SignInPage() {
   const [passwordError, setPasswordError] = useState('');
   const [hasAccount, setHasAccount] = useState(false);
 
-  
-  const handleLogin = () => {
+
+  const clearInputs = () => {
+    setEmail('');
+    setPassword('');
+  }
+
+  const handleLogin = (e) => {
+    e.preventDefault();
     setEmailError("");
     setPasswordError("");
     fire
@@ -87,7 +93,8 @@ export default function SignInPage() {
   };
 
 
-  const handleSignup = () => {
+  const handleSignup = (e) => {
+    e.preventDefault();
     setEmailError("");
     setPasswordError("");
     fire
@@ -118,6 +125,7 @@ export default function SignInPage() {
 useEffect(() => {
   fire.auth().onAuthStateChanged((user) => {
       if (user) {
+          clearInputs();
           setEmail('');
           setPassword('');
           setUser(user);
@@ -130,29 +138,29 @@ useEffect(() => {
   return ( 
     <div>
       {user ? (
-        <MainPage handleLogout={handleLogout}/>
+      <MainPage handleLogout={handleLogout}/>
       ): (
-  <Grid container spacing={0} className={classes.root}>
-
+      <Grid container spacing={0} className={classes.root}>
       <CssBaseline />
       <Grid item xs={4}/>
-      {/* <Grid item xs={12} sm={8} md={7}> */}
         <Paper className={classes.paper} elevation={6} square>
           <Paper className={classes.background1} elevation={3}>
           <SignIn
+          email={email}
           setEmail={setEmail}
+          password = {setPassword}
           setPassword={setPassword}
+          handleLogin={handleLogin}
           handleSignup={handleSignup}
           hasAccount={hasAccount}
           setHasAccount={setHasAccount}
           emailError={emailError}
           passwordError={passwordError}
-          addCollection={addCollection}
+          // addCollection={addCollection}
           />
           </Paper>
         </Paper>
       </Grid>
-    // </Grid>
       )}
 </div>
   );

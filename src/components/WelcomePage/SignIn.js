@@ -44,12 +44,13 @@ export default function SignIn(props) {
   const classes = useStyles();
 
   return (
+
     <ThemeProvider theme={theme}>
       <div>
         <Typography component="h1" variant="h5" align="center">
-          Sign in
+        {hasAccount ? ("Log in") : ("Sign up")}
         </Typography>
-        <form className={classes.theme} noValidate>
+     <form className={classes.theme} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -60,10 +61,11 @@ export default function SignIn(props) {
             name="email"
             autoComplete="email"
             autoFocus
-            value={email}
+            // value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <p>{emailError}</p>
+          
           <TextField
             variant="outlined"
             margin="normal"
@@ -74,32 +76,42 @@ export default function SignIn(props) {
             type="password"
             id="password"
             autoComplete="current-password"
-            value={password}
+            // value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+
           <p>{passwordError}</p>
+          
+          <div> 
+          {hasAccount ? (
+            <> 
           <Button 
-          fullWidth
+            type="submit"
+            fullWidth
             variant="contained"
             color="secondary"
-          onClick={handleSignup}>
-            Sign In
-          </Button>
-          {/* <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="#" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid> */}
-          <Box mt={5}></Box>
+            onClick={handleLogin}>
+          Log in
+          </Button>  
+          <p>Don't have an account? <span onClick={() => setHasAccount(!hasAccount)}>Sign up</span></p>
+            </>
+          ) : (
+          <>
+          <Button 
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="secondary"
+            onClick={handleSignup}
+            >
+          Sign up
+          </Button>  
+          <p>Have an account? <span onClick={() => setHasAccount(!hasAccount)}>Log in</span></p>
+           </>
+        )}
+      </div>         
+          
         </form>
-      </div>
-    </ThemeProvider>
-  );
-}
+        </div>
+      </ThemeProvider>
+  )}

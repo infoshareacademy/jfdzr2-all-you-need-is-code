@@ -29,7 +29,7 @@ return (
 <button className="signin-btn">
 <Link to="/sign-in">
     <Typography variant="h6" color="primary">
-      Sign In
+      Sign Up
     </Typography>
     </Link>
     </button>
