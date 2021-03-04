@@ -75,6 +75,11 @@ export default function SignInPage() {
       });
     };
 
+    const handleLogout = () => {
+      fire.auth().signOut();
+    }
+
+
      const addCollection = () => {
       db.collection("Users").doc("uid").set('new')
      } 
@@ -92,8 +97,12 @@ useEffect(() => {
 }, []);
 
   return ( 
-
+    <div>
+      {user ? (
+        <MainPage handleLogout={handleLogout}/>
+      ): (
   <Grid container spacing={0} className={classes.root}>
+
       <CssBaseline />
       <Grid item xs={false} sm={4} md={5} className={classes.image} />
       <Grid item xs={12} sm={8} md={7}>
@@ -117,5 +126,7 @@ useEffect(() => {
         </Paper>
       </Grid>
     </Grid>
+      )}
+</div>
   );
 }

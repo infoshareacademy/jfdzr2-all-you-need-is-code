@@ -22,14 +22,14 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Switch>
-        <Route exact path="/"><WelcomePage /></Route>
+        <Route exact path="/"><MainPage /></Route>
         <Route path="/sign-in"><SignInPage /></Route>
         <Route path="/log-in"><LogInPage /></Route>
         <Route path="/main-page"><MainPage /></Route>
         
         </Switch>
     {/* <SignInPage/> */}
-    <WelcomePage />
+    {/* <WelcomePage /> */}
     </ThemeProvider>
  
     // <MainPage/>
