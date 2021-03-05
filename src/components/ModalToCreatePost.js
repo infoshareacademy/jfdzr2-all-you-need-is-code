@@ -45,9 +45,9 @@ export default function ModalToCreatePost () {
         <label htmlFor="comment">Desribe your project</label>
         <textarea className="describeProject"id="comment" value={formik.values.comment} onChange={formik.handleChange}/>
         <input className="submit"type="submit" value="Wyślij"/>
-        <div className="tech">
+        {/* <div className="tech">
              <Step2 />
-        </div>
+        </div> */}
         <button onClick={ExitPost} type="button" className="close" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
