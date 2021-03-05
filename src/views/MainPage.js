@@ -1,8 +1,8 @@
 import  {NavBar} from '../components/navBar/NavBar';
-
 import "../styles/MainPage.css"
 import {Post} from '../components/Post'
-export default function MainPage() {
+
+export default function MainPage({handleLogout}) {
   
   
     return (
@@ -14,6 +14,7 @@ export default function MainPage() {
                     <label className="buttonYourNetwork" for="buttonYourNetwork">Your Network</label>
                  </div>
                  <button className="btn-sortBy">Sort by: <b>Popular</b> v</button>
+                 <button className="btn-sortBy" onClick={handleLogout}><b>Logout</b></button>
                 
         </div>
            
