@@ -1,7 +1,23 @@
 import { Typography } from "@material-ui/core";
-import { Link } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
+
+import firebase from "../../fire";
 
 export const SurveyNavBtns = ({ onClick, currentStep, answers }) => {
+  const handleSubmit = () => {
+    const user = firebase.auth().currentUser.uid
+
+    const answersObject = {
+      name: answers[1],
+      about: answers[4],
+      location: answers[5]
+    }
+    console.log(answers[0]);
+    console.log(answers[2]);
+    console.log(answers[3]);
+    firebase.firestore().collection('Users').doc(user).set(answersObject)
+  };
+
   return (
     <div className="next-prev-btns-section">
       <button
@@ -30,24 +46,21 @@ export const SurveyNavBtns = ({ onClick, currentStep, answers }) => {
       )}
 
       {currentStep === 4 && (
-        <button
-          className="next-prev-btn"
-          onClick={() => {
-            console.log(answers)
-          }}
-        >
-          <Link to='/main-page'>
-          <Typography variant="h6" color="primary">
-            Submit
-          </Typography>
-          </Link>
+        <button className="next-prev-btn" onClick={() => handleSubmit()}>
+          <NavLink to="/main-page">
+            <Typography variant="h6" color="primary">
+              Submit
+            </Typography>
+          </NavLink>
         </button>
       )}
 
       <button className={"skip-btn"}>
-        <Typography variant="h6" color="primary">
-          Skip
-        </Typography>
+        <NavLink to="/main-page">
+          <Typography variant="h6" color="primary">
+            Skip
+          </Typography>
+        </NavLink>
       </button>
     </div>
   );

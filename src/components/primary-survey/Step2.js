@@ -37,10 +37,10 @@ export const Step2 = ({ state, onChange: handleStep2Change }) => {
           <FormControlLabel
             control={
               <Checkbox
-                id="bleh"
-                checked={state.bleh}
+                id="technology"
+                checked={state.technology}
                 onChange={handleStep2Change}
-                name="bleh"
+                name="technology"
                 color="primary"
               />
             }
