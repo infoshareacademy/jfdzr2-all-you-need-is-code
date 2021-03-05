@@ -1,5 +1,7 @@
 import { PrimarySurvey } from './views/PrimarySurvey';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+
+import MainPage from './views/MainPage'
 import WelcomePage from "./views/WelcomePage";
 import {NavBar} from './components/navBar/NavBar';
 import MainPage from './views/MainPage';
@@ -28,13 +30,7 @@ function App() {
         <Route path="/main-page"><MainPage /></Route>
         
         </Switch>
-    {/* <SignInPage/> */}
-    {/* <WelcomePage /> */}
     </ThemeProvider>
- 
-    // <MainPage/>
-
-    
   );
 }
 

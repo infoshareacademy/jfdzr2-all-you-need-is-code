@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^12.1.10",
     "@types/firebase": "^3.2.1",
     "bootstrap": "^4.6.0",
+    "formik": "^2.2.6",
     "firebase": "^8.2.9",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.3",
