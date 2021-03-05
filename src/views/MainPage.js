@@ -25,6 +25,7 @@ export default function MainPage() {
     return (
         <>
         <MainPageWrapper>
+            <div className="page">
             <div className="body">
 
             
@@ -39,6 +40,7 @@ export default function MainPage() {
             
             <NavBar/>
             
+            </div>
             </div>
             </MainPageWrapper>
             <ModalToCreatePost/>
