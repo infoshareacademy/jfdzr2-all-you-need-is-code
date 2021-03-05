@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import './Nav.css'
 import logo from '../../logo/FindIT_white.png';
 import profilePhoto from '../../photos/profilePhotos/profilePhoto.jpeg'
+import { Link } from 'react-router-dom';
+
 export const NavBar = () => {
     return <>
     
@@ -13,9 +15,10 @@ export const NavBar = () => {
             <div className="profilePhotoSection">
             <Image src={logo} className="logoPhoto "  /> 
             
-            
-            
+            <Link to='/profile-page'>
             <Image src={profilePhoto} fluid className="profilePhoto rounded mb-0" /> 
+            </Link>
+
             </div>
             
             <Nav.Link className="text-center navItem" style={{color:'white'}}>home</Nav.Link>

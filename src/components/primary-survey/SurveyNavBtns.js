@@ -1,4 +1,5 @@
 import { Typography } from "@material-ui/core";
+import { Link } from 'react-router-dom';
 
 export const SurveyNavBtns = ({ onClick, currentStep, answers }) => {
   return (
@@ -35,9 +36,11 @@ export const SurveyNavBtns = ({ onClick, currentStep, answers }) => {
             console.log(answers)
           }}
         >
+          <Link to='/main-page'>
           <Typography variant="h6" color="primary">
             Submit
           </Typography>
+          </Link>
         </button>
       )}
 
