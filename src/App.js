@@ -1,6 +1,7 @@
-import { PrimarySurvey } from './views/PrimarySurvey';
+import { PrimarySurvey } from "./views/PrimarySurvey";
+import WelcomePage from "./views/WelcomePage";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
-
+import { ProfilePage } from "./views/ProfilePage";
 import MainPage from './views/MainPage'
 import WelcomePage from "./views/WelcomePage";
 import {NavBar} from './components/navBar/NavBar';
@@ -11,12 +12,12 @@ import { Switch, Route } from 'react-router-dom';
 
 const theme = createMuiTheme({
   palette: {
-      primary: {
-          main: '#fff',
-      },
-      secondary: {
-          main: '#4853A4',
-      },
+    primary: {
+      main: "#fff",
+    },
+    secondary: {
+      main: "#4853A4",
+    },
   },
 });
 

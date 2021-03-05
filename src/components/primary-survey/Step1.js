@@ -1,32 +1,29 @@
-import { Typography } from "@material-ui/core";
+import { Typography, TextField } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import "../../styles/ToggleButtons.css";
-import { useState } from "react";
 
-export const Step1 = () => {
-  const [radio, setRadio] = useState('');
-  const handleChange = (event) => { setRadio(event.target.value) }
-
+export const Step1 = ({state, onChange: handleStep1Change}) => {
   return (
-    <div className="general-info-container">
+    <>
       <Typography variant="h5" color="primary">
         What are you looking for?
       </Typography>
       <div className="general-info">
       <div className="toggle-button">
-        <input type="radio" name="step1" id="project-partner" onChange={handleChange} value={radio} />
-        <label className="toggle-label" htmlFor="project-partner">
+        <input type="radio" name="step1" id="projectpartner" onChange={handleStep1Change} defaultChecked={state.projectpartner}  />
+        <label className="toggle-label" htmlFor="projectpartner">
           Project Partner
-        </label>
+        </label> 
       </div>
       <div className="toggle-button">
-        <input type="radio" name="step1" id="project-to-join" onChange={handleChange} value={radio}/>
-        <label htmlFor="project-to-join">Project To Join</label>
+        <input type="radio" name="step1" id="projecttojoin" onChange={handleStep1Change} defaultChecked={state.projecttojoin} />
+        <label htmlFor="projecttojoin">Project To Join</label>
       </div>
       <div className="toggle-button">
-        <input type="radio" name="step1" id="looking-around" onChange={handleChange} value={radio}/>
-        <label htmlFor="looking-around"> Looking Around</label>
+        <input type="radio" name="step1" id="lookingaround" onChange={handleStep1Change} defaultChecked={state.lookingaround}/>
+        <label htmlFor="lookingaround"> Looking Around</label>
       </div>
       </div>
-    </div>
+    </>
   );
 };
