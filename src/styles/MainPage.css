@@ -1,28 +1,42 @@
-body{ 
-    
-    margin-top: 2vh;
-    margin-left: 250px;
-    margin-right: 40vw;
+*{
+    margin: 0;
+    padding: 0;
+}
+.page{
+    display: flex;
+    justify-content: center;
     background-color:#e5e5e5;
+    width: 100vw;   
+}
+.body{ 
+    width: 50vw;
+    height: 100vh;
+    margin-top: 2vh; 
+}
+.bodyOfPage{
+   
     
+    opacity:1;
+}
+.bodyOfPageOpacity{
+    opacity: 0.6;
 }
 .buttonSection{
-    width: 900px;
-    margin-left: 10%;
+    
+    width: 100%;
+    /* margin-left: 10%; */
+    margin-top: 80px;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 50px;
 }
 .buttonYourNetwork{
-    
-   
-    margin-left: 10px;
-    
-    margin-top: 2vh;
-    
+    /* margin-left: 10px; */
+    margin-top: 2vh; 
 }
 
-
 .buttonYourNetwork,.btn-writeMessage,.btn-sortBy{
+    
     background-color: transparent;
     color: #A8A8A8;
     border: none;
