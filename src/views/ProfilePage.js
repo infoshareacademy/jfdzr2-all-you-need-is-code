@@ -1,0 +1,12 @@
+import { NavBar } from '../components/navBar/NavBar';
+import { ProfileInfo } from '../components/profile-page/ProfileInfo'
+import '../styles/ProfilePage.css'
+
+export const ProfilePage = () => {
+    return (
+        <div className='profile-page-container'>
+        <NavBar />
+        <ProfileInfo />
+        </div>
+    )
+}

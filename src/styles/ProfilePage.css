@@ -1,0 +1,27 @@
+.profile-page-container {
+    margin-top: 2vh;
+    margin-left: calc(250px + 2vh);
+    margin-right: calc(250px + 2vh);
+    background-color:#e5e5e5;
+    display: flex;
+    justify-content: center;
+}
+
+.profile-sections-container {
+    padding: 50px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.profile-section {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   padding: 20px;
+}
+
+.profilePhoto2 {
+    width: 40%;
+}

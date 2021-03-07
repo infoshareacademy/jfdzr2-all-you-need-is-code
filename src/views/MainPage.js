@@ -11,13 +11,8 @@ export default function MainPage() {
     const [isModalOpen, setIsModalOpen]=useState(false);
     const [posts,setPosts]=useState([])
     function toggleModal(){
-        
-      
-         
             setIsModalOpen(current => !current)
-        
     }
-    
     useEffect(() => {
         const unsubscribe = fire.firestore().collection("Posts").onSnapshot((querySnapshot) => {
             const posts = []
@@ -26,18 +21,13 @@ export default function MainPage() {
                    id: doc.id,
                    ...doc.data()
                })
-              
             });
             setPosts(posts)
         });
-
         return () => {
             unsubscribe()
         }
     }, [])
-    
-    
-
     return (
         <>
         <MainPageWrapper>
@@ -53,8 +43,6 @@ export default function MainPage() {
                 // posts.map(post=><h3 key={post.id}>{post.title}</h3>)
                 posts.map(post=><div>{<Post key={post.id} title={post.title} text={post.text}/>}</div>)
             }
-            
-            
             <NavBar/>
             </div>
             </div>
@@ -62,5 +50,3 @@ export default function MainPage() {
             <ModalToCreatePost isModalOpen={isModalOpen} toggleModal={toggleModal}/>
     </>)
   }
-  
-   

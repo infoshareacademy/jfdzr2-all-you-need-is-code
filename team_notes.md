@@ -55,3 +55,9 @@ jeżeli 1.c: to:
 all, projects, random
 
 
+## Meeting 05.03.2021
+
+1. Daria - oddzielna logika Sign In i Sign Up + jak zrobić routing ankiety
+2. Michał - dodanie logiki do ankiety - skip , submit i wysłanie danych do firebase. Pobranie danych z firebase do profile-page
+3. Kamil - dodawanie postów 
+

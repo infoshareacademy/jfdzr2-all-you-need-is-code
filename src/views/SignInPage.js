@@ -15,6 +15,7 @@ import {useState, useEffect} from 'react';
 import fire from "../fire";
 import db from '../fire';
 import MainPage from './MainPage'
+import { PrimarySurvey } from '../views/PrimarySurvey'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -113,9 +114,9 @@ export default function SignInPage() {
       });
     };
 
-    const handleLogout = () => {
-      fire.auth().signOut();
-    }
+    // const handleLogout = () => {
+    //   fire.auth().signOut();
+    // }
 
 
      const addCollection = () => {
@@ -138,7 +139,8 @@ useEffect(() => {
   return ( 
     <div>
       {user ? (
-      <MainPage handleLogout={handleLogout}/>
+      <PrimarySurvey />
+      // <MainPage handleLogout={handleLogout}/>
       ): (
       <Grid container spacing={0} className={classes.root}>
       <CssBaseline />
