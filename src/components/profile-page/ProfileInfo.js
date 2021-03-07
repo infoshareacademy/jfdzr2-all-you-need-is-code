@@ -1,8 +1,13 @@
 import { Paper, Typography, Button } from "@material-ui/core";
 import profilePhoto from '../../photos/profilePhotos/profilePhoto.jpeg';
 import { Image } from 'react-bootstrap';
+import firebase from "../../fire"
 
 export const ProfileInfo = () => {
+  const user = firebase.auth().currentUser.uid;
+
+  firebase.firestore().collection('Users').doc(user).onSnapshot((doc) => {console.log(doc.data()['location'])});
+
   return (
     <div className="profile-sections-container">
       <Paper elevation={3} className="profile-section">
