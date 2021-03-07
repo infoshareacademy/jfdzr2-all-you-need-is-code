@@ -3,7 +3,7 @@ import WelcomePage from "./views/WelcomePage";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import { ProfilePage } from "./views/ProfilePage";
 import {NavBar} from './components/navBar/NavBar';
-import MainPage from './views/MainPage';
+
 import SignInPage from './views/SignInPage';
 import LogInPage from './views/LogInPage';
 import { Switch, Route } from 'react-router-dom';
