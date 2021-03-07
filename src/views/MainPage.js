@@ -6,6 +6,7 @@ import ModalToCreatePost from '../components/ModalToCreatePost'
 import React, {useState, useEffect} from 'react';
 import fire from '../fire';
 import { DeveloperModeSharp, PostAddSharp, Unsubscribe } from '@material-ui/icons';
+import { propTypes } from 'react-bootstrap/esm/Image';
 export default function MainPage() {
     const [isModalOpen, setIsModalOpen]=useState(false);
     const [posts,setPosts]=useState([])
@@ -49,8 +50,8 @@ export default function MainPage() {
             </div>
             </div>
             {
-                posts.map(post=><h3 key={post.id}>{post.title}</h3>)
-               
+                // posts.map(post=><h3 key={post.id}>{post.title}</h3>)
+                posts.map(post=><div>{<Post key={post.id} title={post.title} text={post.text}/>}</div>)
             }
             
             

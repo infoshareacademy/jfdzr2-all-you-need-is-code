@@ -13,9 +13,9 @@ export default function Post(props){
               <h3 className="nameOfWriter">Amanda Steal</h3>
               <p className="positionInProgramming">Senior Front end Developer</p>
           </div>
-          <h2 className="tittle">{props.tittle}</h2>
+          <h2 className="tittle">{props.title}</h2>
             <div className="contentOfThePost">
-                <p className="textOfPost">Lorem ipsum orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ...</p>
+                <p className="textOfPost">{props.text}</p>
                 
             
                <div className="postStatus">
