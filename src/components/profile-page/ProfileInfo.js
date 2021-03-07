@@ -6,7 +6,7 @@ import firebase from "../../fire"
 export const ProfileInfo = () => {
   const user = firebase.auth().currentUser.uid;
 
-  firebase.firestore().collection('Users').doc(user).onSnapshot((answers) => console.log(answers));
+  firebase.firestore().collection('Users').doc(user).onSnapshot((doc) => {console.log(doc.data()['location'])});
 
   return (
     <div className="profile-sections-container">
