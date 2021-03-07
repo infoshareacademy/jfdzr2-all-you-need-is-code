@@ -7,9 +7,13 @@ import React, {useState, useEffect} from 'react';
 import fire from '../fire';
 import { DeveloperModeSharp, PostAddSharp, Unsubscribe } from '@material-ui/icons';
 import { propTypes } from 'react-bootstrap/esm/Image';
+import { Link } from 'react-router-dom'
 export default function MainPage() {
     const [isModalOpen, setIsModalOpen]=useState(false);
     const [posts,setPosts]=useState([])
+    const handleLogout = () => {
+        fire.auth().signOut();
+      }
     function toggleModal(){
             setIsModalOpen(current => !current)
     }
@@ -37,6 +41,7 @@ export default function MainPage() {
             <div className="buttonSection">
                     <button onClick={toggleModal} className="btn btn-writeMessage">Write a message</button>
                     <button className="btn-sortBy">Sort by: <b>Popular</b> v</button>
+                    <button className="btn-sortBy" onClick={handleLogout}><Link to='/'><b>Logout</b></Link></button>
             </div>
             </div>
             {
