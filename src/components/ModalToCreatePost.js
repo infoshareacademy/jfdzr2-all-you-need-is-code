@@ -67,8 +67,8 @@ export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
             value={formik.values.tech}
             onChange={formik.handleChange}
           >
-            <Step2 />
-          </div> */}
+            {/* <Step2 /> */}
+          </div>
 
           <input className="submit" type="submit" value="Wyślij" />
           <button
