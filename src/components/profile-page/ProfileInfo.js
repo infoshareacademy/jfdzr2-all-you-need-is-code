@@ -9,7 +9,7 @@ export const ProfileInfo = () => {
 
   const user = firebase.auth().currentUser.uid;
 
-  // firebase.firestore().collection('Users').doc(user).onSnapshot((doc) => {console.log(doc.data()['location'])});
+  let technologiesArray = [];
 
   useEffect(() => {
     firebase
@@ -19,7 +19,8 @@ export const ProfileInfo = () => {
       .onSnapshot((infoArray) => {
         setProfileInformation(infoArray.data());
       });
-      console.log(profileInformation.technologies)
+      technologiesArray = profileInformation.technologies;
+      console.log(technologiesArray)
   }, []);
 
   return (
@@ -59,7 +60,7 @@ export const ProfileInfo = () => {
           Technologies:
         </Typography>
         <ul style={{color: 'black'}}>
-        {profileInformation.technologies.map((technology) => {
+        {technologiesArray.map((technology) => {
           <li style={{color: 'black'}}>{technology}</li>
         })}
         </ul>
