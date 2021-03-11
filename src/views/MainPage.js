@@ -28,9 +28,7 @@ export default function MainPage() {
             });
             setPosts(posts)
         });
-        return () => {
-            unsubscribe()
-        }
+        
     }, [])
     return (
         <>
