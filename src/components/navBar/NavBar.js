@@ -4,8 +4,14 @@ import './Nav.css'
 import logo from '../../logo/FindIT_white.png';
 import profilePhoto from '../../photos/profilePhotos/profilePhoto.jpeg'
 import { Link } from 'react-router-dom';
+import fire from '../../fire';
+
+
 
 export const NavBar = () => {
+  const handleLogout = () => {
+    fire.auth().signOut();
+  }
     return <>
     
     <Navbar  className="navbar">
@@ -22,12 +28,12 @@ export const NavBar = () => {
             </div>
             
             <Nav.Link className="text-center navItem" style={{color:'white'}}>home</Nav.Link>
-            <Nav.Link className="text-center navItem" style={{color:'white'}}>inbox</Nav.Link>
+            <Link to='/chat' className="text-center navItem" style={{color:'white'}}>chat</Link>
             <Nav.Link  className="text-center navItem" style={{color:'white'}} >people</Nav.Link>
             <Nav.Link className="text-center navItem" style={{color:'white'}} >you adds</Nav.Link>
             <Nav.Link className="text-center navItem " style={{color:'white'}} >location</Nav.Link>
             <div className="horizontalLaneTop"></div>
-            <Nav.Link className="text-center navItem navHelpItem" style={{color:'white'}} >help</Nav.Link>
+            <Link to='/' onClick={handleLogout} className="text-center navItem navHelpItem" style={{color:'white'}} >log out</Link>
             <div className="horizontalLaneBot"></div>
             
       </Nav>

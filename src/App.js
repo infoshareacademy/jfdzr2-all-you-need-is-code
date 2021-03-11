@@ -7,6 +7,7 @@ import MainPage from "./views/MainPage"
 import SignInPage from './views/SignInPage';
 import LogInPage from './views/LogInPage';
 import { Switch, Route } from 'react-router-dom';
+import {ChatPage} from './views/ChatPage';
 
 const theme = createMuiTheme({
   palette: {
@@ -29,6 +30,7 @@ function App() {
         <Route path="/primary-survey"><PrimarySurvey /></Route>
         <Route path="/main-page"><MainPage /></Route>
         <Route path="/profile-page"><ProfilePage /></Route>
+        <Route path="/chat"><ChatPage /></Route>
         
         </Switch>
     </ThemeProvider>
