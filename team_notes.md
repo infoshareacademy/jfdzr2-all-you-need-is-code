@@ -63,3 +63,5 @@ all, projects, random
 
 Pytania:
 1. Main Page - jak mamy main page , to raz mamy stronę z postami, raz stronę naszego profilu, raz stronę innych profili. Zastanawiam się czy nie powinniśmy mieć komponentu rodzica z navbarem, buttonami u góry, a poszczególne widoki powinny być routami. Ale nie wiem czy można mieć w jednej aplikacji dwa switche?
+
+Pytania - Daria - co z autoryzacją - jeśli jestem wylogowana czy 
