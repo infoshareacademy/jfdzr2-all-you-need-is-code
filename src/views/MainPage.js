@@ -1,34 +1,33 @@
 import  {NavBar} from '../components/navBar/NavBar';
 import "../styles/MainPage.css"
-import {Post} from '../components/Post'
+import Post from '../components/Post'
 import {MainPageWrapper} from '../common/MainPageWrapper'
 import ModalToCreatePost from '../components/ModalToCreatePost'
-import React, {useState} from 'react';
-
-import fire from "../fire";
-import { Link } from 'react-router-dom';
-
-
-
+import React, {useState, useEffect} from 'react';
+import fire from '../fire';
+import { DeveloperModeSharp, PostAddSharp, Unsubscribe } from '@material-ui/icons';
+import { propTypes } from 'react-bootstrap/esm/Image';
 export default function MainPage() {
-
-    const handleLogout = () => {
-        fire.auth().signOut();
-      }
-    
-    const [postActive,setpostActive]=useState(false);
-    function CreatePost(){
-        if(!postActive){
-            document.querySelector('#body').setAttribute('class','bodyOfPageOpacity')
-            document.querySelector('#ModalCreatePost').style.display="flex"
-            setpostActive(true)
-        }
-        else{
-            document.querySelector('#body').setAttribute('class','bodyOfPage')
-            document.querySelector('#ModalCreatePost').style.display="none"
-            setpostActive(false)
-        }
+    const [isModalOpen, setIsModalOpen]=useState(false);
+    const [posts,setPosts]=useState([])
+    function toggleModal(){
+            setIsModalOpen(current => !current)
     }
+    useEffect(() => {
+        const unsubscribe = fire.firestore().collection("Posts").onSnapshot((querySnapshot) => {
+            const posts = []
+            querySnapshot.forEach((doc) => {
+               posts.push({
+                   id: doc.id,
+                   ...doc.data()
+               })
+            });
+            setPosts(posts)
+        });
+        return () => {
+            unsubscribe()
+        }
+    }, [])
     return (
         <>
         <MainPageWrapper>
@@ -36,16 +35,18 @@ export default function MainPage() {
             <div className="body">
         <div id="body"className="bodyOfPage">
             <div className="buttonSection">
-                    <button onClick={CreatePost} className="btn btn-writeMessage">Write a message</button>
+                    <button onClick={toggleModal} className="btn btn-writeMessage">Write a message</button>
                     <button className="btn-sortBy">Sort by: <b>Popular</b> v</button>
-                    <button className="btn-sortBy" onClick={handleLogout}><Link to='/'><b>Logout</b></Link></button>
             </div>
             </div>
-            <Post/>
+            {
+                // posts.map(post=><h3 key={post.id}>{post.title}</h3>)
+                posts.map(post=><div>{<Post key={post.id} title={post.title} text={post.text}/>}</div>)
+            }
             <NavBar/>
             </div>
             </div>
             </MainPageWrapper>
-            <ModalToCreatePost/>
+            <ModalToCreatePost isModalOpen={isModalOpen} toggleModal={toggleModal}/>
     </>)
   }

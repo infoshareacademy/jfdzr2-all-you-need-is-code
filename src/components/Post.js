@@ -4,7 +4,7 @@ import profilePhoto from '../photos/profilePhotos/profilePhoto.jpeg'
 import Likes from '../photos/likes.png'
 import Share from '../photos/share.png'
 import Coment from '../photos/coment.png'
-export const Post = () => {
+export default function Post(props){
     return (
       <div className="Modal">
         <div className="modalOfPost">
@@ -13,8 +13,9 @@ export const Post = () => {
               <h3 className="nameOfWriter">Amanda Steal</h3>
               <p className="positionInProgramming">Senior Front end Developer</p>
           </div>
+          <h2 className="tittle">{props.title}</h2>
             <div className="contentOfThePost">
-                <p className="textOfPost">Lorem ipsum orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ...</p>
+                <p className="textOfPost">{props.text}</p>
                 
             
                <div className="postStatus">

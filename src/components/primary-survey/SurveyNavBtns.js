@@ -8,7 +8,10 @@ export const SurveyNavBtns = ({ onClick, currentStep, answers }) => {
     const user = firebase.auth().currentUser.uid
 
     const answersObject = {
-      name: answers[1],
+      name: answers[0],
+      purpose: Object.keys(answers[1]),
+      technologies: Object.keys(answers[2]),
+      experience: Object.keys(answers[3]),
       about: answers[4],
       location: answers[5]
     }

@@ -21,7 +21,7 @@ export const WizardForm = () => {
   const [step4Values, setStep4Values] = useState("");
   const [step4LocationValues, setStep4LocationValues] = useState("");
 
-  const surveyAnswers = [step1Values, step1NameValues, step2Values, step3Values, step4Values, step4LocationValues];
+  const surveyAnswers = [step1NameValues, step1Values, step2Values, step3Values, step4Values, step4LocationValues];
 
   const handleStep1Change = (event) => {
     setStep1Values({ [event.target.id]: event.target.checked });
