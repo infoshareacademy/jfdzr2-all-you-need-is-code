@@ -6,7 +6,7 @@ export const Step1Name = ({ state, onChange: handleStep1NameChange }) => {
   const useStyles = makeStyles((theme) => ({
     root: {
       "& .MuiTextField-root": {
-        width: "50%",
+        width: "100%",
         backgroundColor: "white",
         marginTop: "20px",
         borderRadius: "15px",
@@ -19,8 +19,8 @@ export const Step1Name = ({ state, onChange: handleStep1NameChange }) => {
   const classes = useStyles();
 
   return (
-    <>
-      <Typography variant="h5" color="primary" style={{ marginTop: "20px" }}>
+    <div className="name-setting">
+      <Typography variant="h5" color="primary">
         What is your name?
       </Typography>
       <div className={classes.root}>
@@ -33,6 +33,6 @@ export const Step1Name = ({ state, onChange: handleStep1NameChange }) => {
           onChange={handleStep1NameChange}
         />
       </div>
-    </>
+      </div>
   );
 };

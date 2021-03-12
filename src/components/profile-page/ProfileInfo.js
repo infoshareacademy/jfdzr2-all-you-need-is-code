@@ -9,8 +9,6 @@ export const ProfileInfo = () => {
 
   const user = firebase.auth().currentUser.uid;
 
-  let technologiesArray = [];
-
   useEffect(() => {
     firebase
       .firestore()
@@ -19,8 +17,7 @@ export const ProfileInfo = () => {
       .onSnapshot((infoArray) => {
         setProfileInformation(infoArray.data());
       });
-      technologiesArray = profileInformation.technologies;
-      console.log(technologiesArray)
+      console.log(profileInformation.location)
   }, []);
 
   return (
@@ -34,10 +31,10 @@ export const ProfileInfo = () => {
         <Typography variant="h5" color="inherit" style={{ fontWeight: "bold" }}>
           {profileInformation.name}
         </Typography>
-        <Typography variant="p" color="inherit">
+        <Typography variant="p" color="inherit" style={{textTransform: "capitalize"}}>
           Experience: {profileInformation.experience}
         </Typography>
-        <Typography variant="p" color="inherit">
+        <Typography variant="p" color="inherit" style={{textTransform: "capitalize"}}>
           Looking for: {profileInformation.purpose}
         </Typography>
         <Typography variant="p" color="inherit">
@@ -52,28 +49,31 @@ export const ProfileInfo = () => {
           About:
         </Typography>
         <Typography variant="p" color="inherit">
-        {profileInformation.about}
+          {profileInformation.about}
         </Typography>
       </Paper>
       <Paper elevation={3} className="profile-section">
         <Typography variant="h6" color="inherit">
           Technologies:
         </Typography>
-        <ul style={{color: 'black'}}>
-        {technologiesArray.map((technology) => {
-          <li style={{color: 'black'}}>{technology}</li>
-        })}
+        <ul style={{ color: "black" }}>
+          {profileInformation?.technologies?.map((technology, index) => {
+            return (
+              <li key={index} style={{ color: "black" }}>
+                {technology}
+              </li>
+            );
+          })}
         </ul>
       </Paper>
       <Paper elevation={3} className="profile-section">
-        <Typography variant="h6" color="primary">
+        <Typography variant="h6" color="inherit">
           Projects:
         </Typography>
-        <ul>
-          <li>FindIT</li>
-          <li>FrickinAwesomeSnakeGame</li>
-          <li>Pokedex</li>
-        </ul>
+        <Typography variant="p" color="inherit">
+          {profileInformation.projects}
+        </Typography>
+        
       </Paper>
     </div>
   );

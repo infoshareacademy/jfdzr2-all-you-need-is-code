@@ -13,11 +13,10 @@ export const SurveyNavBtns = ({ onClick, currentStep, answers }) => {
       technologies: Object.keys(answers[2]),
       experience: Object.keys(answers[3]),
       about: answers[4],
-      location: answers[5]
+      location: answers[5],
+      projects: answers[6]
     }
-    console.log(answers[0]);
-    console.log(answers[2]);
-    console.log(answers[3]);
+    console.log(answers[6]);
     firebase.firestore().collection('Users').doc(user).set(answersObject)
   };
 

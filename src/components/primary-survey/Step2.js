@@ -7,14 +7,32 @@ import {
 
 export const Step2 = ({ state, onChange: handleStep2Change }) => {
   const technologies = [
-    "JavaScript", "Java", "Python", "Ruby on Rails", "C#", "PHP.", "Kotlin", "CSS", "HTML", "ReactJS", "AngularJS", "Vue.js", "RWD", "Firebase", "TypeScript", "NodeJS", "Redux", "GIT"];
+    "JavaScript",
+    "CSS",
+    "HTML",
+    "ReactJS",
+    "Redux",
+    "RWD",
+    "Firebase",
+    "TypeScript",
+    "NodeJS",
+    "AngularJS",
+    "Vue.js",
+    "GIT",
+    "Java",
+    "Python",
+    "Ruby on Rails",
+    "C#",
+    "PHP.",
+    "Kotlin",
+  ];
 
   return (
-    <div className="survey-skills-container">
+    <>
       <Typography variant="h5" color="primary">
         Choose technologies:
       </Typography>
-      <div className="survey-skills">
+      <div className="survey-skills" style={{ marginTop: "20px" }}>
         <FormGroup row>
           {technologies.map((technology, index) => {
             return (
@@ -33,21 +51,8 @@ export const Step2 = ({ state, onChange: handleStep2Change }) => {
               />
             );
           })}
-
-          <FormControlLabel
-            control={
-              <Checkbox
-                id="technology"
-                checked={state.technology}
-                onChange={handleStep2Change}
-                name="technology"
-                color="primary"
-              />
-            }
-            label="JavaScript"
-          />
         </FormGroup>
       </div>
-    </div>
+    </>
   );
 };
