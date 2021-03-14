@@ -6,9 +6,11 @@ import { SurveySteps3 } from "./SurveySteps3";
 import { SurveySteps4 } from "./SurveySteps4";
 import { SurveyNavBtns } from "./SurveyNavBtns";
 import { Step1 } from "./Step1";
+import { Step1Image } from "./Step1Image";
 import { Step1Name } from "./Step1Name";
 import { Step2 } from "./Step2";
 import { Step3 } from "./Step3";
+import { Step3Projects } from "./Step3Projects";
 import { Step4 } from "./Step4";
 import { Step4Location } from "./Step4Location";
 
@@ -18,10 +20,11 @@ export const WizardForm = () => {
   const [step1NameValues, setStep1Name] = useState("");
   const [step2Values, setStep2Values] = useState({});
   const [step3Values, setStep3Values] = useState({});
+  const [step3ProjectsValues, setStep3ProjectsValues] = useState("");
   const [step4Values, setStep4Values] = useState("");
   const [step4LocationValues, setStep4LocationValues] = useState("");
 
-  const surveyAnswers = [step1Values, step1NameValues, step2Values, step3Values, step4Values, step4LocationValues];
+  const surveyAnswers = [step1NameValues, step1Values, step2Values,  step3Values, step4Values, step4LocationValues, step3ProjectsValues];
 
   const handleStep1Change = (event) => {
     setStep1Values({ [event.target.id]: event.target.checked });
@@ -34,6 +37,9 @@ export const WizardForm = () => {
   };
   const handleStep3Change = (event) => {
     setStep3Values({ [event.target.id]: event.target.checked });
+  };
+  const handleStep3ProjectsChange = (event) => {
+    setStep3ProjectsValues(event.target.value);
   };
   const handleStep4Change = (event) => {
     setStep4Values(event.target.value);
@@ -50,22 +56,30 @@ export const WizardForm = () => {
       {step === 4 && <SurveySteps4 />}
       <form>
         {step === 1 && (
-          <div className="general-info-container">
+          <div className="survey-section">
+            <div className="name-image-row">
             <Step1Name
               state={step1NameValues}
               onChange={handleStep1NameChange}
             />
+            <Step1Image />
+            </div>
             <Step1 state={step1Values} onChange={handleStep1Change} />
           </div>
         )}
         {step === 2 && (
+          <div className="survey-section">
           <Step2 state={step2Values} onChange={handleStep2Change} />
+          </div>
         )}
         {step === 3 && (
+          <div className="survey-section">
           <Step3 state={step3Values} onChange={handleStep3Change} />
+          <Step3Projects state={step3ProjectsValues} onChange={handleStep3ProjectsChange} />
+          </div>
         )}
         {step === 4 && (
-          <div className="about-you-section">
+          <div className="survey-section">
             <Step4 state={step4Values} onChange={handleStep4Change} />
             <Step4Location state={step4LocationValues} onChange={handleStep4LocationChange} />
           </div>
