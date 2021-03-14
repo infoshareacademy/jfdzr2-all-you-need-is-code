@@ -4,7 +4,18 @@ import profilePhoto from '../photos/profilePhotos/profilePhoto.jpeg'
 import Likes from '../photos/likes.png'
 import Share from '../photos/share.png'
 import Coment from '../photos/coment.png'
+import fire from '../fire'
+import React, {useState, useEffect} from 'react';
 export default function Post(props){
+  // fire.firestore().collection("Posts").onSnapshot((querySnapshot) => {
+  //   querySnapshot.forEach((doc) => {
+       
+  //      })
+  //   });
+  const [likes, setLikes] = useState(0);
+  function handleLike(){
+    setLikes(likes+1)
+  }
     return (
       <div className="Modal">
         <div className="modalOfPost">
@@ -19,10 +30,11 @@ export default function Post(props){
                 
             
                <div className="postStatus">
-                 <div className="likesSection">
+                 <button onClick={handleLike}className="likesSection">
+                  
                     <img className="likesPhoto" src={Likes}></img>
-                    <p className="likesCounter">243</p>
-                 </div>
+                    <p className="likesCounter">{likes}</p>
+                 </button>
                   <div className="comentSection">
                     <img className="comentPhoto" src={Coment}></img>
                     <p >comment</p>

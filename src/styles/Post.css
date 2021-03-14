@@ -41,6 +41,10 @@
     color:rgba(0, 0, 0, 0.32);
 }
 .likesSection{
+    
+    outline: none;
+    border: none;
+    background-color: transparent;
     display: flex;
 }
 .likesPhoto{
@@ -48,17 +52,15 @@
     width: 50px;
     height: 40px;
 }
+.likesCounter{
+    color:#A8A8A8
+}
 .comentPhoto{
     margin-top: -7px;
     width: 50px;
     height: 40px; 
 }
-.sharePhoto{
-    margin-left: 10px;
-    margin-top: -7px;
-    width: 50px;
-    height: 40px; 
-}
+
 .likesSection>*{
     padding-left: 10px;
 }

@@ -3,11 +3,23 @@ import "../styles/ModalToCreatePost.css";
 import { Step2 } from "../components/primary-survey/Step2";
 import { Navbar, Nav, Image } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import fire from "../fire";
 export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
   const [postActive, setpostActive] = useState(true);
-
+  const [lenght,setLenght]=useState(0)
+  useEffect(() => {
+    const unsubscribe = fire.firestore().collection("Posts").onSnapshot((querySnapshot) => {
+       
+        querySnapshot.forEach((doc) => {
+          setLenght(lenght+1)
+          
+           })
+               
+    });
+    
+}, [])
+console.log(lenght)
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -17,7 +29,7 @@ export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
     onSubmit: (values) => {
    
       document.querySelector("#ModalCreatePost").style.display = "none";
-      fire.firestore().collection("Posts").doc().set({
+      fire.firestore().collection("Posts").doc(`Post${lenght}`).set({
         title: values["name"],
         text: values["comment"],
       });
