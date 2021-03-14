@@ -27,7 +27,7 @@ export const NavBar = () => {
 
             </div>
             
-            <Nav.Link className="text-center navItem" style={{color:'white'}}>home</Nav.Link>
+            <Link to='/main-page' className="text-center navItem" style={{color:'white'}}>home</Link>
             <Link to='/chat' className="text-center navItem" style={{color:'white'}}>chat</Link>
             <Nav.Link  className="text-center navItem" style={{color:'white'}} >people</Nav.Link>
             <Nav.Link className="text-center navItem" style={{color:'white'}} >you adds</Nav.Link>
