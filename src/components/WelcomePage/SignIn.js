@@ -37,7 +37,6 @@ export default function SignIn(props) {
     setHasAccount,
     emailError,
     passwordError,
-    // addCollection
         } = props;
   
         
@@ -61,7 +60,6 @@ export default function SignIn(props) {
             name="email"
             autoComplete="email"
             autoFocus
-            // value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <p>{emailError}</p>
@@ -76,7 +74,6 @@ export default function SignIn(props) {
             type="password"
             id="password"
             autoComplete="current-password"
-            // value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
 
