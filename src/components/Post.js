@@ -7,15 +7,28 @@ import Coment from '../photos/coment.png'
 import fire from '../fire'
 import React, {useState, useEffect} from 'react';
 export default function Post(props){
-  // fire.firestore().collection("Posts").onSnapshot((querySnapshot) => {
-  //   querySnapshot.forEach((doc) => {
-       
-  //      })
-  //   });
-  const [likes, setLikes] = useState(0);
-  function handleLike(){
-    setLikes(likes+1)
-  }
+
+const [like, setLike] = useState(0);
+console.log(like)
+
+function handleLike(e){
+  const docRef = fire.firestore().collection("Posts").doc(`Post${e.target.id}`)
+  fire.firestore().runTransaction(function(transaction) {
+    // This code may get re-run multiple times if there are conflicts.
+    return transaction.get(docRef).then(function(doc) {
+        transaction.update(docRef, { likesCounter: (doc.data().likesCounter || 0) + 1 });
+    });
+  }).then(function() {
+    console.log("Transaction successfully committed!");
+  }).catch(function(error) {
+    console.log("Transaction failed: ", error);
+  });
+   
+ }
+  
+  
+
+
     return (
       <div className="Modal">
         <div className="modalOfPost">
@@ -30,16 +43,16 @@ export default function Post(props){
                 
             
                <div className="postStatus">
-                 <button onClick={handleLike}className="likesSection">
+                 <button onClick={handleLike}  className="likesSection">
                   
-                    <img className="likesPhoto" src={Likes}></img>
-                    <p className="likesCounter">{likes}</p>
+                    <img className="likesPhoto" id={props.index} src={Likes}></img>
+                    <p className="likesCounter" >{props.likes}</p>
                  </button>
                   <div className="comentSection">
                     <img className="comentPhoto" src={Coment}></img>
                     <p >comment</p>
                   </div>
-                    <img className="sharePhoto" src={Share}></img>
+                   
                     <p className="data">23.01.2021 01:00 pm</p>
                </div>
                <div className="coment">

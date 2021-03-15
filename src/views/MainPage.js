@@ -9,6 +9,7 @@ import { DeveloperModeSharp, PostAddSharp, Unsubscribe } from '@material-ui/icon
 import { propTypes } from 'react-bootstrap/esm/Image';
 import { Link } from 'react-router-dom'
 export default function MainPage() {
+      const [lenght,setLenght]=useState(0)
     const [isModalOpen, setIsModalOpen]=useState(false);
     const [posts,setPosts]=useState([])
     const handleLogout = () => {
@@ -30,7 +31,17 @@ export default function MainPage() {
         });
         
     }, [])
-   
+    useEffect(() => {
+        const unsubscribe = fire.firestore().collection("Posts").onSnapshot((querySnapshot) => {
+           
+            querySnapshot.forEach((doc) => {
+              setLenght(lenght+1)
+              
+               })
+                   
+        });
+        
+    }, [])
     return (
         <>
         <MainPageWrapper>
@@ -45,7 +56,7 @@ export default function MainPage() {
             </div>
             {
                 // posts.map(post=><h3 key={post.id}>{post.title}</h3>)
-                posts.map(post=><div>{<Post key={post.id} title={post.title} text={post.text}/>}</div>)
+                posts.map(post=><div>{<Post key={post.id} title={post.title} text={post.text} likes={post.likesCounter} index={post.id} />}</div>)
             }
             <NavBar/>
             </div>

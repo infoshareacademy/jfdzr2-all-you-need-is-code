@@ -3,23 +3,24 @@ import "../styles/ModalToCreatePost.css";
 import { Step2 } from "../components/primary-survey/Step2";
 import { Navbar, Nav, Image } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect, useContext } from "react";
 import fire from "../fire";
 export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
   const [postActive, setpostActive] = useState(true);
   const [lenght,setLenght]=useState(0)
+  const [array,setArray]=useState([])
   useEffect(() => {
-    const unsubscribe = fire.firestore().collection("Posts").onSnapshot((querySnapshot) => {
-       
-        querySnapshot.forEach((doc) => {
-          setLenght(lenght+1)
-          
-           })
-               
-    });
     
-}, [])
-console.log(lenght)
+    fire.firestore().collection('Posts').get().then(snap => {
+      setLenght(snap.size) // will return the collection size
+ 
+    });
+  },array)
+  
+    
+    
+
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -27,17 +28,21 @@ console.log(lenght)
       comment: "",
     },
     onSubmit: (values) => {
-   
+      setArray([lenght])
       document.querySelector("#ModalCreatePost").style.display = "none";
       fire.firestore().collection("Posts").doc(`Post${lenght}`).set({
         title: values["name"],
         text: values["comment"],
-      });
-      //   fire.firestore().collection("Posts").doc("31BPX5oTs9DMAWeGsrhv").collection("comments").doc("XD").set({
-      //       com:1
-      //   })
+        id:lenght,
+      })
+      fire.firestore().collection("Posts").doc(`Post${lenght}`).collection('Likes').doc("userLike").set({
+        dziala:'tak'
+      })
+        
+      
       formik.values.comment=""
       formik.values.title=""
+      
     },
     
   });
