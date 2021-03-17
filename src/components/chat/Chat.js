@@ -13,6 +13,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Avatar from "@material-ui/core/Avatar";
 import Fab from "@material-ui/core/Fab";
 import SendIcon from "@material-ui/icons/Send";
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 import db from "../../fire";
 import fire from "../../fire";
@@ -46,8 +47,9 @@ function Chat() {
 
   return (
     <>
-      <Grid container component={Paper} className="chat-section">
-        <Grid item xs={3} className="border-right500">
+    <CssBaseline />
+      <Grid container className="chat-section">
+        <Grid item xs={3} component={Paper} className="border-right500">
           <List>
             <ListItem button key="Auth">
               <ListItemIcon>
@@ -91,7 +93,7 @@ function Chat() {
           </List>
         </Grid>
 
-        <Grid item xs={9}>
+        <Grid item xs={9}  component={Paper}>
           <List className="message-area">
             <ListItem key="1">
               <section className="chat-section">
@@ -105,29 +107,29 @@ function Chat() {
               </section>
             </ListItem>
           </List>
-        
-        <Divider />
-      
-      <Grid container style={{ padding: "20px" }}>
-        <Grid item xs={11}>
-          <form onSubmit={sendMessage}>
-            <TextField
-              id="outlined-basic-email"
-              label="Your message"
-              fullWidth
-              value={formValue}
-              onChange={(e) => setFormValue(e.target.value)}
-            />
-          </form>
-        </Grid>
 
-        <Grid xs={1} align="right">
-          <Fab color="primary" aria-label="add">
-            <SendIcon />
-          </Fab>
+          <Divider />
+
+          <Grid container style={{ padding: "20px" }}>
+            <Grid item xs={11}>
+              <form onSubmit={sendMessage}>
+                <TextField
+                  id="outlined-basic-email"
+                  label="Your message"
+                  fullWidth
+                  value={formValue}
+                  onChange={(e) => setFormValue(e.target.value)}
+                />
+              </form>
+            </Grid>
+
+            <Grid xs={1} align="right">
+              <Fab color="primary" aria-label="add">
+                <SendIcon />
+              </Fab>
+            </Grid>
+          </Grid>
         </Grid>
-      </Grid>
-      </Grid>
       </Grid>
     </>
   );
@@ -141,8 +143,7 @@ function Chat() {
           <img
             className="chat-img"
             src={
-              photoURL ||
-              "https://material-ui.com/static/images/avatar/2.jpg"
+              photoURL || "https://material-ui.com/static/images/avatar/2.jpg"
             }
           />
           <p className="chat-text">{text}</p>
