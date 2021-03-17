@@ -17,11 +17,11 @@
     padding: 10px 0 20px;
     height: 100vh;
     margin: 10vh 0 10vh;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     display: flex;
     flex-direction: column;
   }
-  
+/*   
  .chat-main::-webkit-scrollbar {
     width: 0.5rem;
   }
@@ -32,10 +32,10 @@
   
  .chat-main::-webkit-scrollbar-thumb {
     background: #6649b8;
-  }
+  } */
 
   
-  .chat-form {
+  /* .chat-form {
     height: 5vh;
     position: fixed;
     bottom: 10px;
@@ -43,7 +43,7 @@
     max-width: 100vh;
     display: flex;
     align-items: center;
-  }
+  } */
   
   
   .chat-input {
