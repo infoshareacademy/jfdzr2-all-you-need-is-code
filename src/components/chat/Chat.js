@@ -18,18 +18,29 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import db from "../../fire";
 import fire from "../../fire";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import "../../styles/Chat.css";
 import Button from "@material-ui/core/Button";
 
 const auth = fire.auth();
 
+
 function Chat() {
   const scroll = useRef();
-  const messagesRef = fire.firestore().collection("Messages");
+  const currentUser = auth.currentUser.uid;
+  const [chatUser, setChatUser] = useState("test")
+  const [formValue, setFormValue] = useState("");
+  const messagesRef = fire.firestore().collection("Users").doc(currentUser).collection(chatUser);
   const query = messagesRef.orderBy("createdAt").limit(250);
   const [messages] = useCollectionData(query, { idField: "id" });
-  const [formValue, setFormValue] = useState("");
+
+  function getUserID(id) {
+      setChatUser(id)
+  }
+
+  useEffect(() => {
+    setChatUser(chatUser)
+  }, [chatUser])
 
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -42,14 +53,16 @@ function Chat() {
       photoURL,
     });
     setFormValue("");
+    // setChatUser("");
     scroll.current.scrollIntoView({ bahavior: "smooth" });
   };
+
 
   return (
     <>
     <CssBaseline />
       <Grid container className="chat-section">
-        <Grid item xs={3} component={Paper} className="border-right500">
+        <Grid item xs={3} component={Paper} className="border-right500 border-top500">
           <List>
             <ListItem button key="Auth">
               <ListItemIcon>
@@ -72,7 +85,12 @@ function Chat() {
           </Grid>
           <Divider />
           <List>
-            <ListItem button key="User1">
+            <ListItem 
+            button 
+            key="User1"
+            chatUser="008F87GsKuOwR29kkfOFPHrnDTi1"
+            onClick={(e) => getUserID("008F87GsKuOwR29kkfOFPHrnDTi1")}
+            >
               <ListItemIcon>
                 <Avatar
                   alt="User1"
@@ -81,7 +99,12 @@ function Chat() {
               </ListItemIcon>
               <ListItemText primary="User1">User2</ListItemText>
             </ListItem>
-            <ListItem button key="User2">
+            <ListItem
+            button
+            key="User2"
+            id="84ngZSRV3ZdQ1VPsxm2kJZQ1f4T2"
+            onClick={(e) => getUserID("84ngZSRV3ZdQ1VPsxm2kJZQ1f4T2")}
+            >
               <ListItemIcon>
                 <Avatar
                   alt="User2"
@@ -93,7 +116,7 @@ function Chat() {
           </List>
         </Grid>
 
-        <Grid item xs={9}  component={Paper}>
+        <Grid item xs={9}  component={Paper} className="border-top500">
           <List className="message-area">
             <ListItem key="1">
               <section className="chat-section">
@@ -124,7 +147,7 @@ function Chat() {
             </Grid>
 
             <Grid xs={1} align="right">
-              <Fab color="primary" aria-label="add">
+              <Fab color="secondary" aria-label="add">
                 <SendIcon />
               </Fab>
             </Grid>

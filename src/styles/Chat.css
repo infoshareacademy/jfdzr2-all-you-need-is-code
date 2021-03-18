@@ -1,11 +1,18 @@
 .chat-section {
     width: 100%;
     height: 80vh;
+    padding-top: 15px;
   }
 
 .head-bg {
     background-color: #e0e0e0;
   }
+
+  .border-top500 {
+    border-top: 1px solid #e0e0e0;
+  }
+
+
 
 .border-right500 {
     border-right: 1px solid #e0e0e0;
@@ -19,14 +26,14 @@
 
 
 .chat-page-container {
-    margin: 2vh 40vh 2vh;
+  margin: 2vh 40vh 2vh;
 }
   
   
 
   .chat-main {
     /* padding: 10px 0 20px; */
-    height: 100vh;
+    /* height: 100vh; */
     /* margin: 10vh 0 10vh; */
     display: flex;
     flex-direction: column;
