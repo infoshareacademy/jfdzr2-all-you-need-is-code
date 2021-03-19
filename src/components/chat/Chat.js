@@ -29,8 +29,11 @@ function Chat() {
   const scroll = useRef();
   const currentUser = auth.currentUser.uid;
   const [chatUser, setChatUser] = useState("test")
+  const msgArray = [currentUser.substring(0,5), chatUser.substring(0,5)];
+  const sortedMsgArray = msgArray.sort(); 
+  const msgId = sortedMsgArray.toString();  
   const [formValue, setFormValue] = useState("");
-  const messagesRef = fire.firestore().collection("Users").doc(currentUser).collection(chatUser);
+  const messagesRef = fire.firestore().collection("Messages").doc(msgId).collection(msgId);
   const query = messagesRef.orderBy("createdAt").limit(250);
   const [messages] = useCollectionData(query, { idField: "id" });
 
