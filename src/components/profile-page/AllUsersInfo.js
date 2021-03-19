@@ -21,6 +21,7 @@ export const AllUsersInfo = () => {
           allUsersArray = [...allUsersArray, object];
           setAllUsersInfo(allUsersArray);
           setState("loaded");
+          console.log(allUsersInfo);
         });
       });
   }, []);
@@ -37,47 +38,51 @@ export const AllUsersInfo = () => {
 
       {state === "loaded" && (
         <div className="profile-sections-container">
-          {allUsersInfo?.map((user) => {
-            return (
-              <Paper elevation={3} className="profile-section">
-                {/* <Image
+          {allUsersInfo
+            ?.filter((user) => {
+              return user.name !== '';
+            })
+            .map((user) => {
+              return (
+                <Paper elevation={3} className="profile-section">
+                  {/* <Image
                   src={avatarUrl}
                   fluid
                   className="profilePhoto2 rounded mb-0"
                 /> */}
-                <Typography
-                  variant="h5"
-                  color="inherit"
-                  style={{ fontWeight: "bold" }}
-                >
-                  {user.name}
-                </Typography>
-                <Typography
-                  variant="p"
-                  color="inherit"
-                  style={{ textTransform: "capitalize" }}
-                >
-                  Experience: {user.experience}
-                </Typography>
-                <Typography
-                  variant="p"
-                  color="inherit"
-                  style={{ textTransform: "capitalize" }}
-                >
-                  Looking for: {user.purpose}
-                </Typography>
-                <Typography variant="p" color="inherit">
-                  Location: {user.location}
-                </Typography>
-                <Button
-                  color="primary"
-                  style={{ backgroundColor: "lightgrey" }}
-                >
-                  Edit your profile
-                </Button>
-              </Paper>
-            );
-          })}
+                  <Typography
+                    variant="h5"
+                    color="inherit"
+                    style={{ fontWeight: "bold" }}
+                  >
+                    {user.name}
+                  </Typography>
+                  <Typography
+                    variant="p"
+                    color="inherit"
+                    style={{ textTransform: "capitalize" }}
+                  >
+                    Experience: {user.experience}
+                  </Typography>
+                  <Typography
+                    variant="p"
+                    color="inherit"
+                    style={{ textTransform: "capitalize" }}
+                  >
+                    Looking for: {user.purpose}
+                  </Typography>
+                  <Typography variant="p" color="inherit">
+                    Location: {user.location}
+                  </Typography>
+                  <Button
+                    color="primary"
+                    style={{ backgroundColor: "lightgrey" }}
+                  >
+                    See more
+                  </Button>
+                </Paper>
+              );
+            })}
         </div>
       )}
     </>
@@ -89,4 +94,3 @@ export const AllUsersInfo = () => {
 
 //   const storage = firebase.storage().ref();
 //   const avatarRef = storageRef.child(`images/${user}.jpg`);
-
