@@ -4,6 +4,7 @@ import { Image } from "react-bootstrap";
 import firebase from "../../fire";
 
 export const AllUsersInfo = () => {
+  const currentUser = firebase.auth().currentUser.uid;
   const [allUsersInfo, setAllUsersInfo] = useState([]);
   const [state, setState] = useState("initial");
 
@@ -41,6 +42,8 @@ export const AllUsersInfo = () => {
           {allUsersInfo
             ?.filter((user) => {
               return user.name !== '';
+            }).filter((user) => {
+              return user.id !== currentUser;
             })
             .map((user) => {
               return (
