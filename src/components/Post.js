@@ -9,20 +9,12 @@ import React, {useState, useEffect} from 'react';
 export default function Post(props){
 
 const [like, setLike] = useState(0);
-console.log(like)
-
 function handleLike(e){
+  const userUid=fire.auth().currentUser.uid.toString()
   const docRef = fire.firestore().collection("Posts").doc(`Post${e.target.id}`)
-  fire.firestore().runTransaction(function(transaction) {
-    // This code may get re-run multiple times if there are conflicts.
-    return transaction.get(docRef).then(function(doc) {
-        transaction.update(docRef, { likesCounter: (doc.data().likesCounter || 0) + 1 });
-    });
-  }).then(function() {
-    console.log("Transaction successfully committed!");
-  }).catch(function(error) {
-    console.log("Transaction failed: ", error);
-  });
+  docRef.collection(`Likes`).doc(userUid).set({
+    like:true
+  })
    
  }
   

@@ -21,27 +21,29 @@ export default function MainPage() {
     useEffect(() => {
         const unsubscribe = fire.firestore().collection("Posts").onSnapshot((querySnapshot) => {
             const posts = []
-            querySnapshot.forEach((doc) => {
+            querySnapshot.forEach((doc) => { 
+                
                posts.push({
                    id: doc.id,
                    ...doc.data()
                })
             });
-            setPosts(posts)
-        });
-        
+            for(let i=1;i<5;i++){
+                fire.firestore().collection('Posts').doc(`Post${i}`).collection('Likes').get().then(snap=>{
+                    var size=snap.size
+                    var array=posts
+                    var object={likesCounter:size}
+                    array[i-1]={...array[i-1], ...object}
+                    setPosts(array)
+
+            }); 
+            
+            }
+            
+        }); 
+
     }, [])
-    useEffect(() => {
-        const unsubscribe = fire.firestore().collection("Posts").onSnapshot((querySnapshot) => {
-           
-            querySnapshot.forEach((doc) => {
-              setLenght(lenght+1)
-              
-               })
-                   
-        });
-        
-    }, [])
+   
     return (
         <>
         <MainPageWrapper>
@@ -55,9 +57,12 @@ export default function MainPage() {
             </div>
             </div>
             {
-                // posts.map(post=><h3 key={post.id}>{post.title}</h3>)
+                console.log(posts)
+            }
+            {
                 posts.map(post=><div>{<Post key={post.id} title={post.title} text={post.text} likes={post.likesCounter} index={post.id} />}</div>)
             }
+          
             <NavBar/>
             </div>
             </div>

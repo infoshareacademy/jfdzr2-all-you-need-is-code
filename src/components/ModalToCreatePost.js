@@ -12,7 +12,7 @@ export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
   useEffect(() => {
     
     fire.firestore().collection('Posts').get().then(snap => {
-      setLenght(snap.size) // will return the collection size
+      setLenght(snap.size+1) // will return the collection size
  
     });
   },array)
@@ -34,12 +34,7 @@ export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
         title: values["name"],
         text: values["comment"],
         id:lenght,
-      })
-      fire.firestore().collection("Posts").doc(`Post${lenght}`).collection('Likes').doc("userLike").set({
-        dziala:'tak'
-      })
-        
-      
+      })    
       formik.values.comment=""
       formik.values.title=""
       
