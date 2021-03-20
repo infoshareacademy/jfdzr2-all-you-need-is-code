@@ -2,22 +2,43 @@ import "../styles/Post.css";
 import profilePhoto from "../photos/profilePhotos/profilePhoto.jpeg";
 // import Share from '../photos/share.png'
 import Likes from "../photos/likes.png";
-import Share from "../photos/share.png";
 import Coment from "../photos/coment.png";
 import fire from "../fire";
 import React, { useState, useEffect } from "react";
 export default function Post(props) {
   const [like, setLike] = useState(0);
   function handleLike(e) {
-    console.log(e.target.id)
+    let likedByYou=false
+    fire.firestore()
+            .collection("Posts")
+            .doc(`Post${e.target.id}`)
+            .collection("Likes")
+            .onSnapshot((snap) => {snap.forEach(doc=>{
+              if(doc.id===fire.auth().currentUser.uid){
+                likedByYou=true
+                
+              }
+            })})
     const userUid = fire.auth().currentUser.uid.toString();
+    
     const docRef = fire
       .firestore()
       .collection("Posts")
       .doc(`Post${e.target.id}`);
-    docRef.collection(`Likes`).doc(userUid).set({
-      like: true,
-    });
+      setTimeout(()=>{
+        if(likedByYou===false){
+          docRef.collection(`Likes`).doc(userUid).set({
+            like: true,
+          });
+        }
+        else{
+          docRef.collection(`Likes`).doc(userUid).delete()
+        }
+
+      },10)
+      
+      
+    
   }
 
   return (

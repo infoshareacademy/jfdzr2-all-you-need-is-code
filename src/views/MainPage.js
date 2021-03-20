@@ -35,7 +35,8 @@ export default function MainPage() {
           });
         });
         setPosts(posts)
-        for (let i = 1; i < 5; i++) {
+        
+        for (let i = 1; i < posts.length+1; i++) {
           fire
             .firestore()
             .collection("Posts")

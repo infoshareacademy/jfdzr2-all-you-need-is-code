@@ -3,23 +3,21 @@ import "../styles/ModalToCreatePost.css";
 import { Step2 } from "../components/primary-survey/Step2";
 import { Navbar, Nav, Image } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
-import React, { useState,useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import fire from "../fire";
 export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
   const [postActive, setpostActive] = useState(true);
-  const [lenght,setLenght]=useState(0)
-  const [array,setArray]=useState([])
+  const [lenght, setLenght] = useState(0);
+  const [array, setArray] = useState([]);
   useEffect(() => {
-    
-    fire.firestore().collection('Posts').get().then(snap => {
-      setLenght(snap.size+1) // will return the collection size
- 
-    });
-  },array)
-  
-    
-    
-
+    fire
+      .firestore()
+      .collection("Posts")
+      .get()
+      .then((snap) => {
+        setLenght(snap.size + 1); // will return the collection size
+      });
+  }, array);
 
   const formik = useFormik({
     initialValues: {
@@ -28,18 +26,16 @@ export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
       comment: "",
     },
     onSubmit: (values) => {
-      setArray([lenght])
+      setArray([lenght]);
       document.querySelector("#ModalCreatePost").style.display = "none";
       fire.firestore().collection("Posts").doc(`Post${lenght}`).set({
         title: values["name"],
         text: values["comment"],
-        id:lenght,
-      })    
-      formik.values.comment=""
-      formik.values.title=""
-      
+        id: lenght,
+      });
+      formik.values.comment = "";
+      formik.values.title = "";
     },
-    
   });
 
   return (
@@ -77,13 +73,10 @@ export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
           <input className="submit" type="submit" value="Wyślij" />
           <button
             onClick={toggleModal}
-
             type="button"
             className="close"
             aria-label="Close"
           >
-
-
             <span aria-hidden="true">&times;</span>
           </button>
         </form>
