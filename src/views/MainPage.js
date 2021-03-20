@@ -21,6 +21,13 @@ export default function MainPage() {
   };
   function toggleModal() {
     setIsModalOpen((current) => !current);
+    console.log(isModalOpen)
+    if(isModalOpen){
+      document.querySelector(".page").style.opacity = "1";
+    }
+    else{
+      document.querySelector(".page").style.opacity = "0.5";
+    }
   }
   useEffect(() => {
     const unsubscribe = fire
@@ -88,6 +95,7 @@ export default function MainPage() {
                     text={post.text}
                     likes={post.likesCounter}
                     index={post.id}
+                    time={post.time}
                   />
                 }
               </div>

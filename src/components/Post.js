@@ -63,7 +63,7 @@ export default function Post(props) {
               <p>comment</p>
             </div>
 
-            <p className="data">23.01.2021 01:00 pm</p>
+            <p className="data">{props.time}</p>
           </div>
           <div className="coment">
             <img className="photoOfComentator" src={profilePhoto}></img>
