@@ -25,21 +25,18 @@ export default function Post(props) {
       .firestore()
       .collection("Posts")
       .doc(`Post${e.target.id}`);
-      setTimeout(()=>{
-        if(likedByYou===false){
-          docRef.collection(`Likes`).doc(userUid).set({
+      
+        
+        docRef.collection(`Likes`).doc(userUid).set({
             like: true,
-          });
-        }
-        else{
-          docRef.collection(`Likes`).doc(userUid).delete()
-        }
+        
+        
+       
 
-      },10)
       
       
     
-  }
+  })}
 
   return (
     <div className="Modal">
