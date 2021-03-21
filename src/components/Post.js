@@ -4,39 +4,33 @@ import profilePhoto from "../photos/profilePhotos/profilePhoto.jpeg";
 import Likes from "../photos/likes.png";
 import Coment from "../photos/coment.png";
 import fire from "../fire";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 export default function Post(props) {
   const [like, setLike] = useState(0);
   function handleLike(e) {
-    let likedByYou=false
-    fire.firestore()
-            .collection("Posts")
-            .doc(`Post${e.target.id}`)
-            .collection("Likes")
-            .onSnapshot((snap) => {snap.forEach(doc=>{
-              if(doc.id===fire.auth().currentUser.uid){
-                likedByYou=true
-                
-              }
-            })})
+    let likedByYou = false;
+    fire
+      .firestore()
+      .collection("Posts")
+      .doc(`Post${e.target.id}`)
+      .collection("Likes")
+      .onSnapshot((snap) => {
+        snap.forEach((doc) => {
+          if (doc.id === fire.auth().currentUser.uid) {
+            likedByYou = true;
+          }
+        });
+      });
     const userUid = fire.auth().currentUser.uid.toString();
-    
     const docRef = fire
       .firestore()
       .collection("Posts")
       .doc(`Post${e.target.id}`);
-      
-        
-        docRef.collection(`Likes`).doc(userUid).set({
-            like: true,
-        
-        
-       
 
-      
-      
-    
-  })}
+    docRef.collection(`Likes`).doc(userUid).set({
+      like: true,
+    });
+  }
 
   return (
     <div className="Modal">

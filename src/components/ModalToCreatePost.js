@@ -8,17 +8,13 @@ import fire from "../fire";
 import { TodayTwoTone } from "@material-ui/icons";
 export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
   const [postActive, setpostActive] = useState(true);
-  const [lenght, setLenght] = useState(0);
-  const [array, setArray] = useState([]);
-  useEffect(() => {
-    fire
-      .firestore()
-      .collection("Posts")
-      .get()
-      .then((snap) => {
-        setLenght(snap.size + 1); // will return the collection size
-      });
-  }, array);
+  const [length, setLength] = useState(0);
+  function loadPosts(){
+    
+  }
+  
+    
+  
 
   const formik = useFormik({
     initialValues: {
@@ -27,10 +23,14 @@ export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
       comment: "",
     },
     onSubmit: (values) => {
+      // fire
+      // .firestore()
+      // .collection("Posts")
+      // .get()
+      // .then((snap) => {
+      //   setLength(snap.size + 1);
+      // });
       document.querySelector(".page").style.opacity = "1";
-      isModalOpen=false
-      setArray([lenght]);
-      
       var today = new Date();
       if(today.getMonth().lenght===1){
         var date = today.getFullYear()+'-'+'0'+(today.getMonth()+1)+'-'+today.getDate()+'-'+ today.getHours()+':'+today.getMinutes();
@@ -39,12 +39,15 @@ export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
       var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()+'-'+ today.getHours()+':'+today.getMinutes();
      }
       document.querySelector("#ModalCreatePost").style.display = "none";
-      fire.firestore().collection("Posts").doc(`Post${lenght}`).set({
+      fire.firestore().collection("Posts").add({
         title: values["name"],
         text: values["comment"],
-        id: lenght,
+        id: length,
         time:date
-      });
+      })
+    .then((docRef) => {
+    console.log("Document written with ID: ", docRef.id);
+    })
       formik.values.comment = "";
       formik.values.title = "";
     },
