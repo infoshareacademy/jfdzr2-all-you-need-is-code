@@ -114,15 +114,6 @@ export default function SignInPage() {
       });
     };
 
-    // const handleLogout = () => {
-    //   fire.auth().signOut();
-    // }
-
-
-     const addCollection = () => {
-      db.collection("Users").doc("uid").set('new')
-     } 
-
 useEffect(() => {
   fire.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -158,7 +149,6 @@ useEffect(() => {
           setHasAccount={setHasAccount}
           emailError={emailError}
           passwordError={passwordError}
-          // addCollection={addCollection}
           />
           </Paper>
         </Paper>
