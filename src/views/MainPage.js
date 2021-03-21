@@ -31,39 +31,19 @@ export default function MainPage() {
   }
   useEffect(() => {
     const unsubscribe = fire
-      .firestore()
-      .collection("Posts")
-      .onSnapshot((querySnapshot) => {
-        const posts = [];
-        querySnapshot.forEach((doc) => {
-          posts.push({
-            id: doc.id,
-            ...doc.data(),
-          });
+    .firestore()
+    .collection("Posts")
+    .onSnapshot((querySnapshot) => {
+      const posts = [];
+      querySnapshot.forEach((doc) => {
+        posts.push({
+          id: doc.id,
+          ...doc.data(),
         });
-        setPosts(posts)
-        
-        for (let i = 1; i < posts.length+1; i++) {
-          fire
-            .firestore()
-            .collection("Posts")
-            .doc(`Post${i}`)
-            .collection("Likes")
-            .onSnapshot((snap) => {
-              let likedByYou = false
-              snap.forEach(doc => {
-                if (doc.id === fire.auth().currentUser.uid) {
-                    likedByYou = true
-                }
-              })
-              setPosts(existingPosts => {
-                const array = [...existingPosts]
-                array[i - 1] = { ...array[i - 1], likesCounter: snap.size, likedByYou };
-                return array;
-              })
-            });
-        }
       });
+      setPosts(posts)
+    });
+    
   }, []);
   return (
     <>
@@ -85,7 +65,6 @@ export default function MainPage() {
                 </button>
               </div>
             </div>
-            {console.log(posts)}
             {posts.map((post) => (
               <div>
                 {

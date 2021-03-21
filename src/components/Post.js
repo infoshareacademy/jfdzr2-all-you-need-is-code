@@ -8,28 +8,53 @@ import React, { useState } from "react";
 export default function Post(props) {
   const [like, setLike] = useState(0);
   function handleLike(e) {
+    
+    const userUid = fire.auth().currentUser.uid.toString();
     let likedByYou = false;
+    const docRef = fire
+    .firestore()
+    .collection("Posts")
+    .doc(e.target.id)
+   
+   
     fire
       .firestore()
       .collection("Posts")
-      .doc(`Post${e.target.id}`)
-      .collection("Likes")
-      .onSnapshot((snap) => {
-        snap.forEach((doc) => {
-          if (doc.id === fire.auth().currentUser.uid) {
-            likedByYou = true;
+      .doc(e.target.id)
+      .collection("Likes").get().then(snap=>{
+        snap.forEach((doc)=>{
+            if (doc.id === fire.auth().currentUser.uid) {
+              docRef.collection("Likes").doc(userUid).delete()
+              console.log('delete')
           }
-        });
-      });
-    const userUid = fire.auth().currentUser.uid.toString();
-    const docRef = fire
-      .firestore()
-      .collection("Posts")
-      .doc(`Post${e.target.id}`);
+        })
+        if(snap.size===0){
+          docRef.collection(`Likes`).doc(userUid).set({
+                  like: true,
+                });
+                console.log('added')
+        }
+      }) 
+            
+       
+    
+    
+   
+      // setTimeout(()=>{
+      //   if(!likedByYou){
+        
+      //     docRef.collection(`Likes`).doc(userUid).set({
+      //       like: true,
+      //     });
+      //   }
+      //   else{
+      //     docRef.collection("Likes").doc(userUid).delete()
+      //   }
+      // },200)
+     
+     
+      
 
-    docRef.collection(`Likes`).doc(userUid).set({
-      like: true,
-    });
   }
 
   return (

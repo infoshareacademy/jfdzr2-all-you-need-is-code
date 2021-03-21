@@ -23,13 +23,6 @@ export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
       comment: "",
     },
     onSubmit: (values) => {
-      // fire
-      // .firestore()
-      // .collection("Posts")
-      // .get()
-      // .then((snap) => {
-      //   setLength(snap.size + 1);
-      // });
       document.querySelector(".page").style.opacity = "1";
       var today = new Date();
       if(today.getMonth().lenght===1){
@@ -42,7 +35,6 @@ export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
       fire.firestore().collection("Posts").add({
         title: values["name"],
         text: values["comment"],
-        id: length,
         time:date
       })
     .then((docRef) => {
