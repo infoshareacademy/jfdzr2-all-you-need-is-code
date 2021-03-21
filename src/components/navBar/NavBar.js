@@ -21,7 +21,7 @@ export const NavBar = () => {
 
             </div>
             
-            <NavLink to="/main-page" className="text-center navItem" style={{color:'white', textTransform: 'uppercase'}}>home</NavLink>
+            <NavLink to="/main-page" className="text-center navItem" style={{color:'white', textTransform: 'capitalize'}}>home</NavLink>
             <Nav.Link className="text-center navItem" style={{color:'white', textTransform: 'uppercase'}}>inbox</Nav.Link>
             <NavLink to="/users-page"  className="text-center navItem" style={{color:'white', textTransform: 'uppercase'}} >users</NavLink>
             <Nav.Link className="text-center navItem" style={{color:'white', textTransform: 'uppercase'}} >your posts</Nav.Link>
