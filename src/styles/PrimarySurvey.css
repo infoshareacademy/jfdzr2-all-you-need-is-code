@@ -45,11 +45,6 @@
     border: none;
 }
 
-.general-info-container, .survey-skills-container,.survey-skills, .about-you-section  {
-    height: 50vh;
-    margin-top: 50px;
-}
-
 .general-info-btn:focus {
     background-color: white;
     color: #6C7ED6;
@@ -66,7 +61,6 @@
     justify-content: center;
     margin-bottom: 20px;
 }
-
 
 .skip-btn, .next-prev-btn {
     width: 200px;
@@ -89,9 +83,57 @@ label {
     color: white;
 }
 
-.about-you-section {
+.survey-section{
 display: flex;
 flex-direction: column;
 justify-content: flex-start;
 width: 100%;
+height: 50vh;
+    margin-top: 50px;
+}
+
+.name-setting {
+    flex-direction: column;
+    width: 50%;
+}
+
+.name-image-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.image-input-setting {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 40%;
+}
+
+.image-button{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    height: 45%;
+    border-radius: 30px;
+    border: none;
+    /* background-color: #6C7ED6; */
+    background-color: #ff7961;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto;
+    font-size: 20px;
+    font-weight: 500;
+    color: white;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .image-button:hover{
+    background-color: white;
+    color: #4853A4;
+    outline: none;
+    border: none; 
 }

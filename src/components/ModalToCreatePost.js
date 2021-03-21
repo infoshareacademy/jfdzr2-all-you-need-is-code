@@ -62,14 +62,6 @@ export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
             onChange={formik.handleChange}
           />
 
-          <div
-            className="tech"
-            value={formik.values.tech}
-            onChange={formik.handleChange}
-          >
-            {/* <Step2 /> */}
-          </div>
-
           <input className="submit" type="submit" value="Wyślij" />
           <button
             onClick={toggleModal}
