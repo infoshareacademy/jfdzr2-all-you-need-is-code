@@ -51,7 +51,7 @@ function Chat() {
     await messagesRef.add({
       text: formValue,
       // createdAt: fire.firestore.FieldValue.serverTimestamp(),
-      createdAt: Date.now(),
+      createdAt: Date().toLocaleString(),
       uid,
       photoURL,
     });
@@ -90,9 +90,9 @@ function Chat() {
           <List>
             <ListItem 
             button 
-            key="User1"
-            chatUser="008F87GsKuOwR29kkfOFPHrnDTi1"
-            onClick={(e) => getUserID("008F87GsKuOwR29kkfOFPHrnDTi1")}
+            key="test1"
+            chatUser="jmKir10TYzczaR44P5cl69B3l5Z2"
+            onClick={(e) => getUserID("jmKir10TYzczaR44P5cl69B3l5Z2")}
             >
               <ListItemIcon>
                 <Avatar
@@ -100,13 +100,13 @@ function Chat() {
                   src="https://material-ui.com/static/images/avatar/3.jpg"
                 />
               </ListItemIcon>
-              <ListItemText primary="User1">User2</ListItemText>
+              <ListItemText primary="Test1">Test2</ListItemText>
             </ListItem>
             <ListItem
             button
-            key="User2"
-            id="84ngZSRV3ZdQ1VPsxm2kJZQ1f4T2"
-            onClick={(e) => getUserID("84ngZSRV3ZdQ1VPsxm2kJZQ1f4T2")}
+            key="test2"
+            id="Ji2X9LS1gQQoGWSsx2YYBfNLbHA3"
+            onClick={(e) => getUserID("Ji2X9LS1gQQoGWSsx2YYBfNLbHA3")}
             >
               <ListItemIcon>
                 <Avatar
@@ -114,7 +114,7 @@ function Chat() {
                   src="https://material-ui.com/static/images/avatar/2.jpg"
                 />
               </ListItemIcon>
-              <ListItemText primary="User2">User2</ListItemText>
+              <ListItemText primary="Test2">Test2</ListItemText>
             </ListItem>
           </List>
         </Grid>
@@ -161,7 +161,7 @@ function Chat() {
   );
 
   function ChatMessage(props) {
-    const { text, uid, photoURL } = props.message;
+    const { text, uid, photoURL, createdAt } = props.message;
     const messageClass = uid === auth.currentUser.uid ? "sent" : "received";
     return (
       <>
@@ -173,6 +173,7 @@ function Chat() {
             }
           />
           <p className="chat-text">{text}</p>
+          {/* <p className="date">{createdAt}</p> */}
         </div>
       </>
     );
