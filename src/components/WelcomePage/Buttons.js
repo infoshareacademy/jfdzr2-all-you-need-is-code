@@ -21,10 +21,7 @@ export const LogInBtn = () => {
 
 export const SignInBtn = () => {
 
-  const handleClick = () => {
-    console.log('Hello SignIn');
-  }
-
+  
 return (
 <button className="signin-btn">
 <Link to="/sign-in">

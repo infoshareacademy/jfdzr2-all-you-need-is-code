@@ -5,16 +5,9 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Logo from "../logo/FindIT.png";
 import SignIn from "../components/WelcomePage/SignIn";
-import { Typography } from "@material-ui/core";
 import "../styles/WelcomePage.css";
-import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
-import {LogInBtn} from '../components/WelcomePage/Buttons'
-import {SignInBtn} from '../components/WelcomePage/Buttons'
 import {useState, useEffect} from 'react';
 import fire from "../fire";
-import db from '../fire';
-import MainPage from './MainPage'
 import { PrimarySurvey } from '../views/PrimarySurvey'
 
 
@@ -131,7 +124,6 @@ useEffect(() => {
     <div>
       {user ? (
       <PrimarySurvey />
-      // <MainPage handleLogout={handleLogout}/>
       ): (
       <Grid container spacing={0} className={classes.root}>
       <CssBaseline />
