@@ -14,13 +14,13 @@ import Avatar from "@material-ui/core/Avatar";
 import Fab from "@material-ui/core/Fab";
 import SendIcon from "@material-ui/icons/Send";
 import CssBaseline from '@material-ui/core/CssBaseline';
-
 import db from "../../fire";
 import fire from "../../fire";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useState, useRef, useEffect } from "react";
 import "../../styles/Chat.css";
 import Button from "@material-ui/core/Button";
+import {Search} from "../../common/Search"
 
 const auth = fire.auth();
 
@@ -36,6 +36,9 @@ function Chat() {
   const messagesRef = fire.firestore().collection("Messages").doc(msgId).collection(msgId);
   const query = messagesRef.orderBy("createdAt").limit(250);
   const [messages] = useCollectionData(query, { idField: "id" });
+  
+  const [filter, setFilter] = useState("")
+
 
   function getUserID(id) {
       setChatUser(id)
@@ -60,6 +63,9 @@ function Chat() {
     scroll.current.scrollIntoView({ bahavior: "smooth" });
   };
 
+  const handleOnFilterChange = (filterText) => {
+    setFilter(filterText);
+  }
 
   return (
     <>
@@ -79,12 +85,7 @@ function Chat() {
           </List>
           <Divider />
           <Grid item xs={12} style={{ padding: "10px" }}>
-            <TextField
-              id="outlined-basic-email"
-              label="Search"
-              variant="outlined"
-              fullWidth
-            />
+            <Search onFilterChange={handleOnFilterChange}/>
           </Grid>
           <Divider />
           <List>
