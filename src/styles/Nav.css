@@ -28,7 +28,10 @@
 }
 
 .profilePhotoSection{
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
 }
 .profilePhoto{
     width: 60%;
@@ -52,4 +55,8 @@
     }
 .navItem:hover{
     background-color: #6C7ED6;
+}
+
+.flex-column {
+    align-items: center;
 }

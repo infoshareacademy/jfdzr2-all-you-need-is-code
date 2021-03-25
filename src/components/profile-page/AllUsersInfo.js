@@ -23,7 +23,6 @@ export const AllUsersInfo = () => {
           allUsersArray = [...allUsersArray, object];
           setAllUsersInfo(allUsersArray);
           setState("loaded");
-          console.log(allUsersInfo);
         });
       });
   }, []);
