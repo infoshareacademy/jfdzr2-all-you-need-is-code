@@ -1,13 +1,13 @@
-import FileUploader from "react-firebase-file-uploader";
 import CustomUploadButton from "react-firebase-file-uploader/lib/CustomUploadButton";
 import { useState } from "react";
 import firebase from "../../fire";
 import { Typography, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-export const Step1Image = () => {
+export const Step1Image = ({currentAvatarUrl, changeAvatarUrl}) => {
     const user = firebase.auth().currentUser.uid;
-    const [avatarUrl, setAvatarUrl] = useState('');
+    
+    // const [avatarUrl, setAvatarUrl] = useState('');
 
     const handleUploadSuccess = (filename) => {
           firebase
@@ -16,9 +16,11 @@ export const Step1Image = () => {
           .child(`images/${filename}`)
           .getDownloadURL().then((url) => {
             alert('Uploading avatar finished');
-            setAvatarUrl(url);
             console.log(url);
-            console.log(avatarUrl)
+            changeAvatarUrl(url);
+            console.log(currentAvatarUrl);
+            // currentAvatarUrl = avatarUrl;
+            // console.log(currentAvatarUrl)
           })
       };
 

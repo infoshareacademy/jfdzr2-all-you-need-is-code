@@ -2,6 +2,7 @@ import { useEffect, useReducer, useState } from "react";
 import { Paper, Typography, Button } from "@material-ui/core";
 import { Image } from "react-bootstrap";
 import firebase from "../../fire";
+import defaultAvatar from '../../photos/profilePhotos/default.jpg'
 
 export const AllUsersInfo = () => {
   const currentUser = firebase.auth().currentUser.uid;
@@ -48,11 +49,11 @@ export const AllUsersInfo = () => {
             .map((user) => {
               return (
                 <Paper elevation={3} className="profile-section">
-                  {/* <Image
-                  src={avatarUrl}
+                  <Image
+                  src= {user.avatarUrl || defaultAvatar}
                   fluid
                   className="profilePhoto2 rounded mb-0"
-                /> */}
+                />
                   <Typography
                     variant="h5"
                     color="inherit"

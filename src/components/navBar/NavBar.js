@@ -16,8 +16,7 @@ export const NavBar = () => {
     
     <Navbar  className="navbar">
       
-      <Nav className="flex-column ">
-            
+      <Nav className="flex-column ">           
             <div className="profilePhotoSection">
             <Image src={logo} className="logoPhoto "  /> 
             
@@ -27,15 +26,13 @@ export const NavBar = () => {
 
             </div>
             <NavLink to="/main-page" className="text-center navItem" style={{color:'white', textTransform: 'capitalize'}}>home</NavLink>
-            <Nav.Link className="text-center navItem" style={{color:'white', textTransform: 'uppercase'}}>chat</Nav.Link>
-            <Link to='/chat' className="text-center navItem" style={{color:'white'}}>Chat</Link>
-            <NavLink to="/users-page"  className="text-center navItem" style={{color:'white', textTransform: 'uppercase'}} >users</NavLink>
-            <Nav.Link className="text-center navItem" style={{color:'white', textTransform: 'uppercase'}} >your posts</Nav.Link>
-            <Nav.Link className="text-center navItem " style={{color:'white', textTransform: 'uppercase'}} >location</Nav.Link>
+            <NavLink to='/chat' className="text-center navItem" style={{color:'white', textTransform: 'capitalize'}}>chat</NavLink> 
+            <NavLink to="/users-page"  className="text-center navItem" style={{color:'white', textTransform: 'capitalize'}} >users</NavLink>
+            <Nav.Link className="text-center navItem" style={{color:'white', textTransform: 'capitalize'}} >your posts</Nav.Link>
+            <Nav.Link className="text-center navItem " style={{color:'white', textTransform: 'capitalize'}} >location</Nav.Link>
             <div className="horizontalLaneTop"></div>
-            <Link to='/' onClick={handleLogout} className="text-center navItem navHelpItem" style={{color:'white'}} >Log out</Link>
+            <Link to='/' onClick={handleLogout} className="text-center navItem navHelpItem" style={{color:'white', textTransform: 'capitalize'}} >Log out</Link>
             <div className="horizontalLaneBot"></div>
-            
       </Nav>
     </Navbar>
     

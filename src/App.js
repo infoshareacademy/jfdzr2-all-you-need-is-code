@@ -5,6 +5,7 @@ import { ProfilePage } from "./views/ProfilePage";
 import { UsersPage } from "./views/UsersPage";
 import MainPage from "./views/MainPage";
 import {NavBar} from './components/navBar/NavBar';
+import { ChatPage } from './views/ChatPage';
 import SignInPage from './views/SignInPage';
 import LogInPage from './views/LogInPage';
 import { Switch, Route } from 'react-router-dom';
@@ -31,6 +32,7 @@ function App() {
         <Route path="/main-page"><MainPage /></Route>
         <Route path="/profile-page"><ProfilePage /></Route>
         <Route path="/users-page"><UsersPage /></Route>
+        <Route path="/chat"><ChatPage /></Route>
         
         </Switch>
     </ThemeProvider>
