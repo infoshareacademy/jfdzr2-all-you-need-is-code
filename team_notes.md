@@ -75,3 +75,6 @@ const AuthComponent = () => {
   }, [])
   return isLoggedIn ? {children} : <Redirect to="/login" />
  }
+
+ to się przyda:
+ https://firebase.google.com/docs/firestore/query-data/listen#view_changes_between_snapshots

@@ -42,7 +42,6 @@ const PrivateRoute = ({children, ...rest}) => {
   useEffect(() => {
     setStatus('loading')
   fire.auth().onAuthStateChanged((user) => {
-    console.log(user)
       setIsLoggedIn(Boolean(user));
       setStatus('resolved')
     });
