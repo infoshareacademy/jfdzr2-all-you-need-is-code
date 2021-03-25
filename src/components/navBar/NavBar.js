@@ -1,21 +1,20 @@
 import { Navbar, Nav, Image } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import "../../styles/Nav.css";
-import logo from "../../logo/FindIT.png";
+import logo from "../../logo/FindIT_white_cropped.png";
 import defaultAvatar from "../../photos/profilePhotos/default.jpg";
 import { Avatar } from "@material-ui/core";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 import { Link, NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../user-context/UserContext";
 import fire from "../../fire";
-import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   large: {
-    width: theme.spacing(10),
-    height: theme.spacing(10),
+    width: theme.spacing(13),
+    height: theme.spacing(13),
   },
 }));
 
@@ -30,64 +29,49 @@ export const NavBar = () => {
 
   return (
     <>
-      <Navbar className="navbar">
-        
-          <div className="profilePhotoSection">
-            <Image src={logo} className="logoPhoto" />
-            <Link to="/profile-page">
-              <Avatar
-              className={classes.large}
-                src={user.avatarUrl ? user.avatarUrl : defaultAvatar}
-              />
-            <Typography color='primary'>{user.name ? user.name : ''}</Typography>
-            </Link>
+      <div className="navbar">
+        <div className="flex-container">
+          <div className="links-container">
+            <div className="profile-photo-section">
+              <Link to="/main-page" className='logo-section'>
+                <Image src={logo} className="logoPhoto" />
+              </Link>
+              <Link to="/profile-page" className="profile-link">
+                <Avatar
+                  className={classes.large}
+                  src={user.avatarUrl ? user.avatarUrl : defaultAvatar}
+                />
+                <p className="user-name">{user.name ? user.name : ""}</p>
+              </Link>
+            </div>
+
+            <div className="links-section">
+              <NavLink to="/main-page" className="text-center navItem">
+                home
+              </NavLink>
+              <NavLink to="/chat" className="text-center navItem">
+                chat
+              </NavLink>
+              <NavLink to="/users-page" className="text-center navItem">
+                users
+              </NavLink>
+              <Nav.Link className="text-center navItem">your posts</Nav.Link>
+            </div>
           </div>
-          <Nav className="flex-column ">
-          <NavLink
-            to="/main-page"
-            className="text-center navItem"
-            style={{ color: "white", textTransform: "capitalize" }}
-          >
-            home
-          </NavLink>
-          <NavLink
-            to="/chat"
-            className="text-center navItem"
-            style={{ color: "white", textTransform: "capitalize" }}
-          >
-            chat
-          </NavLink>
-          <NavLink
-            to="/users-page"
-            className="text-center navItem"
-            style={{ color: "white", textTransform: "capitalize" }}
-          >
-            users
-          </NavLink>
-          <Nav.Link
-            className="text-center navItem"
-            style={{ color: "white", textTransform: "capitalize" }}
-          >
-            your posts
-          </Nav.Link>
-          <Nav.Link
-            className="text-center navItem "
-            style={{ color: "white", textTransform: "capitalize" }}
-          >
-            location
-          </Nav.Link>
-          <div className="horizontalLaneTop"></div>
-          <Link
-            to="/"
-            onClick={handleLogout}
-            className="text-center navItem navHelpItem"
-            style={{ color: "white", textTransform: "capitalize" }}
-          >
-            Log out
-          </Link>
-          <div className="horizontalLaneBot"></div>
-        </Nav>
-      </Navbar>
+
+          <div className="logout-section">
+            <div className="horizontalLaneTop"></div>
+            <Link
+              to="/"
+              onClick={handleLogout}
+              className="text-center navItem navHelpItem"
+            >
+              Log out
+            </Link>
+            <div className="horizontalLaneBot"></div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
