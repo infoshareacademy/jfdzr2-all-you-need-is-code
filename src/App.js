@@ -10,7 +10,7 @@ import SignInPage from "./views/SignInPage";
 import LogInPage from "./views/LogInPage";
 import { Switch, Route } from "react-router-dom";
 import { UserContextProvider } from "./components/user-context/UserContextProvider";
-import { UserContext } from "./components/user-context/UserContext";
+import { PageWrapper } from "./common/PageWrapper";
 
 const theme = createMuiTheme({
   palette: {
@@ -25,38 +25,38 @@ const theme = createMuiTheme({
 
 function App() {
   return (
-    
-      <ThemeProvider theme={theme}>
-        <Switch>
-          <Route exact path="/">
-            <WelcomePage />
-          </Route>
-          <Route path="/sign-in">
-            <SignInPage />
-          </Route>
-          <Route path="/log-in">
-            <SignInPage />
-          </Route>
-          <UserContextProvider>
+    <ThemeProvider theme={theme}>
+      <Switch>
+        <Route exact path="/">
+          <WelcomePage />
+        </Route>
+        <Route path="/sign-in">
+          <SignInPage />
+        </Route>
+        <Route path="/log-in">
+          <SignInPage />
+        </Route>
+        <UserContextProvider>
           <Route path="/primary-survey">
             <PrimarySurvey />
           </Route>
-          <Route path="/main-page">
-            <MainPage />
-          </Route>
-          <Route path="/profile-page">
-            <ProfilePage />
-          </Route>
-          <Route path="/users-page">
-            <UsersPage />
-          </Route>
-          <Route path="/chat">
-            <ChatPage />
-          </Route>
-          </UserContextProvider>
-        </Switch>
-      </ThemeProvider>
-    
+          <PageWrapper>
+            <Route path="/main-page">
+              <MainPage />
+            </Route>
+            <Route path="/profile-page">
+              <ProfilePage />
+            </Route>
+            <Route path="/users-page">
+              <UsersPage />
+            </Route>
+            <Route path="/chat">
+              <ChatPage />
+            </Route>
+          </PageWrapper>
+        </UserContextProvider>
+      </Switch>
+    </ThemeProvider>
   );
 }
 

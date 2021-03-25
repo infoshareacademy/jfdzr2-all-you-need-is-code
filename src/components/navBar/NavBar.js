@@ -69,6 +69,7 @@ export const NavBar = () => {
               Log out
             </Link>
             <div className="horizontalLaneBot"></div>
+            <p className="copyright-text">Copyright © 2021 All U Need Is Code </p>
           </div>
         </div>
       </div>

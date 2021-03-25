@@ -1,55 +1,50 @@
-import { useEffect, useState } from "react";
-import { Paper, Typography, Button } from "@material-ui/core";
-import { Image } from "react-bootstrap";
-import firebase from "../../fire";
+import { Paper, Typography, Button, Avatar } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import defaultAvatar from "../../photos/profilePhotos/default.jpg";
+import { useContext } from "react";
+import { UserContext } from "../user-context/UserContext";
+
+const useStyles = makeStyles((theme) => ({
+  large: {
+    width: theme.spacing(16),
+    height: theme.spacing(16),
+  },
+}));
 
 export const ProfileInfo = () => {
-  const [profileInformation, setProfileInformation] = useState([]);
-  const [avatarUrl, setAvatarUrl] = useState('');
 
-  const user = firebase.auth().currentUser.uid;
-  const storage = firebase.storage();
-  const storageRef = storage.ref();
-  const avatarRef = storageRef.child(`images/${user}.jpg`);
+  const { user } = useContext(UserContext);
 
-  useEffect(() => {
-    firebase
-      .firestore()
-      .collection("Users")
-      .doc(user)
-      .onSnapshot((infoArray) => {
-        setProfileInformation(infoArray.data());
-      });
-    avatarRef.getDownloadURL().then((url) => {
-      setAvatarUrl(url);
-    });
-  }, []);
+  const classes = useStyles();
 
   return (
     <div className="profile-sections-container">
       <Paper elevation={3} className="profile-section">
-        <Image src={avatarUrl} fluid className="profilePhoto2 rounded mb-0" />
+      <Avatar
+                  className={classes.large}
+                  src={user.avatarUrl ? user.avatarUrl : defaultAvatar}
+                />
         <Typography variant="h5" color="inherit" style={{ fontWeight: "bold" }}>
-          {profileInformation?.name}
+          {user.name}
         </Typography>
         <Typography
           variant="p"
           color="inherit"
           style={{ textTransform: "capitalize" }}
         >
-          Experience: {profileInformation?.experience}
+          Experience: {user.experience}
         </Typography>
         <Typography
           variant="p"
           color="inherit"
           style={{ textTransform: "capitalize" }}
         >
-          Looking for: {profileInformation?.purpose}
+          Looking for: {user.purpose}
         </Typography>
         <Typography variant="p" color="inherit">
-          Location: {profileInformation?.location}
+          Location: {user.location}
         </Typography>
-        <Button color="primary" style={{ backgroundColor: "lightgrey" }}>
+        <Button color="primary" style={{ backgroundColor: "#6C7ED6" }}>
           Edit your profile
         </Button>
       </Paper>
@@ -58,7 +53,7 @@ export const ProfileInfo = () => {
           About:
         </Typography>
         <Typography variant="p" color="inherit">
-          {profileInformation?.about}
+          {user.about}
         </Typography>
       </Paper>
       <Paper elevation={3} className="profile-section">
@@ -66,7 +61,7 @@ export const ProfileInfo = () => {
           Technologies:
         </Typography>
         <ul style={{ color: "black" }}>
-          {profileInformation?.technologies?.map((technology, index) => {
+          {user.technologies?.map((technology, index) => {
             return (
               <li key={index} style={{ color: "black" }}>
                 {technology}
@@ -80,22 +75,9 @@ export const ProfileInfo = () => {
           Projects:
         </Typography>
         <Typography variant="p" color="inherit">
-          {profileInformation?.projects}
+          {user.projects}
         </Typography>
       </Paper>
     </div>
   );
 };
-
-// const userAvatarUrl = "";
-
-// useEffect(() => {
-//   userAvatar
-//     .getDownloadURL()
-//     .then((url) => {
-//       userAvatarUrl.fullPath = url;
-//     })
-//     .catch((error) =>{
-//       return alert('error, downloading avatar failed')
-//     })
-// }, []);

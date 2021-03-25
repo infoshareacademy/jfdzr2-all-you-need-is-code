@@ -5,7 +5,6 @@ import '../styles/ProfilePage.css'
 export const ProfilePage = () => {
     return (
         <div className='profile-page-container'>
-        <NavBar />
         <ProfileInfo />
         </div>
     )

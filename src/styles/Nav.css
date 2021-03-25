@@ -71,6 +71,13 @@
     align-items: center;
 }
 
+.copyright-text {
+    text-align: center;
+    color: white;
+    font-size: 0.75em;
+    margin-top: 1vh;
+}
+
 /***********USER****************/
 
 .profile-photo-section {
