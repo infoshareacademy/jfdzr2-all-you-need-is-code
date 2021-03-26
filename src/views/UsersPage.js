@@ -1,11 +1,11 @@
 import { NavBar } from '../components/navBar/NavBar';
-import { ProfileInfo } from '../components/profile-page/ProfileInfo'
+import { AllUsersInfo } from '../components/profile-page/AllUsersInfo'
 import '../styles/ProfilePage.css'
 
-export const ProfilePage = () => {
+export const UsersPage = () => {
     return (
         <div className='profile-page-container'>
-        <ProfileInfo />
+        <AllUsersInfo />
         </div>
     )
 }
