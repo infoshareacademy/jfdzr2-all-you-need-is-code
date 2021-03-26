@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
+import { UserContext } from "../user-context/UserContext";
 
 import { SurveySteps1 } from "./SurveySteps1";
 import { SurveySteps2 } from "./SurveySteps2";
@@ -15,15 +16,21 @@ import { Step4 } from "./Step4";
 import { Step4Location } from "./Step4Location";
 
 export const WizardForm = () => {
+  const { user } = useContext(UserContext);
+
   const [step, setStep] = useState(1);
   const [step1Values, setStep1Values] = useState({});
-  const [step1NameValues, setStep1Name] = useState("");
-  const [avatarUrl, setAvatarUrl] = useState('');
+  const [step1NameValues, setStep1Name] = useState(user.name);
+  const [avatarUrl, setAvatarUrl] = useState(user.avatarUrl);
   const [step2Values, setStep2Values] = useState({});
   const [step3Values, setStep3Values] = useState({});
-  const [step3ProjectsValues, setStep3ProjectsValues] = useState("");
-  const [step4Values, setStep4Values] = useState("");
-  const [step4LocationValues, setStep4LocationValues] = useState("");
+  const [step3ProjectsValues, setStep3ProjectsValues] = useState(user.projects);
+  const [step4Values, setStep4Values] = useState(user.about);
+  const [step4LocationValues, setStep4LocationValues] = useState(user.location);
+
+  useEffect(() => {
+    console.log(user.name)
+  }, [])
 
   const surveyAnswers = [step1NameValues, step1Values, step2Values,  step3Values, step4Values, step4LocationValues, step3ProjectsValues, avatarUrl];
 
@@ -63,7 +70,7 @@ export const WizardForm = () => {
               state={step1NameValues}
               onChange={handleStep1NameChange}
             />
-            <Step1Image currentAvatarUrl = {avatarUrl} changeAvatarUrl = {setAvatarUrl}  />
+            <Step1Image currentAvatarUrl = {avatarUrl} changeAvatarUrl = {setAvatarUrl} />
             </div>
             <Step1 state={step1Values} onChange={handleStep1Change} />
           </div>

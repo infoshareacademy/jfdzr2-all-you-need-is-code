@@ -8,6 +8,7 @@ export function PageWrapper({ children }) {
         display: "flex",
         justifyContent: "center",
         backgroundColor: '#e5e5e5',
+        minHeight: '100vh'
         // height: "100vh"
       }}
     >

@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import defaultAvatar from "../../photos/profilePhotos/default.jpg";
 import { useContext } from "react";
 import { UserContext } from "../user-context/UserContext";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   large: {
@@ -44,9 +45,11 @@ export const ProfileInfo = () => {
         <Typography variant="p" color="inherit">
           Location: {user.location}
         </Typography>
+        <Link to='/primary-survey'>
         <Button color="primary" style={{ backgroundColor: "#6C7ED6" }}>
           Edit your profile
         </Button>
+        </Link>
       </Paper>
       <Paper elevation={3} className="profile-section">
         <Typography variant="h6" color="inherit">

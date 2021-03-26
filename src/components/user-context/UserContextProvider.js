@@ -4,11 +4,13 @@ import firebase from "../../fire";
 import { UserContext } from "./UserContext";
 
 export const UserContextProvider = ({ children }) => {
-  const [userUid, setUserUid] = useState(null);
+  const [userUid, setUserUid] = useState('');
   const [user, setUser] = useState([]);
+  
+  const currentUser = firebase.auth().currentUser.uid;
 
   useEffect(() => {
-    const currentUser = firebase.auth().currentUser.uid;
+    console.log(currentUser)
     setUserUid(currentUser);
     console.log(userUid)
   }, []);
@@ -21,10 +23,14 @@ export const UserContextProvider = ({ children }) => {
         .doc(userUid)
         .onSnapshot((userArray) => {
           setUser(userArray.data());
-          console.log(user)
         });
     }
   }, [userUid]);
+
+  useEffect(() => {
+    console.log(userUid)
+    console.log(user)
+  }, [user])
 
 return <UserContext.Provider value={{user}}>
     {children}
