@@ -1,43 +1,78 @@
-import { Navbar, Nav, Image } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.css'
-import './Nav.css'
-import logo from '../../logo/FindIT_white.png';
-import profilePhoto from '../../photos/profilePhotos/profilePhoto.jpeg'
-import { Link } from 'react-router-dom';
-import fire from '../../fire';
+import { Navbar, Nav, Image } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.css";
+import "../../styles/Nav.css";
+import logo from "../../logo/FindIT_white_cropped.png";
+import defaultAvatar from "../../photos/profilePhotos/default.jpg";
+import { Avatar } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
+import { Link, NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../user-context/UserContext";
+import fire from "../../fire";
 
+const useStyles = makeStyles((theme) => ({
+  large: {
+    width: theme.spacing(13),
+    height: theme.spacing(13),
+  },
+}));
 
 export const NavBar = () => {
   const handleLogout = () => {
     fire.auth().signOut();
-  }
-    return <>
-    
-    <Navbar  className="navbar">
-      
-      <Nav className="flex-column ">
-            
-            <div className="profilePhotoSection">
-            <Image src={logo} className="logoPhoto "  /> 
-            
-            <Link to='/profile-page'>
-            <Image src={profilePhoto} fluid className="profilePhoto rounded mb-0" /> 
-            </Link>
+  };
 
+  const classes = useStyles();
+
+  const { user } = useContext(UserContext);
+
+  return (
+    <>
+      <div className="navbar">
+        <div className="flex-container">
+          <div className="links-container">
+            <div className="profile-photo-section">
+              <Link to="/main-page" className='logo-section'>
+                <Image src={logo} className="logoPhoto" />
+              </Link>
+              <Link to="/profile-page" className="profile-link">
+                <Avatar
+                  className={classes.large}
+                  src={user.avatarUrl ? user.avatarUrl : defaultAvatar}
+                />
+                <p className="user-name">{user.name ? user.name : ""}</p>
+              </Link>
             </div>
-            
-            <Link to='/main-page' className="text-center navItem" style={{color:'white'}}>Home</Link>
-            <Link to='/chat' className="text-center navItem" style={{color:'white'}}>Chat</Link>
-            <Nav.Link  className="text-center navItem" style={{color:'white'}} >People</Nav.Link>
-            <Nav.Link className="text-center navItem" style={{color:'white'}} >Your adds</Nav.Link>
-            <Nav.Link className="text-center navItem " style={{color:'white'}} >Location</Nav.Link>
+
+            <div className="links-section">
+              <NavLink to="/main-page" className="text-center navItem">
+                home
+              </NavLink>
+              <NavLink to="/chat" className="text-center navItem">
+                chat
+              </NavLink>
+              <NavLink to="/users-page" className="text-center navItem">
+                users
+              </NavLink>
+              <Nav.Link className="text-center navItem">your posts</Nav.Link>
+            </div>
+          </div>
+
+          <div className="logout-section">
             <div className="horizontalLaneTop"></div>
-            <Link to='/' onClick={handleLogout} className="text-center navItem navHelpItem" style={{color:'white'}} >Log out</Link>
+            <Link
+              to="/"
+              onClick={handleLogout}
+              className="text-center navItem navHelpItem"
+            >
+              Log out
+            </Link>
             <div className="horizontalLaneBot"></div>
-            
-      </Nav>
-    </Navbar>
-    
-  </>
-}
+            <p className="copyright-text">Copyright © 2021 All U Need Is Code </p>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};

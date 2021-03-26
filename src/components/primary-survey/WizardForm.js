@@ -18,13 +18,14 @@ export const WizardForm = () => {
   const [step, setStep] = useState(1);
   const [step1Values, setStep1Values] = useState({});
   const [step1NameValues, setStep1Name] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState('');
   const [step2Values, setStep2Values] = useState({});
   const [step3Values, setStep3Values] = useState({});
   const [step3ProjectsValues, setStep3ProjectsValues] = useState("");
   const [step4Values, setStep4Values] = useState("");
   const [step4LocationValues, setStep4LocationValues] = useState("");
 
-  const surveyAnswers = [step1NameValues, step1Values, step2Values,  step3Values, step4Values, step4LocationValues, step3ProjectsValues];
+  const surveyAnswers = [step1NameValues, step1Values, step2Values,  step3Values, step4Values, step4LocationValues, step3ProjectsValues, avatarUrl];
 
   const handleStep1Change = (event) => {
     setStep1Values({ [event.target.id]: event.target.checked });
@@ -62,7 +63,7 @@ export const WizardForm = () => {
               state={step1NameValues}
               onChange={handleStep1NameChange}
             />
-            <Step1Image />
+            <Step1Image currentAvatarUrl = {avatarUrl} changeAvatarUrl = {setAvatarUrl}  />
             </div>
             <Step1 state={step1Values} onChange={handleStep1Change} />
           </div>

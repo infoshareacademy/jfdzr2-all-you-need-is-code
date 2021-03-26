@@ -1,0 +1,120 @@
+/***********NAVBAR****************/
+
+.navbar{ 
+    position: fixed;
+    top: 2vh;
+    left: 2vh;
+    display: block;
+    background-color: #4853A4;
+    /* width: 250px; */
+    width: 18vw;
+    height: 96vh;
+    color: #000000; 
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.links-container {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+}
+
+.links-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.logout-section {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3vh;
+}
+
+.navItem{
+    letter-spacing: 0.05em;
+    padding: 7%;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    width: 100%;
+    color: white;
+    text-transform: capitalize;
+}
+
+.navHelpItem{
+    margin-top:5% ;
+    margin-bottom: 5%;
+}
+.horizontalLaneTop{
+    margin-top: 5%;
+    width: 100%;
+    height: 1px;
+    background-color: #656CA2;}
+.horizontalLaneBot{
+        width: 100%;
+        height: 1px;
+        background-color: #656CA2;
+    
+    }
+.navItem:hover{
+    background-color: #6C7ED6;
+    color: white;
+}
+
+.flex-column {
+    align-items: center;
+}
+
+.copyright-text {
+    text-align: center;
+    color: white;
+    font-size: 0.75em;
+    margin-top: 1vh;
+}
+
+/***********USER****************/
+
+.profile-photo-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 16vw;
+}
+
+.profile-link {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 0 3vh;
+}
+
+.user-name {
+    color: white;
+    text-align: center;
+    letter-spacing: 0.05em;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    margin: 1.5vh 0 0;
+    padding: 0;
+}
+
+.logo-section {    
+    margin: 1vh 0 1vh;
+    width: 100%;
+    text-align: center;
+}
+
+.logoPhoto{
+    width: 70%;
+    height: auto;
+    margin: 0;
+}
