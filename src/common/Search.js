@@ -1,35 +1,36 @@
 import TextField from "@material-ui/core/TextField";
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import fire from "../fire"
 import {db} from "../fire"
+
+// https://www.youtube.com/watch?v=T-GfSkC1JpE
+// https://clipversity.medium.com/integrating-react-select-and-firebase-firestore-for-text-searching-e1a3f805f7d7
 
 export const Search = ({onFilterChange}) => {
     const [filter, setFilter] = useState('')
     const [list, setList] = useState([])
 
-    const handleUsers = () => {
+   
+      function getData() {
       db.collection("Users").where("name", ">=", `${filter}`).where("name", "<=", `${filter}`+'\uf8ff')
-
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) =>
-        setList([...list, 
-          { 
-          id: doc.id,
-          name: doc.data().name
-        }
-      ])
-        // console.log(doc.id, "=>", doc.data().name)
-        );
+        .get()
+        .then((querySnapshot) => {
+          const searchResults = [];
+          querySnapshot.forEach((doc) => {
+            searchResults.push(doc.data().name);
+          
+          // console.log(doc.id, "=>", doc.data().name)
+          // setList([doc.data().name])
       });
-     }
-  
+      setList(searchResults);
+    });
+  }
+
+
     const handleOnChange = (event) => {
         setFilter(event.target.value);
         onFilterChange(event.target.value);
-        handleUsers();
-        console.log(list)
-
+        getData()
       }
 
     
@@ -43,7 +44,11 @@ export const Search = ({onFilterChange}) => {
       fullWidth
     />
 <div>
-  {list[0].name}
+  wyniki wyszukiwania:
+  <div>
+
+  {list}
+  </div>
 </div>  
 </div>
     };

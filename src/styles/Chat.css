@@ -1,7 +1,8 @@
 .chat-section {
     width: 100%;
     height: 80vh;
-    padding-top: 15px;
+    padding-top: 20px;
+    height: 84vh;
   }
 
 .head-bg {
@@ -24,11 +25,11 @@
   }
 
 
-
+/* 
 .chat-page-container {
   margin: 2vh 40vh 2vh;
 }
-  
+   */
   
 
   .chat-main {

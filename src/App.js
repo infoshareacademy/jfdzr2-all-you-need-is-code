@@ -8,9 +8,13 @@ import { NavBar } from "./components/navBar/NavBar";
 import { ChatPage } from "./views/ChatPage";
 import SignInPage from "./views/SignInPage";
 import LogInPage from "./views/LogInPage";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { UserContextProvider } from "./components/user-context/UserContextProvider";
 import { PageWrapper } from "./common/PageWrapper";
+import {useState, useEffect} from 'react'
+import fire from './fire'
+
+
 
 const theme = createMuiTheme({
   palette: {
