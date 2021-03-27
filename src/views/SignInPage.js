@@ -5,16 +5,9 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Logo from "../logo/FindIT.png";
 import SignIn from "../components/WelcomePage/SignIn";
-import { Typography } from "@material-ui/core";
 import "../styles/WelcomePage.css";
-import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
-import {LogInBtn} from '../components/WelcomePage/Buttons'
-import {SignInBtn} from '../components/WelcomePage/Buttons'
 import {useState, useEffect} from 'react';
 import fire from "../fire";
-import db from '../fire';
-import MainPage from './MainPage'
 import { PrimarySurvey } from '../views/PrimarySurvey'
 
 
@@ -72,28 +65,6 @@ export default function SignInPage() {
     setPassword('');
   }
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    setEmailError("");
-    setPasswordError("");
-    fire
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .catch((err) => {
-        switch (err.code) {
-          case "auth/invalid-email":
-          case "auth/user-disabled":
-          case "auth//user-not-found":
-            setEmailError(err.message);
-            break;
-          case "auth/wrong-password":
-            setPasswordError(err.message);
-            break;
-        }
-      });
-  };
-
-
   const handleSignup = (e) => {
     e.preventDefault();
     setEmailError("");
@@ -131,7 +102,6 @@ useEffect(() => {
     <div>
       {user ? (
       <PrimarySurvey />
-      // <MainPage handleLogout={handleLogout}/>
       ): (
       <Grid container spacing={0} className={classes.root}>
       <CssBaseline />
@@ -139,14 +109,10 @@ useEffect(() => {
         <Paper className={classes.paper} elevation={6} square>
           <Paper className={classes.background1} elevation={3}>
           <SignIn
-          email={email}
           setEmail={setEmail}
           password = {setPassword}
           setPassword={setPassword}
-          handleLogin={handleLogin}
           handleSignup={handleSignup}
-          hasAccount={hasAccount}
-          setHasAccount={setHasAccount}
           emailError={emailError}
           passwordError={passwordError}
           />
