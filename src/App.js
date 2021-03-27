@@ -11,10 +11,8 @@ import LogInPage from "./views/LogInPage";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { UserContextProvider } from "./components/user-context/UserContextProvider";
 import { PageWrapper } from "./common/PageWrapper";
-import {useState, useEffect} from 'react'
-import fire from './fire'
-
-
+import { useState, useEffect } from "react";
+import fire from "./fire";
 
 const theme = createMuiTheme({
   palette: {
@@ -38,7 +36,7 @@ function App() {
           <SignInPage />
         </Route>
         <Route path="/log-in">
-          <SignInPage />
+          <LogInPage />
         </Route>
         <UserContextProvider>
           <Route path="/primary-survey">
@@ -63,27 +61,29 @@ function App() {
     </ThemeProvider>
   );
 }
-const PrivateRoute = ({children, ...rest}) => {
+const PrivateRoute = ({ children, ...rest }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [status, setStatus] = useState('idle')
+  const [status, setStatus] = useState("idle");
   useEffect(() => {
-    setStatus('loading')
-  fire.auth().onAuthStateChanged((user) => {
+    setStatus("loading");
+    fire.auth().onAuthStateChanged((user) => {
       setIsLoggedIn(Boolean(user));
-      setStatus('resolved')
+      setStatus("resolved");
     });
   }, []);
   if (status === "loading") {
-    return <p>loading...</p>
+    return <p>loading...</p>;
   }
-  return status === "resolved" && <Route
-      {...rest}
-      render={({ location }) =>
-        isLoggedIn ? (
-          children
-        ) : (  <Redirect to="/log-in" />)
-        } />
+  return (
+    status === "resolved" && (
+      <Route
+        {...rest}
+        render={({ location }) =>
+          isLoggedIn ? children : <Redirect to="/log-in" />
+        }
+      />
+    )
+  );
 };
-
 
 export default App;
