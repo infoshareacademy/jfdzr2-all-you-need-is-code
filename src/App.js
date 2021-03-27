@@ -7,9 +7,11 @@ import MainPage from "./views/MainPage";
 import { ChatPage } from "./views/ChatPage";
 import SignInPage from "./views/SignInPage";
 import LogInPage from "./views/LogInPage";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { UserContextProvider } from "./components/user-context/UserContextProvider";
 import { PageWrapper } from "./common/PageWrapper";
+import { useState, useEffect } from "react";
+import fire from "./fire";
 
 const theme = createMuiTheme({
   palette: {
@@ -34,7 +36,7 @@ function App() {
         </Route>
 
         <Route path="/log-in">
-          <SignInPage />
+          <LogInPage />
         </Route>
 
         <UserContextProvider>
@@ -70,5 +72,29 @@ function App() {
     </ThemeProvider>
   );
 }
+const PrivateRoute = ({ children, ...rest }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [status, setStatus] = useState("idle");
+  useEffect(() => {
+    setStatus("loading");
+    fire.auth().onAuthStateChanged((user) => {
+      setIsLoggedIn(Boolean(user));
+      setStatus("resolved");
+    });
+  }, []);
+  if (status === "loading") {
+    return <p>loading...</p>;
+  }
+  return (
+    status === "resolved" && (
+      <Route
+        {...rest}
+        render={({ location }) =>
+          isLoggedIn ? children : <Redirect to="/log-in" />
+        }
+      />
+    )
+  );
+};
 
 export default App;
