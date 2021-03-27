@@ -27,32 +27,36 @@ export const ProfileInfo = () => {
   return (
     <div className="profile-sections-container">
       <Paper elevation={3} className="profile-section">
-        <Avatar
-          className={classes.large}
-          src={user.avatarUrl ? user.avatarUrl : defaultAvatar}
-        />
+      <Avatar
+                  className={classes.large}
+                  src={user?.avatarUrl? user.avatarUrl : defaultAvatar}
+                />
         <Typography variant="h5" color="inherit" style={{ fontWeight: "bold" }}>
-          {user.name}
+          {user?.name}
         </Typography>
         <Typography
           variant="p"
           color="inherit"
           style={{ textTransform: "capitalize" }}
         >
-          Experience: {user.experience}
+          Experience: {user?.experience}
         </Typography>
         <Typography variant="p" color="inherit">
           Looking for:
-          {user.purpose[0] === "projectpartner" && ` Project partner`}
-          {user.purpose[0] === "projecttojoin" && ` Project to join`}
-          {user.purpose[0] === "lookingaround" && ` Just looking around`}
+          
+          {user !== undefined && user.purpose[0] === "projectpartner" && ` Project partner`}
+          {user !== undefined && user.purpose[0] === "projecttojoin" && ` Project to join`}
+          {user !== undefined && user.purpose[0] === "lookingaround" && ` Just looking around`}
         </Typography>
         <Typography
           variant="p"
           color="inherit"
           style={{ textTransform: "capitalize" }}
         >
-          Location: {user.location}
+          Looking for: {user?.purpose}
+        </Typography>
+        <Typography variant="p" color="inherit">
+          Location: {user?.location}
         </Typography>
         <a target="_blank" href="Https://Github.Com/MichalNielubszyc">
           <Typography
@@ -89,12 +93,8 @@ export const ProfileInfo = () => {
         <Typography variant="h6" color="inherit">
           About:
         </Typography>
-        <Typography
-          variant="p"
-          color="inherit"
-          className="profile-section-content"
-        >
-          {user.about}
+        <Typography variant="p" color="inherit">
+          {user?.about}
         </Typography>
       </Paper>
 
@@ -103,8 +103,8 @@ export const ProfileInfo = () => {
         <Typography variant="h6" color="inherit">
           Technologies:
         </Typography>
-        <ul className="technologies-list">
-          {user.technologies?.map((technology, index) => {
+        <ul style={{ color: "black" }}>
+          {user?.technologies?.map((technology, index) => {
             return (
               <li className="technologies-list-item" key={index}>
                 {technology}
@@ -119,12 +119,8 @@ export const ProfileInfo = () => {
         <Typography variant="h6" color="inherit">
           Projects:
         </Typography>
-        <Typography
-          variant="p"
-          color="inherit"
-          className="profile-section-content"
-        >
-          {user.projects}
+        <Typography variant="p" color="inherit">
+          {user?.projects}
         </Typography>
       </Paper>
     </div>

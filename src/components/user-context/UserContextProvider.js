@@ -10,9 +10,7 @@ export const UserContextProvider = ({ children }) => {
   const currentUser = firebase.auth().currentUser.uid;
 
   useEffect(() => {
-    console.log(currentUser)
     setUserUid(currentUser);
-    console.log(userUid)
   }, []);
 
   useEffect(() => {
@@ -26,11 +24,6 @@ export const UserContextProvider = ({ children }) => {
         });
     }
   }, [userUid]);
-
-  useEffect(() => {
-    console.log(userUid)
-    console.log(user)
-  }, [user])
 
 return <UserContext.Provider value={{user}}>
     {children}
