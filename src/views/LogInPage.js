@@ -9,7 +9,7 @@ import "../styles/WelcomePage.css";
 import {useState, useEffect} from 'react';
 import fire from "../fire";
 import MainPage from '../views/MainPage'
-
+import { Redirect } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -102,7 +102,10 @@ useEffect(() => {
   return ( 
     <div>
       {user ? (
+        <>
+      <Redirect to='/main-page' />
       <MainPage />
+      </>
       ): (
       <Grid container spacing={0} className={classes.root}>
       <CssBaseline />

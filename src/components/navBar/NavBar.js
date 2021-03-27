@@ -39,9 +39,9 @@ export const NavBar = () => {
               <Link to="/profile-page" className="profile-link">
                 <Avatar
                   className={classes.large}
-                  src={user.avatarUrl ? user.avatarUrl : defaultAvatar}
+                  src={user?.avatarUrl? user.avatarUrl : defaultAvatar}
                 />
-                <p className="user-name">{user.name ? user.name : ""}</p>
+                <p className="user-name">{user?.name? user.name : ""}</p>
               </Link>
             </div>
 

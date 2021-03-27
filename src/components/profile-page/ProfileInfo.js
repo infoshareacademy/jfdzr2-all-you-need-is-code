@@ -22,27 +22,27 @@ export const ProfileInfo = () => {
       <Paper elevation={3} className="profile-section">
       <Avatar
                   className={classes.large}
-                  src={user.avatarUrl ? user.avatarUrl : defaultAvatar}
+                  src={user?.avatarUrl? user.avatarUrl : defaultAvatar}
                 />
         <Typography variant="h5" color="inherit" style={{ fontWeight: "bold" }}>
-          {user.name}
+          {user?.name}
         </Typography>
         <Typography
           variant="p"
           color="inherit"
           style={{ textTransform: "capitalize" }}
         >
-          Experience: {user.experience}
+          Experience: {user?.experience}
         </Typography>
         <Typography
           variant="p"
           color="inherit"
           style={{ textTransform: "capitalize" }}
         >
-          Looking for: {user.purpose}
+          Looking for: {user?.purpose}
         </Typography>
         <Typography variant="p" color="inherit">
-          Location: {user.location}
+          Location: {user?.location}
         </Typography>
         <Button color="primary" style={{ backgroundColor: "#6C7ED6" }}>
           Edit your profile
@@ -53,7 +53,7 @@ export const ProfileInfo = () => {
           About:
         </Typography>
         <Typography variant="p" color="inherit">
-          {user.about}
+          {user?.about}
         </Typography>
       </Paper>
       <Paper elevation={3} className="profile-section">
@@ -61,7 +61,7 @@ export const ProfileInfo = () => {
           Technologies:
         </Typography>
         <ul style={{ color: "black" }}>
-          {user.technologies?.map((technology, index) => {
+          {user?.technologies?.map((technology, index) => {
             return (
               <li key={index} style={{ color: "black" }}>
                 {technology}
@@ -75,7 +75,7 @@ export const ProfileInfo = () => {
           Projects:
         </Typography>
         <Typography variant="p" color="inherit">
-          {user.projects}
+          {user?.projects}
         </Typography>
       </Paper>
     </div>
