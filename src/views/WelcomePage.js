@@ -75,10 +75,6 @@ export default function WelcomePage() {
            <SignInBtn />
           </Grid>
           </Grid>
-          {/* <div className={classes.emptyspace}> 
-          <p className={classes.footer}>Project as part of the InfoShare Academy bootcamp made with ❤️ by: 
-          <p>@Daria @Kamil @Michal</p></p>
-          </div> */}
         </Paper>
       </Grid>
     </Grid>

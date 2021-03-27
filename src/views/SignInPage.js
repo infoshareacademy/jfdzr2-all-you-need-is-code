@@ -65,28 +65,6 @@ export default function SignInPage() {
     setPassword('');
   }
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    setEmailError("");
-    setPasswordError("");
-    fire
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .catch((err) => {
-        switch (err.code) {
-          case "auth/invalid-email":
-          case "auth/user-disabled":
-          case "auth//user-not-found":
-            setEmailError(err.message);
-            break;
-          case "auth/wrong-password":
-            setPasswordError(err.message);
-            break;
-        }
-      });
-  };
-
-
   const handleSignup = (e) => {
     e.preventDefault();
     setEmailError("");
@@ -131,14 +109,10 @@ useEffect(() => {
         <Paper className={classes.paper} elevation={6} square>
           <Paper className={classes.background1} elevation={3}>
           <SignIn
-          email={email}
           setEmail={setEmail}
           password = {setPassword}
           setPassword={setPassword}
-          handleLogin={handleLogin}
           handleSignup={handleSignup}
-          hasAccount={hasAccount}
-          setHasAccount={setHasAccount}
           emailError={emailError}
           passwordError={passwordError}
           />

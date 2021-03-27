@@ -1,17 +1,14 @@
+import React from 'react'
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Logo from "../logo/FindIT.png";
 import LogIn from "../components/WelcomePage/LogIn";
-import { Typography } from "@material-ui/core";
 import "../styles/WelcomePage.css";
-import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
-import {LogInBtn} from '../components/WelcomePage/Buttons';
-import {SignInBtn} from '../components/WelcomePage/Buttons';
 import {useState, useEffect} from 'react';
 import fire from "../fire";
+import MainPage from '../views/MainPage'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -42,18 +39,33 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justify: "center",
   },
+  background1: {
+    backgroundColor:
+      theme.palette.type === "light"
+        ? theme.palette.grey[50]
+        : theme.palette.grey[900],
+    margin: "20px",
+    padding: "80px 50px",
+  },
+  
 }));
 
-export default function LogInPage() {
+export default function SignInPage() {
   const classes = useStyles();
-  const [user, setUser] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [hasAccount, setHasAccount] = useState(false);
+  const [user, setUser] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
-  const handleLogin = () => {
+
+  const clearInputs = () => {
+    setEmail('');
+    setPassword('');
+  }
+
+  const handleLogin = (e) => {
+    e.preventDefault();
     setEmailError("");
     setPasswordError("");
     fire
@@ -74,50 +86,42 @@ export default function LogInPage() {
   };
 
 
-  const AuthListener = () => {
-    const [user, setUser] = useState('');
-    fire.auth().onAuthStateChanged((user) => {
-        if (user) {
+useEffect(() => {
+  fire.auth().onAuthStateChanged((user) => {
+      if (user) {
+          clearInputs();
           setEmail('');
           setPassword('');
           setUser(user);
-        } else {
-        setUser("");
-    }
-        });
-}
-
-useEffect(() => {
-    AuthListener();
+      } else {
+      setUser("");
+  }
+      });
 }, []);
 
-
-
-  return (
-    <Grid container spacing={0} className={classes.root}>
+  return ( 
+    <div>
+      {user ? (
+      <MainPage />
+      ): (
+      <Grid container spacing={0} className={classes.root}>
       <CssBaseline />
-      <Grid item xs={false} sm={4} md={5} className={classes.image} />
-      <Grid item xs={12} sm={8} md={7}>
+      <Grid item xs={4}/>
         <Paper className={classes.paper} elevation={6} square>
-          <Typography variant="h5" color="white" align="left">
-            <div className={classes.welcome}>Log In</div>
-          </Typography>
-          <Typography align="justify" variant="body4">
-          </Typography>
-        <Grid container>
-          <LogIn 
+          <Paper className={classes.background1} elevation={3}>
+          <LogIn
           email={email}
-          password={password}
+          setEmail={setEmail}
+          password = {setPassword}
+          setPassword={setPassword}
           handleLogin={handleLogin}
-          hasAccount={hasAccount}
-          setHasAccount={setHasAccount}
           emailError={emailError}
           passwordError={passwordError}
-
           />
-          </Grid>
+          </Paper>
         </Paper>
       </Grid>
-    </Grid>
+      )}
+</div>
   );
 }
