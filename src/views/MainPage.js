@@ -13,7 +13,6 @@ import {
 import { propTypes } from "react-bootstrap/esm/Image";
 import { Link } from "react-router-dom";
 export default function MainPage() {
-  const [lenght, setLenght] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [posts, setPosts] = useState([]);
   const handleLogout = () => {
@@ -21,29 +20,36 @@ export default function MainPage() {
   };
   function toggleModal() {
     setIsModalOpen((current) => !current);
-    console.log(isModalOpen)
-    if(isModalOpen){
+    console.log(isModalOpen);
+    if (isModalOpen) {
       document.querySelector(".page").style.opacity = "1";
-    }
-    else{
+    } else {
       document.querySelector(".page").style.opacity = "0.5";
     }
   }
   useEffect(() => {
     const unsubscribe = fire
-    .firestore()
-    .collection("Posts")
-    .onSnapshot((querySnapshot) => {
-      const posts = [];
-      querySnapshot.forEach((doc) => {
-        posts.push({
-          id: doc.id,
-          ...doc.data(),
-        });
-      });
-      setPosts(posts)
-    });
-    
+      .firestore()
+      .collection("Posts")
+      .onSnapshot((querySnapshot) => {
+        const posts = [];
+        let i=0;
+        querySnapshot.forEach((doc) => {
+          i++
+          fire.firestore().collection("Posts").doc(doc.id).collection("Likes").get().then((snap)=>{
+            
+            posts.push({
+              id: doc.id,
+              likesCounter:snap.size,
+              ...doc.data(),
+            })
+            if(i===querySnapshot.size){
+              console.log(posts)
+              setPosts(posts)
+            }  
+          })
+        })
+      })
   }, []);
   return (
     <>
@@ -64,7 +70,7 @@ export default function MainPage() {
                   </Link>
                 </button>
               </div>
-            </div>
+            </div>          
             {posts.map((post) => (
               <div>
                 {
