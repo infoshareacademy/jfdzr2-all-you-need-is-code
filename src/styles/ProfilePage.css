@@ -1,8 +1,4 @@
 .profile-page-container {
-    /* margin-top: 2vh; */
-    /* margin-left: calc(250px + 2vh);
-    margin-right: calc(250px + 2vh); */
-    background-color:#e5e5e5;
     display: flex;
     justify-content: center;
 }
@@ -12,16 +8,28 @@
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
+    grid-gap: 30px;
 }
 
 .profile-section {
    display: flex;
    flex-direction: column;
    align-items: center;
-   padding: 20px;
+   padding: 30px;
 }
 
-.profilePhoto2 {
-    width: 40%;
+.profile-section-content {
+    padding: 20px;
+}
+
+.technologies-list {
+    color: black;
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+    padding: 20px;
+}
+
+.technologies-list-item {
+    margin-right: 20px;
 }

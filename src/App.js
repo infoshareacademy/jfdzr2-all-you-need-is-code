@@ -4,7 +4,6 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import { ProfilePage } from "./views/ProfilePage";
 import { UsersPage } from "./views/UsersPage";
 import MainPage from "./views/MainPage";
-import { NavBar } from "./components/navBar/NavBar";
 import { ChatPage } from "./views/ChatPage";
 import SignInPage from "./views/SignInPage";
 import LogInPage from "./views/LogInPage";
@@ -33,27 +32,39 @@ function App() {
         <Route path="/sign-in">
           <SignInPage />
         </Route>
+
         <Route path="/log-in">
           <SignInPage />
         </Route>
+
         <UserContextProvider>
           <Route path="/primary-survey">
             <PrimarySurvey />
           </Route>
-          <PageWrapper>
-            <Route path="/main-page">
+
+          <Route path="/main-page">
+            <PageWrapper>
               <MainPage />
-            </Route>
-            <Route path="/profile-page">
+            </PageWrapper>
+          </Route>
+
+          <Route path="/profile-page">
+            <PageWrapper>
               <ProfilePage />
-            </Route>
-            <Route path="/users-page">
+            </PageWrapper>
+          </Route>
+
+          <Route path="/users-page">
+            <PageWrapper>
               <UsersPage />
-            </Route>
-            <Route path="/chat">
+            </PageWrapper>
+          </Route>
+
+          <Route path="/chat">
+            <PageWrapper>
               <ChatPage />
-            </Route>
-          </PageWrapper>
+            </PageWrapper>
+          </Route>
         </UserContextProvider>
       </Switch>
     </ThemeProvider>
