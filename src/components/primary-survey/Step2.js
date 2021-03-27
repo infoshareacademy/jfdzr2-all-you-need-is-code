@@ -22,9 +22,11 @@ export const Step2 = ({ state, onChange: handleStep2Change }) => {
     "Java",
     "Python",
     "Ruby on Rails",
-    "C#",
     "PHP.",
     "Kotlin",
+    "C#",
+    'C',
+    'C++'
   ];
 
   return (

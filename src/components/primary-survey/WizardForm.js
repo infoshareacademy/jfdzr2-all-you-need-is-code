@@ -25,8 +25,8 @@ export const WizardForm = () => {
   const [step1NameValues, setStep1Name] = useState(user.name);
   const [avatarUrl, setAvatarUrl] = useState(user.avatarUrl);
   const [step2Values, setStep2Values] = useState({});
-  const [step2GithubValues, setStep2GithubValues] = useState('');
-  const [step2LinkedInValues, setStep2LinkedInValues] = useState('');
+  const [step2GithubValues, setStep2GithubValues] = useState(user.github);
+  const [step2LinkedInValues, setStep2LinkedInValues] = useState(user.linkedin);
   const [step3Values, setStep3Values] = useState({});
   const [step3ProjectsValues, setStep3ProjectsValues] = useState(user.projects);
   const [step4Values, setStep4Values] = useState(user.about);
