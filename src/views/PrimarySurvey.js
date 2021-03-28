@@ -3,8 +3,12 @@ import '../styles/PrimarySurvey.css';
 import logo from '../logo/FindITRotated.png';
 
 import { WizardForm } from '../components/primary-survey/WizardForm'
+import { useContext } from "react";
+import { UserContext } from "../components/user-context/UserContext";
 
 export const PrimarySurvey = () => {
+  const { user } = useContext(UserContext);
+
   return (
     <div className="primary-survey">
       <div className="logo-column"><img src={logo} alt='FindIT-logo'/></div>
@@ -16,7 +20,8 @@ export const PrimarySurvey = () => {
         <Typography variant="h5" color='primary'>
           Answer a few simple questions
         </Typography>
-        <WizardForm />
+        {user && <WizardForm /> 
+        }
       </div>
       <div className="right-column"></div>
     </div>
