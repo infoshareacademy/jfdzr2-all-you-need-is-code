@@ -9,12 +9,7 @@ import { TodayTwoTone } from "@material-ui/icons";
 export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
   const [postActive, setpostActive] = useState(true);
   const [length, setLength] = useState(0);
-  function loadPosts(){
-    
-  }
-  
-    
-  
+  function loadPosts() {}
 
   const formik = useFormik({
     initialValues: {
@@ -25,21 +20,42 @@ export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
     onSubmit: (values) => {
       document.querySelector(".page").style.opacity = "1";
       var today = new Date();
-      if(today.getMonth().lenght===1){
-        var date = today.getFullYear()+'-'+'0'+(today.getMonth()+1)+'-'+today.getDate()+'-'+ today.getHours()+':'+today.getMinutes();
+      if (today.getMonth().lenght === 1) {
+        var date =
+          today.getFullYear() +
+          "-" +
+          "0" +
+          (today.getMonth() + 1) +
+          "-" +
+          today.getDate() +
+          "-" +
+          today.getHours() +
+          ":" +
+          today.getMinutes();
+      } else {
+        var date =
+          today.getFullYear() +
+          "-" +
+          (today.getMonth() + 1) +
+          "-" +
+          today.getDate() +
+          "-" +
+          today.getHours() +
+          ":" +
+          today.getMinutes();
       }
-     else{
-      var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()+'-'+ today.getHours()+':'+today.getMinutes();
-     }
       document.querySelector("#ModalCreatePost").style.display = "none";
-      fire.firestore().collection("Posts").add({
-        title: values["name"],
-        text: values["comment"],
-        time:date
-      })
-    .then((docRef) => {
-    console.log("Document written with ID: ", docRef.id);
-    })
+      fire
+        .firestore()
+        .collection("Posts")
+        .add({
+          title: values["name"],
+          text: values["comment"],
+          time: date,
+        })
+        .then((docRef) => {
+          console.log("Document written with ID: ", docRef.id);
+        });
       formik.values.comment = "";
       formik.values.title = "";
     },

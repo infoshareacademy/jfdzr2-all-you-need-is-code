@@ -33,23 +33,28 @@ export default function MainPage() {
       .collection("Posts")
       .onSnapshot((querySnapshot) => {
         const posts = [];
-        let i=0;
+        let i = 0;
         querySnapshot.forEach((doc) => {
-          i++
-          fire.firestore().collection("Posts").doc(doc.id).collection("Likes").get().then((snap)=>{
-            
-            posts.push({
-              id: doc.id,
-              likesCounter:snap.size,
-              ...doc.data(),
-            })
-            if(i===querySnapshot.size){
-              console.log(posts)
-              setPosts(posts)
-            }  
-          })
-        })
-      })
+          i++;
+          fire
+            .firestore()
+            .collection("Posts")
+            .doc(doc.id)
+            .collection("Likes")
+            .get()
+            .then((snap) => {
+              posts.push({
+                id: doc.id,
+                likesCounter: snap.size,
+                ...doc.data(),
+              });
+              if (i === querySnapshot.size) {
+                console.log(posts);
+                setPosts(posts);
+              }
+            });
+        });
+      });
   }, []);
   return (
     <>
@@ -70,7 +75,7 @@ export default function MainPage() {
                   </Link>
                 </button>
               </div>
-            </div>          
+            </div>
             {posts.map((post) => (
               <div>
                 {

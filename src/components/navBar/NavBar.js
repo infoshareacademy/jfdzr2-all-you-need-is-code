@@ -2,7 +2,7 @@ import { Navbar, Nav, Image } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css'
 import './Nav.css'
 import logo from '../../logo/FindIT_white.png';
-import profilePhoto from '../../photos/profilePhotos/profilePhoto.jpeg'
+// import profilePhoto from '../../styles/photos/profilePhotos'
 import { Link } from 'react-router-dom';
 
 export const NavBar = () => {
@@ -16,7 +16,7 @@ export const NavBar = () => {
             <Image src={logo} className="logoPhoto "  /> 
             
             <Link to='/profile-page'>
-            <Image src={profilePhoto} fluid className="profilePhoto rounded mb-0" /> 
+            {/* <Image src={profilePhoto} fluid className="profilePhoto rounded mb-0" />  */}
             </Link>
 
             </div>

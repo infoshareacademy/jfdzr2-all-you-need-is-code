@@ -65,9 +65,13 @@
     padding-left: 10px;
 }
 .comentSection{
+    background-color: transparent;
+    border: none;
+    outline: none;
     display: flex;
 }
 .comentSection>*{
+    color:#A8A8A8;
     padding-left: 10px;
 }
 .postStatus{
