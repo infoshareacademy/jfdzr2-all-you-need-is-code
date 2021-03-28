@@ -44,9 +44,9 @@ export const ProfileInfo = () => {
         <Typography variant="p" color="inherit">
           Looking for:
           
-          {user !== undefined && user.purpose[0] === "projectpartner" && ` Project partner`}
-          {user !== undefined && user.purpose[0] === "projecttojoin" && ` Project to join`}
-          {user !== undefined && user.purpose[0] === "lookingaround" && ` Just looking around`}
+          {user?.purpose?.[0] === "projectpartner" && ` Project partner`}
+          {user?.purpose?.[0] === "projecttojoin" && ` Project to join`}
+          {user?.purpose?.[0] === "lookingaround" && ` Just looking around`}
         </Typography>
         <Typography
           variant="p"

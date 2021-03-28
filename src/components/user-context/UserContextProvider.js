@@ -4,30 +4,35 @@ import firebase from "../../fire";
 import { UserContext } from "./UserContext";
 
 export const UserContextProvider = ({ children }) => {
-  const [userUid, setUserUid] = useState('');
-  const [user, setUser] = useState([]);
-  
-  const currentUser = firebase.auth().currentUser.uid;
+  const [userData, setUserData] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    setUserUid(currentUser);
+    firebase.auth().onAuthStateChanged(setUser);
   }, []);
 
   useEffect(() => {
-    if (userUid) {
-      firebase
-        .firestore()
-        .collection("Users")
-        .doc(userUid)
-        .onSnapshot((userArray) => {
-          setUser(userArray.data());
-        });
+    if (user === null) {
+      return;
     }
-  }, [userUid]);
+    const unsubscribe = firebase
+      .firestore()
+      .collection("Users")
+      .doc(user.uid)
+      .onSnapshot((userData) => {
+        setUserData(userData.data() || {});
+      });
 
-return <UserContext.Provider value={{user}}>
-    {children}
-</UserContext.Provider>
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
+  }, [user]);
 
+  return (
+    <UserContext.Provider value={{ user: userData }}>
+      {children}
+    </UserContext.Provider>
+  );
 };
-

@@ -40,33 +40,33 @@ function App() {
         </Route>
 
         <UserContextProvider>
-          <Route path="/primary-survey">
+          <PrivateRoute path="/primary-survey">
             <PrimarySurvey />
-          </Route>
+          </PrivateRoute >
 
-          <Route path="/main-page">
+          <PrivateRoute path="/main-page">
             <PageWrapper>
               <MainPage />
             </PageWrapper>
-          </Route>
+          </PrivateRoute >
 
-          <Route path="/profile-page">
+          <PrivateRoute  path="/profile-page">
             <PageWrapper>
               <ProfilePage />
             </PageWrapper>
-          </Route>
+          </PrivateRoute >
 
-          <Route path="/users-page">
+          <PrivateRoute  path="/users-page">
             <PageWrapper>
               <UsersPage />
             </PageWrapper>
-          </Route>
+          </PrivateRoute >
 
-          <Route path="/chat">
+          <PrivateRoute  path="/chat">
             <PageWrapper>
               <ChatPage />
             </PageWrapper>
-          </Route>
+          </PrivateRoute >
         </UserContextProvider>
       </Switch>
     </ThemeProvider>
