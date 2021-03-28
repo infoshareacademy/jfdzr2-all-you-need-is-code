@@ -150,3 +150,15 @@ height: 50vh;
     flex-direction: column;
     width: 40%;
 }
+
+.technologies-list-survey {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.technology-icon-survey {
+    height: 35px;
+    margin: 0 5px 5px 0;
+    object-fit: contain;
+}

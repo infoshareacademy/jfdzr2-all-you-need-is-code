@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react";
+import { UserContext } from "../user-context/UserContext";
 
 import { SurveySteps1 } from "./SurveySteps1";
 import { SurveySteps2 } from "./SurveySteps2";
@@ -16,19 +17,20 @@ import { Step3Projects } from "./Step3Projects";
 import { Step4 } from "./Step4";
 import { Step4Location } from "./Step4Location";
 
-export const WizardForm = () => {
+export const EditProfileWizardForm = () => {
+  const { user } = useContext(UserContext);
 
   const [step, setStep] = useState(1);
   const [step1Values, setStep1Values] = useState({});
-  const [step1NameValues, setStep1Name] = useState('');
-  const [avatarUrl, setAvatarUrl] = useState('');
+  const [step1NameValues, setStep1Name] = useState(user.name);
+  const [avatarUrl, setAvatarUrl] = useState(user.avatarUrl);
   const [step2Values, setStep2Values] = useState({});
-  const [step2GithubValues, setStep2GithubValues] = useState('');
-  const [step2LinkedInValues, setStep2LinkedInValues] = useState('');
+  const [step2GithubValues, setStep2GithubValues] = useState(user.github);
+  const [step2LinkedInValues, setStep2LinkedInValues] = useState(user.linkedin);
   const [step3Values, setStep3Values] = useState({});
-  const [step3ProjectsValues, setStep3ProjectsValues] = useState('');
-  const [step4Values, setStep4Values] = useState('');
-  const [step4LocationValues, setStep4LocationValues] = useState('');
+  const [step3ProjectsValues, setStep3ProjectsValues] = useState(user.projects);
+  const [step4Values, setStep4Values] = useState(user.about);
+  const [step4LocationValues, setStep4LocationValues] = useState(user.location);
 
   const surveyAnswers = [
     step1NameValues,

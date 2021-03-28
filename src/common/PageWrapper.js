@@ -1,4 +1,3 @@
-import { Height } from "@material-ui/icons";
 import { NavBar } from "../components/navBar/NavBar";
 
 export function PageWrapper({ children }) {

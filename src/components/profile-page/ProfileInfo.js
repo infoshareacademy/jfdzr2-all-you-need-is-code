@@ -1,4 +1,4 @@
-import { Paper, Typography, Button, Avatar } from "@material-ui/core";
+import { Paper, Typography, Button, Avatar, SvgIcon } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import defaultAvatar from "../../photos/profilePhotos/default.jpg";
 import { useContext } from "react";
@@ -9,8 +9,6 @@ import BorderColorIcon from "@material-ui/icons/BorderColor";
 import DevicesIcon from "@material-ui/icons/Devices";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
-
-import { TechnologiesIcons } from '../../photos/TechnologiesIcons'
 
 const useStyles = makeStyles((theme) => ({
   large: {
@@ -27,10 +25,10 @@ export const ProfileInfo = () => {
   return (
     <div className="profile-sections-container">
       <Paper elevation={3} className="profile-section">
-      <Avatar
-                  className={classes.large}
-                  src={user?.avatarUrl? user.avatarUrl : defaultAvatar}
-                />
+        <Avatar
+          className={classes.large}
+          src={user?.avatarUrl ? user.avatarUrl : defaultAvatar}
+        />
         <Typography variant="h5" color="inherit" style={{ fontWeight: "bold" }}>
           {user?.name}
         </Typography>
@@ -43,7 +41,6 @@ export const ProfileInfo = () => {
         </Typography>
         <Typography variant="p" color="inherit">
           Looking for:
-          
           {user?.purpose?.[0] === "projectpartner" && ` Project partner`}
           {user?.purpose?.[0] === "projecttojoin" && ` Project to join`}
           {user?.purpose?.[0] === "lookingaround" && ` Just looking around`}
@@ -81,11 +78,38 @@ export const ProfileInfo = () => {
             LinkedIn Profile
           </Typography>
         </a>
-        <Link to="/primary-survey">
+        <Link to="/edit-profile">
           <Button color="primary" style={{ backgroundColor: "#6C7ED6" }}>
             Edit your profile
           </Button>
         </Link>
+      </Paper>
+
+      <Paper elevation={3} className="profile-section">
+        <DevicesIcon />
+        <Typography variant="h6" color="inherit">
+          Technologies:
+        </Typography>
+        {/* <ul className="technologies-list" style={{ color: "black" }}>
+          {user?.technologies?.map((technology, index) => {
+            return (
+              <li className="technologies-list-item" key={index}>
+                <img className="technology-icon" alt={technology} src={process.env.PUBLIC_URL + `/technologies/${technology}.png`} />
+                {technology}
+              </li>
+            );
+          })}
+        </ul> */}
+        <div className="technologies-list" style={{ color: "black" }}>
+          {user?.technologies?.map((technology, index) => {
+            return (
+              <div className="technologies-list-item" key={index}>
+                <img className="technology-icon" alt={technology} src={process.env.PUBLIC_URL + `/technologies/${technology}.png`} />
+                {technology}
+              </div>
+            );
+          })}
+        </div>
       </Paper>
 
       <Paper elevation={3} className="profile-section">
@@ -96,22 +120,6 @@ export const ProfileInfo = () => {
         <Typography variant="p" color="inherit">
           {user?.about}
         </Typography>
-      </Paper>
-
-      <Paper elevation={3} className="profile-section">
-        <DevicesIcon />
-        <Typography variant="h6" color="inherit">
-          Technologies:
-        </Typography>
-        <ul style={{ color: "black" }}>
-          {user?.technologies?.map((technology, index) => {
-            return (
-              <li className="technologies-list-item" key={index}>
-                {technology}
-              </li>
-            );
-          })}
-        </ul>
       </Paper>
 
       <Paper elevation={3} className="profile-section">

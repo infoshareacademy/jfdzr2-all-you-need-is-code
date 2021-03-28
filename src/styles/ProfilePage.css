@@ -24,12 +24,21 @@
 
 .technologies-list {
     color: black;
-    -webkit-column-count: 2;
+    /* -webkit-column-count: 2;
     -moz-column-count: 2;
-    column-count: 2;
+    column-count: 2; */
     padding: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .technologies-list-item {
-    margin-right: 20px;
+    margin-right: 10px;
+}
+
+.technology-icon {
+    height: 35px;
+    margin: 0 10px 10px 0;
+    object-fit: contain;
 }

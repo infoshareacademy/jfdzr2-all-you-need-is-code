@@ -1,4 +1,5 @@
 import { PrimarySurvey } from "./views/PrimarySurvey";
+import { EditProfile } from "./views/EditProfile";
 import WelcomePage from "./views/WelcomePage";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import { ProfilePage } from "./views/ProfilePage";
@@ -39,9 +40,13 @@ function App() {
           <LogInPage />
         </Route>
 
-        <UserContextProvider>
-          <PrivateRoute path="/primary-survey">
+        <PrivateRoute path="/primary-survey">
             <PrimarySurvey />
+          </PrivateRoute >
+
+        <UserContextProvider>
+          <PrivateRoute path="/edit-profile">
+            <EditProfile />
           </PrivateRoute >
 
           <PrivateRoute path="/main-page">

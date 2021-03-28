@@ -24,13 +24,13 @@ export const Step2LinkedIn = ({
   return (
     <div className='media-item'>
       <Typography variant="h5" color="primary" style={{ marginTop: "10px" }}>
-        Your LinkedIn profile:
+        LinkedIn profile:
       </Typography>
       <div className={classes.root}>
         <TextField
           id="filled-basic"
           key="location"
-          defaultValue="LinkedIn profile:"
+          // defaultValue="LinkedIn profile:"
           variant="standard"
           value={state}
           onChange={handleStep2LinkedInChange}
