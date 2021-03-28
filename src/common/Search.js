@@ -18,10 +18,7 @@ export const Search = ({ onFilterChange }) => {
       .then((querySnapshot) => {
         const searchResults = [];
         querySnapshot.forEach((doc) => {
-          searchResults.push(doc.data().name);
-
-          // console.log(doc.id, "=>", doc.data().name)
-          // setList([doc.data().name])
+          searchResults.push(doc.data());
         });
         setList(searchResults);
       });
@@ -35,17 +32,33 @@ export const Search = ({ onFilterChange }) => {
   return (
     <div>
       <TextField
-        id="outlined-basic-email"
+        id="outlined-basic"
         label="Search"
         variant="outlined"
         value={filter}
         onChange={handleOnChange}
         fullWidth
       />
-      <div>
+<div>
         wyniki wyszukiwania:
-        <div>{list}</div>
+        <div>
+          {filter.length === 0 ? (
+          <div></div>
+          ) : ( 
+          <div>
+            {list.map((user, index) => {
+            return <li key={index}>
+              {user.name}
+            </li>            
+            })}          
+            {console.log(list)
+                                   
+            }
+
+            </div>)}
+          </div>
       </div>
+            
     </div>
   );
 };
