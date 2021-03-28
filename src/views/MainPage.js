@@ -49,7 +49,7 @@ export default function MainPage() {
                 tempDoc.push({ id: doc.id, ...doc.data() });
               });
               a.push(tempDoc);
-              setComments(a)
+              setComments(a);
             });
           fire
             .firestore()
@@ -59,9 +59,9 @@ export default function MainPage() {
             .get()
             .then((snap) => {
               i++;
-              
+
               posts.push({
-                comments:comments[0],
+                comments: comments[0],
                 id: doc.id,
                 likesCounter: snap.size,
                 ...doc.data(),
@@ -69,7 +69,6 @@ export default function MainPage() {
 
               if (i === querySnapshot.size) {
                 setPosts(posts);
-                
               }
             });
         });
@@ -95,7 +94,7 @@ export default function MainPage() {
                 </button>
               </div>
             </div>
-            {posts.map((post,index) => (
+            {posts.map((post, index) => (
               <div>
                 {
                   <Post

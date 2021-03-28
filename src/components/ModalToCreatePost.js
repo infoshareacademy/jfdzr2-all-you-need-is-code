@@ -15,7 +15,6 @@ export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
       comment: "",
     },
     onSubmit: (values) => {
-   
       document.querySelector("#ModalCreatePost").style.display = "none";
       fire.firestore().collection("Posts").doc().set({
         title: values["name"],
@@ -24,10 +23,9 @@ export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
       //   fire.firestore().collection("Posts").doc("31BPX5oTs9DMAWeGsrhv").collection("comments").doc("XD").set({
       //       com:1
       //   })
-      formik.values.comment=""
-      formik.values.title=""
+      formik.values.comment = "";
+      formik.values.title = "";
     },
-    
   });
 
   return (
@@ -65,13 +63,10 @@ export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
           <input className="submit" type="submit" value="Wyślij" />
           <button
             onClick={toggleModal}
-
             type="button"
             className="close"
             aria-label="Close"
           >
-
-
             <span aria-hidden="true">&times;</span>
           </button>
         </form>
