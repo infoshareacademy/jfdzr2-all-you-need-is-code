@@ -36,7 +36,7 @@ function App() {
         <Route path="/log-in">
           <SignInPage />
         </Route>
-        <UserContextProvider>
+        {/* <UserContextProvider> */}
           <Route path="/primary-survey">
             <PrimarySurvey />
           </Route>
@@ -54,7 +54,7 @@ function App() {
               <ChatPage />
             </Route>
           </PageWrapper>
-        </UserContextProvider>
+        {/* </UserContextProvider> */}
       </Switch>
     </ThemeProvider>
   );

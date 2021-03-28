@@ -41,7 +41,13 @@
     color:rgba(0, 0, 0, 0.32);
 }
 .likesSection{
+    background-color: transparent;
+    border: none;
+    outline: none;
     display: flex;
+}
+.likesSection >*{
+    color:#A8A8A8;
 }
 .likesPhoto{
     margin-top: -7px;
@@ -63,10 +69,16 @@
     padding-left: 10px;
 }
 .comentSection{
+    border: none;
+    background-color: transparent;
     display: flex;
+    outline: none;
 }
+
 .comentSection>*{
     padding-left: 10px;
+    color:#A8A8A8;
+    
 }
 .postStatus{
     margin-top: 10px;
@@ -107,3 +119,9 @@
     color: #4853A4;
     text-align: center;
 }
+.formComment{
+    margin-top: 10px;
+    margin-bottom: 2s0px;
+}
+
+
