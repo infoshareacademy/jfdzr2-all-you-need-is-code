@@ -3,6 +3,8 @@ import { Paper, Typography, Button, Avatar } from "@material-ui/core";
 import firebase from "../../fire";
 import defaultAvatar from "../../photos/profilePhotos/default.jpg";
 import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+
 
 const useStyles = makeStyles((theme) => ({
   large: {
@@ -16,6 +18,8 @@ export const AllUsersInfo = () => {
   const [allUsersInfo, setAllUsersInfo] = useState([]);
   const [state, setState] = useState("initial");
   const classes = useStyles();
+  const [filter, setFilter] = useState("");
+
 
   let allUsersArray = [];
 
@@ -34,13 +38,28 @@ export const AllUsersInfo = () => {
         });
       });
   }, []);
+  const handleOnChange = (event) => {
+    setFilter(event.target.value);
+    // onFilterChange(event.target.value);
+  };
 
   const filterByName = ({name}) => {
-    return name.includes('Use')
+    const lowerCaseFilter = filter.toLowerCase();
+    return name.toLowerCase().includes(lowerCaseFilter)
   }
 
   return (
     <>
+    <TextField
+                name="search"
+                type="search"
+                id="search"
+                variant="outlined"
+                label="Search"
+                value={filter}
+                onChange={handleOnChange}
+                fullWidth/>
+        
       {state === "initial" && (
         <div className="profile-sections-container">
           <Paper elevation={3} className="profile-section">
@@ -52,9 +71,18 @@ export const AllUsersInfo = () => {
       {state === "loaded" && (
         <div className="profile-sections-container">
           {allUsersInfo
+            ?.filter((user) => {
+              return user.name !== "";
+            })
+            .filter((user) => {
+              return user.id !== currentUser;
+            })
+       
             .filter(filterByName) 
             .map((user) => {
               return (
+              <>
+                
                 <Paper elevation={3} className="profile-section">
                   <Avatar
                     className={classes.large}
@@ -91,6 +119,7 @@ export const AllUsersInfo = () => {
                     See more
                   </Button>
                 </Paper>
+              </>
               );
             })}
         </div>

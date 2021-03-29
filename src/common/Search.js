@@ -1,35 +1,59 @@
+import { useEffect, useState } from "react";
+import { Paper, Typography, Button, Avatar } from "@material-ui/core";
+import firebase from "../fire";
+import defaultAvatar from "../photos/profilePhotos/default.jpg";
+import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import { useState, useEffect } from "react";
-import { db } from "../fire";
-import { AllUsersInfo} from "../components/profile-page/AllUsersInfo"
 
+
+const useStyles = makeStyles((theme) => ({
+  medium: {
+    width: theme.spacing(5),
+    height: theme.spacing(5),
+  },
+}));
 
 export const Search = ({ onFilterChange }) => {
+  const currentUser = firebase.auth().currentUser.uid;
+  const [allUsersInfo, setAllUsersInfo] = useState([]);
+  const [state, setState] = useState("initial");
+  const classes = useStyles();
   const [filter, setFilter] = useState("");
-  const [list, setList] = useState([]);
+
+
+
+  let allUsersArray = [];
 
   useEffect(() => {
-    db.collection("Users")
-      .where("name", ">=", `${filter}`)
-      .where("name", "<=", `${filter}` + "\uf8ff")
-      .get()
-      .then((querySnapshot) => {
-        const searchResults = [];
-        querySnapshot.forEach((doc) => {
-          searchResults.push(doc.data());
+    firebase
+      .firestore()
+      .collection("Users")
+      .onSnapshot((users) => {
+        setState("loading");
+        users.forEach((user) => {
+          let userId = { id: user.id };
+          let object = { ...user.data(), ...userId };
+          allUsersArray = [...allUsersArray, object];
+          setAllUsersInfo(allUsersArray);
+          setState("loaded");
         });
-        setList(searchResults);
       });
-  }, [filter]);
+  }, []);
+
 
   const handleOnChange = (event) => {
     setFilter(event.target.value);
     onFilterChange(event.target.value);
   };
 
+  const filterByName = ({name}) => {
+    const lowerCaseFilter = filter.toLowerCase();
+    return name.toLowerCase().includes(lowerCaseFilter)
+  }
+
   return (
-    <div>
-      <TextField
+    <>
+     <TextField
         name="search"
         type="search"
         id="search"
@@ -39,28 +63,89 @@ export const Search = ({ onFilterChange }) => {
         onChange={handleOnChange}
         fullWidth
       />
-      <div>
-        wyniki wyszukiwania:
         <div>
-          {filter.length === 0 ? (
+        {filter.length === 0 ? (
             <div></div>
-          ) : (
-            <div>
-              {list.map((user, index) => {
-                return (
-                  <li
-                    key={index}
-                    // onClick = {handleOnClick}
-                  >
+          ) : (        
+          allUsersInfo
+            .filter((user) => {
+              return user.id !== currentUser;
+            })
+            .filter(filterByName) 
+            .map((user) => {
+              return (
+                <Paper elevation={2}>
+                  <Avatar
+                    className={classes.medium}
+                    src={user.avatarUrl ? user.avatarUrl : defaultAvatar}
+                  />
+                  <Typography>
                     {user.name}
-                  </li>
-                );
-              })}
-              {console.log(list)}
-            </div>
-          )}
+                  </Typography>
+                  <Button
+                    color="primary"
+                    style={{ backgroundColor: "#6C7ED6", fontSize: "10" }}
+                  >
+                    Message
+                  </Button>
+                </Paper>
+              );
+            }))}
         </div>
-      </div>
-    </div>
+      
+    </>
   );
 };
+
+
+
+
+
+
+
+
+
+
+//   useEffect(() => {
+//     db.collection("Users")
+//       .where("name", ">=", `${filter}`)
+//       .where("name", "<=", `${filter}` + "\uf8ff")
+//       .get()
+//       .then((querySnapshot) => {
+//         const searchResults = [];
+//         querySnapshot.forEach((doc) => {
+//           searchResults.push(doc.data());
+//         });
+//         setList(searchResults);
+//       });
+//   }, [filter]);
+
+
+//   return (
+//     <div>
+//       
+//       <div>
+//         wyniki wyszukiwania:
+//         <div>
+//           {filter.length === 0 ? (
+//             <div></div>
+//           ) : (
+//             <div>
+//               {list.map((user, index) => {
+//                 return (
+//                   <li
+//                     key={index}
+//                     // onClick = {handleOnClick}
+//                   >
+//                     {user.name}
+//                   </li>
+//                 );
+//               })}
+//               {console.log(list)}
+//             </div>
+//           )}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
