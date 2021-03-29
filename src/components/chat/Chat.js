@@ -36,7 +36,11 @@ function Chat() {
   const messagesRef = fire.firestore().collection("Messages").doc(msgId).collection(msgId);
   const query = messagesRef.orderBy("createdAt").limit(250);
   const [messages] = useCollectionData(query, { idField: "id" });
+  const [chatList, setChatList] = useState([]);
   
+
+  // https://www.robinwieruch.de/react-state-array-add-update-remove
+
   const [filter, setFilter] = useState("")
 
 
@@ -73,21 +77,18 @@ function Chat() {
       <Grid container className="chat-section">
         <Grid item xs={3} component={Paper} className="border-right500 border-top500">
           <List>
-            <ListItem button key="Auth">
-              <ListItemIcon>
-                <Avatar
-                  alt="Auth"
-                  src="https://material-ui.com/static/images/avatar/1.jpg"
-                />
-              </ListItemIcon>
-              <ListItemText primary="Auth"></ListItemText>
+            <ListItem button key="Chat">
+              
+              <ListItemText primary="Chat"></ListItemText>
             </ListItem>
           </List>
+
           <Divider />
           <Grid item xs={12} style={{ padding: "10px" }}>
             <Search onFilterChange={handleOnFilterChange}/>
           </Grid>
           <Divider />
+          
           <List>
             <ListItem 
             button 

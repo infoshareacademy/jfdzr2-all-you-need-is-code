@@ -35,6 +35,10 @@ export const AllUsersInfo = () => {
       });
   }, []);
 
+  const filterByName = ({name}) => {
+    return name.includes('Use')
+  }
+
   return (
     <>
       {state === "initial" && (
@@ -48,12 +52,7 @@ export const AllUsersInfo = () => {
       {state === "loaded" && (
         <div className="profile-sections-container">
           {allUsersInfo
-            ?.filter((user) => {
-              return user.name !== "";
-            })
-            .filter((user) => {
-              return user.id !== currentUser;
-            })
+            .filter(filterByName) 
             .map((user) => {
               return (
                 <Paper elevation={3} className="profile-section">
