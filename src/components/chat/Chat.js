@@ -44,6 +44,9 @@ function Chat() {
   
 
   const [filter, setFilter] = useState("")
+  const [newChatUser, setNewChatUser] = useState([]);
+
+
 
 
   // function getUserID(id) {
@@ -73,6 +76,10 @@ function Chat() {
     setFilter(filterText);
   }
 
+  const handleOnClickMessage = () => {
+    setChatList(...chatList, newChatUser );
+  }
+
   return (
     <>
     <CssBaseline />
@@ -87,7 +94,12 @@ function Chat() {
 
           <Divider />
           <Grid item xs={12} style={{ padding: "10px" }}>
-            <Search onFilterChange={handleOnFilterChange}/>
+           
+            <Search 
+            onFilterChange={handleOnFilterChange}
+            onClickMessage={handleOnClickMessage}
+            />
+          
           </Grid>
           <Divider />
           {chatList.map((user) => {

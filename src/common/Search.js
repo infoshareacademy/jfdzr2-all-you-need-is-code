@@ -15,12 +15,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Search = ({ onFilterChange }) => {
+export const Search = ({ onFilterChange, onClickMessage }) => {
   const currentUser = firebase.auth().currentUser.uid;
   const [allUsersInfo, setAllUsersInfo] = useState([]);
   const [state, setState] = useState("initial");
   const classes = useStyles();
   const [filter, setFilter] = useState("");
+  const [newChatUser, setNewChatUser] = useState();
 
 
 
@@ -47,6 +48,14 @@ export const Search = ({ onFilterChange }) => {
     setFilter(event.target.value);
     onFilterChange(event.target.value);
   };
+
+  const handleOnClickMessage = (value) => {
+    setNewChatUser(value);
+    onClickMessage(value)
+    // onClickMessage();
+  }
+
+
 
   const filterByName = ({name}) => {
     const lowerCaseFilter = filter.toLowerCase();
@@ -75,6 +84,11 @@ export const Search = ({ onFilterChange }) => {
             })
             .filter(filterByName) 
             .map((user) => {
+              const clickedUser = {
+                userName: user.name,
+                userId: user.id,
+                avatarUrl: user.avatarUrl}
+           
               return (
                 <Paper elevation={2} className = "search-container">
                   <Avatar
@@ -87,6 +101,10 @@ export const Search = ({ onFilterChange }) => {
                   <Button
                     color="primary"
                     style={{ backgroundColor: "#6C7ED6" }}
+                    value = {clickedUser}
+                    onClick = {(e) => console.log(clickedUser)}
+                    // {handleOnClickMessage}
+                      
                   >
                     Message
                   </Button>
