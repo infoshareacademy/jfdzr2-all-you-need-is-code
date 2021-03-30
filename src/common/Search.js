@@ -4,6 +4,8 @@ import firebase from "../fire";
 import defaultAvatar from "../photos/profilePhotos/default.jpg";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import '../styles/Chat.css';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -74,7 +76,7 @@ export const Search = ({ onFilterChange }) => {
             .filter(filterByName) 
             .map((user) => {
               return (
-                <Paper elevation={2}>
+                <Paper elevation={2} className = "search-container">
                   <Avatar
                     className={classes.medium}
                     src={user.avatarUrl ? user.avatarUrl : defaultAvatar}
@@ -84,7 +86,7 @@ export const Search = ({ onFilterChange }) => {
                   </Typography>
                   <Button
                     color="primary"
-                    style={{ backgroundColor: "#6C7ED6", fontSize: "10" }}
+                    style={{ backgroundColor: "#6C7ED6" }}
                   >
                     Message
                   </Button>

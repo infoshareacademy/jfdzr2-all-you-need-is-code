@@ -22,35 +22,37 @@ import "../../styles/Chat.css";
 import Button from "@material-ui/core/Button";
 import {Search} from "../../common/Search"
 
+
 const auth = fire.auth();
 
 
 function Chat() {
   const scroll = useRef();
   const currentUser = auth.currentUser.uid;
-  const [chatUser, setChatUser] = useState("test")
-  const msgArray = [currentUser.substring(0,5), chatUser.substring(0,5)];
+  const [chatUser, setChatUser] = useState("");
+  const msgArray = [currentUser+chatUser];
   const sortedMsgArray = msgArray.sort(); 
   const msgId = sortedMsgArray.toString();  
   const [formValue, setFormValue] = useState("");
   const messagesRef = fire.firestore().collection("Messages").doc(msgId).collection(msgId);
   const query = messagesRef.orderBy("createdAt").limit(250);
   const [messages] = useCollectionData(query, { idField: "id" });
-  const [chatList, setChatList] = useState([]);
+  const [chatList, setChatList] = useState([
+    {userName: "test1", userId: "jmKir10TYzczaR44P5cl69B3l5Z2", avatarUrl: "https://material-ui.com/static/images/avatar/3.jpg"},
+    {userName: "test2", userId: "Ji2X9LS1gQQoGWSsx2YYBfNLbHA3", avatarUrl: "https://material-ui.com/static/images/avatar/2.jpg"},
+  ]);
   
-
-  // https://www.robinwieruch.de/react-state-array-add-update-remove
 
   const [filter, setFilter] = useState("")
 
 
-  function getUserID(id) {
-      setChatUser(id)
-  }
+  // function getUserID(id) {
+  //     setChatUser(id)
+  // }
 
-  useEffect(() => {
-    setChatUser(chatUser)
-  }, [chatUser])
+  // useEffect(() => {
+  //   setChatUser(chatUser)
+  // }, [chatUser])
 
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -88,7 +90,30 @@ function Chat() {
             <Search onFilterChange={handleOnFilterChange}/>
           </Grid>
           <Divider />
-          
+          {chatList.map((user) => {
+            return (
+              <ListItem 
+            button 
+            key= {user.userName}
+            chatUser={user.userId}
+            onClick={(e) => setChatUser(user.userId)}
+            >
+              <ListItemIcon>
+                <Avatar
+                  src={user.avatarUrl}
+                />
+              </ListItemIcon>
+              <ListItemText>{user.userName}</ListItemText>
+            </ListItem>
+            )
+
+          })}
+
+{/* 
+          <List>
+          </List>        
+  
+  
           <List>
             <ListItem 
             button 
@@ -119,7 +144,9 @@ function Chat() {
               <ListItemText primary="Test2">Test2</ListItemText>
             </ListItem>
             
-          </List>
+          </List> */}
+
+
         </Grid>
 
         <Grid item xs={9}  component={Paper} className="border-top500">
