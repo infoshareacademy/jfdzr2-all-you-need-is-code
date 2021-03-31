@@ -1,10 +1,12 @@
+/*******PROFILE PAGE*************/
+
 .profile-page-container {
     display: flex;
     justify-content: center;
 }
 
 .profile-sections-container {
-    padding: 50px;
+    padding: 2vh;
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -50,3 +52,40 @@
     align-items: center;
     margin-bottom: 6px;
 }
+
+.profile-content {
+    display: flex;
+    flex-direction: column;
+}
+
+/*******USERS PAGE*************/
+
+.users-info-container {
+    padding: 2vh;
+    /* padding: 0 30px; */
+}
+
+.users-profiles-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 30px;
+}
+
+.user-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+ }
+
+ .loading-page {
+    padding: 2vh;
+    width: 100%;
+    height: 96vh;
+ }
+
+ .user-page-buttons {
+     display: flex;
+     gap: 6px;
+ }
