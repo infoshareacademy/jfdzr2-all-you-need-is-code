@@ -86,6 +86,7 @@ export const AllUsersInfo = () => {
                 return user.id !== currentUser;
               })
               .filter(filterByName)
+              .sort((user1,user2) => user2.name.length - user1.name.length)
               .map((user) => {
                 return (
                   <Paper elevation={3} className="user-section">
@@ -165,6 +166,25 @@ export const AllUsersInfo = () => {
                         >
                           {user?.location}
                         </Typography>
+                      </div>
+
+                      <div
+                        className="technologies-list-small"
+                        style={{ color: "black" }}
+                      >
+                        {user?.technologies?.slice(0,4).map((technology, index) => {
+                          return (
+                            <img
+                              className="technology-icon-small"
+                              alt={technology}
+                              src={
+                                process.env.PUBLIC_URL +
+                                `/technologies/${technology}.png`
+                              }
+                            />
+                          );
+                        })}
+                        <p>...</p>
                       </div>
                     </div>
 

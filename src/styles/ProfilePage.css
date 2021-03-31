@@ -89,3 +89,15 @@
      display: flex;
      gap: 6px;
  }
+
+ .technology-icon-small {
+    height: 26px;
+    margin: 3px;
+    object-fit: contain;
+}
+
+.technologies-list-small {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
