@@ -21,9 +21,11 @@ import { useState, useRef, useEffect } from "react";
 import "../../styles/Chat.css";
 import Button from "@material-ui/core/Button";
 import {Search} from "../../common/Search"
+import { SettingsInputAntennaTwoTone } from "@material-ui/icons";
 
 
 const auth = fire.auth();
+
 
 
 function Chat() {
@@ -37,26 +39,17 @@ function Chat() {
   const messagesRef = fire.firestore().collection("Messages").doc(msgId).collection(msgId);
   const query = messagesRef.orderBy("createdAt").limit(250);
   const [messages] = useCollectionData(query, { idField: "id" });
-  const [chatList, setChatList] = useState([
-    {userName: "test1", userId: "jmKir10TYzczaR44P5cl69B3l5Z2", avatarUrl: "https://material-ui.com/static/images/avatar/3.jpg"},
-    {userName: "test2", userId: "Ji2X9LS1gQQoGWSsx2YYBfNLbHA3", avatarUrl: "https://material-ui.com/static/images/avatar/2.jpg"},
-  ]);
+  const [chatList, setChatList] = useState([])
   
 
   const [filter, setFilter] = useState("")
-  const [newChatUser, setNewChatUser] = useState([]);
+  // const [newChatUser, setNewChatUser] = useState({});
 
-
-
-
-  // function getUserID(id) {
-  //     setChatUser(id)
-  // }
-
-  // useEffect(() => {
-  //   setChatUser(chatUser)
-  // }, [chatUser])
-
+  const activateChat = async (userUid) => {
+    setChatUser(userUid)
+    await fire.firestore().collection("Messages").doc(msgId).set({})
+  }
+  
   const sendMessage = async (e) => {
     e.preventDefault();
     const { uid, photoURL } = auth.currentUser;
@@ -68,7 +61,6 @@ function Chat() {
       photoURL,
     });
     setFormValue("");
-    // setChatUser("");
     scroll.current.scrollIntoView({ bahavior: "smooth" });
   };
 
@@ -76,9 +68,31 @@ function Chat() {
     setFilter(filterText);
   }
 
-  const handleOnClickMessage = () => {
-    setChatList(...chatList, newChatUser );
+  const clearState = () => {
+    setChatList([]);
   }
+
+  useEffect(() => {
+    let allMsgArray = [];
+    clearState();
+    fire
+      .firestore()
+      .collection("Messages")
+      .onSnapshot((msg) => {
+        msg.forEach((userMsg) => {
+          if (userMsg.id.includes(auth.currentUser.uid)) 
+          {let userMsgId=(userMsg.id.replace(auth.currentUser.uid, ""))
+        allMsgArray = [...allMsgArray, userMsgId];
+        setChatList(allMsgArray);
+      }
+        });
+      });
+  }, []);
+// Daria i test2 9kLaP4CFyxRymegQJbCWwVToonA3 Ji2X9LS1gQQoGWSsx2YYBfNLbHA3
+// 9kLaP4CFyxRymegQJbCWwVToonA3 Daria jmKir10TYzczaR44P5cl69B3l5Z2 test1
+// 008F87GsKuOwR29kkfOFPHrnDTi19kLaP4CFyxRymegQJbCWwVToonA3
+
+
 
   return (
     <>
@@ -96,8 +110,7 @@ function Chat() {
           <Grid item xs={12} style={{ padding: "10px" }}>
            
             <Search 
-            onFilterChange={handleOnFilterChange}
-            onClickMessage={handleOnClickMessage}
+            // onClick={activateChat()}
             />
           
           </Grid>
@@ -106,58 +119,24 @@ function Chat() {
             return (
               <ListItem 
             button 
-            key= {user.userName}
-            chatUser={user.userId}
-            onClick={(e) => setChatUser(user.userId)}
+            key= {user}
+            // chatUser={user}
+            onClick={(e) => {activateChat(user)
+            }}
             >
               <ListItemIcon>
                 <Avatar
-                  src={user.avatarUrl}
+                  src="https://material-ui.com/static/images/avatar/2.jpg"
+                  // src={fire.firestore().collection("Users").doc(user).avatarUrl}
                 />
               </ListItemIcon>
-              <ListItemText>{user.userName}</ListItemText>
+              <ListItemText>{user} 
+              {/* {fire.firestore().collection("Users").doc(user).name} */}
+                </ListItemText>
             </ListItem>
             )
 
           })}
-
-{/* 
-          <List>
-          </List>        
-  
-  
-          <List>
-            <ListItem 
-            button 
-            key="test1"
-            chatUser="jmKir10TYzczaR44P5cl69B3l5Z2"
-            onClick={(e) => getUserID("jmKir10TYzczaR44P5cl69B3l5Z2")}
-            >
-              <ListItemIcon>
-                <Avatar
-                  alt="User1"
-                  src="https://material-ui.com/static/images/avatar/3.jpg"
-                />
-              </ListItemIcon>
-              <ListItemText primary="Test1">Test2</ListItemText>
-            </ListItem>
-            <ListItem
-            button
-            key="test2"
-            id="Ji2X9LS1gQQoGWSsx2YYBfNLbHA3"
-            onClick={(e) => getUserID("Ji2X9LS1gQQoGWSsx2YYBfNLbHA3")}
-            >
-              <ListItemIcon>
-                <Avatar
-                  alt="User2"
-                  src="https://material-ui.com/static/images/avatar/2.jpg"
-                />
-              </ListItemIcon>
-              <ListItemText primary="Test2">Test2</ListItemText>
-            </ListItem>
-            
-          </List> */}
-
 
         </Grid>
 
@@ -192,8 +171,8 @@ function Chat() {
             </Grid>
 
             <Grid xs={1} align="right">
-              <Fab color="secondary" aria-label="add">
-                <SendIcon />
+              <Fab color="secondary" aria-label="add"  onClick={sendMessage}>
+                <SendIcon/>
               </Fab>
             </Grid>
           </Grid>

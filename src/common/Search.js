@@ -4,9 +4,7 @@ import firebase from "../fire";
 import defaultAvatar from "../photos/profilePhotos/default.jpg";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import '../styles/Chat.css';
-
-
+import "../styles/Chat.css";
 
 const useStyles = makeStyles((theme) => ({
   medium: {
@@ -18,53 +16,50 @@ const useStyles = makeStyles((theme) => ({
 export const Search = ({ onFilterChange, onClickMessage }) => {
   const currentUser = firebase.auth().currentUser.uid;
   const [allUsersInfo, setAllUsersInfo] = useState([]);
-  const [state, setState] = useState("initial");
   const classes = useStyles();
   const [filter, setFilter] = useState("");
-  const [newChatUser, setNewChatUser] = useState();
+  const [chatUser, setChatUser] = useState("");
+  const msgArray = [currentUser+chatUser];
+  const sortedMsgArray = msgArray.sort(); 
+  const msgId = sortedMsgArray.toString();  
 
+
+
+  const activateChat = async (userUid) => {
+    setChatUser(userUid)
+    await firebase.firestore().collection("Messages").doc(msgId).set({})
+  }
 
 
   let allUsersArray = [];
-
   useEffect(() => {
     firebase
       .firestore()
       .collection("Users")
       .onSnapshot((users) => {
-        setState("loading");
         users.forEach((user) => {
           let userId = { id: user.id };
           let object = { ...user.data(), ...userId };
           allUsersArray = [...allUsersArray, object];
           setAllUsersInfo(allUsersArray);
-          setState("loaded");
         });
       });
   }, []);
-
 
   const handleOnChange = (event) => {
     setFilter(event.target.value);
     onFilterChange(event.target.value);
   };
 
-  const handleOnClickMessage = (value) => {
-    setNewChatUser(value);
-    onClickMessage(value)
-    // onClickMessage();
-  }
 
-
-
-  const filterByName = ({name}) => {
+  const filterByName = ({ name }) => {
     const lowerCaseFilter = filter.toLowerCase();
-    return name.toLowerCase().includes(lowerCaseFilter)
-  }
+    return name.toLowerCase().includes(lowerCaseFilter);
+  };
 
   return (
     <>
-     <TextField
+      <TextField
         name="search"
         type="search"
         id="search"
@@ -74,98 +69,42 @@ export const Search = ({ onFilterChange, onClickMessage }) => {
         onChange={handleOnChange}
         fullWidth
       />
-        <div>
+      <div>
         {filter.length === 0 ? (
-            <div></div>
-          ) : (        
+          <div></div>
+        ) : (
           allUsersInfo
             .filter((user) => {
               return user.id !== currentUser;
             })
-            .filter(filterByName) 
+            .filter(filterByName)
             .map((user) => {
               const clickedUser = {
                 userName: user.name,
                 userId: user.id,
-                avatarUrl: user.avatarUrl}
-           
+                avatarUrl: user.avatarUrl,
+              };
+
               return (
-                <Paper elevation={2} className = "search-container">
+                <Paper elevation={2} className="search-container">
                   <Avatar
                     className={classes.medium}
                     src={user.avatarUrl ? user.avatarUrl : defaultAvatar}
                   />
-                  <Typography>
-                    {user.name}
-                  </Typography>
+                  <Typography>{user.name}</Typography>
                   <Button
                     color="primary"
                     style={{ backgroundColor: "#6C7ED6" }}
-                    value = {clickedUser}
-                    onClick = {(e) => console.log(clickedUser)}
-                    // {handleOnClickMessage}
-                      
+                    clickedUser={clickedUser}
+                    onClick={onClickMessage}
                   >
                     Message
                   </Button>
                 </Paper>
               );
-            }))}
-        </div>
-      
+            })
+        )}
+      </div>
     </>
   );
 };
-
-
-
-
-
-
-
-
-
-
-//   useEffect(() => {
-//     db.collection("Users")
-//       .where("name", ">=", `${filter}`)
-//       .where("name", "<=", `${filter}` + "\uf8ff")
-//       .get()
-//       .then((querySnapshot) => {
-//         const searchResults = [];
-//         querySnapshot.forEach((doc) => {
-//           searchResults.push(doc.data());
-//         });
-//         setList(searchResults);
-//       });
-//   }, [filter]);
-
-
-//   return (
-//     <div>
-//       
-//       <div>
-//         wyniki wyszukiwania:
-//         <div>
-//           {filter.length === 0 ? (
-//             <div></div>
-//           ) : (
-//             <div>
-//               {list.map((user, index) => {
-//                 return (
-//                   <li
-//                     key={index}
-//                     // onClick = {handleOnClick}
-//                   >
-//                     {user.name}
-//                   </li>
-//                 );
-//               })}
-//               {console.log(list)}
-//             </div>
-//           )}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
