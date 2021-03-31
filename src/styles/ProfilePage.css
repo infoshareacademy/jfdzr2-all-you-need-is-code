@@ -18,10 +18,6 @@
    padding: 30px;
 }
 
-.profile-section-content {
-    padding: 20px;
-}
-
 .technologies-list {
     color: black;
     /* -webkit-column-count: 2;
@@ -34,11 +30,23 @@
 }
 
 .technologies-list-item {
-    margin-right: 10px;
+    margin: 0 10px 10px 0;
+    display: flex;
+    align-items: center;
 }
 
 .technology-icon {
     height: 35px;
-    margin: 0 10px 10px 0;
+    margin-right: 6px;
     object-fit: contain;
+}
+
+.profile-section-heading {
+    display: flex;
+}
+
+.profile-content-line {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
 }

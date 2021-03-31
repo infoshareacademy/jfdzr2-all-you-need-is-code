@@ -29,83 +29,123 @@ export const ProfileInfo = () => {
           className={classes.large}
           src={user?.avatarUrl ? user.avatarUrl : defaultAvatar}
         />
-        <Typography variant="h5" color="inherit" style={{ fontWeight: "bold" }}>
+        <Typography
+          variant="h6"
+          color="secondary"
+          style={{ fontWeight: "bold", margin: "6px 0" }}
+        >
           {user?.name}
         </Typography>
-        <Typography
-          variant="p"
-          color="inherit"
-          style={{ textTransform: "capitalize" }}
-        >
-          Experience: {user?.experience}
-        </Typography>
-        <Typography variant="p" color="inherit">
-          Looking for:
-          {user?.purpose?.[0] === "projectpartner" && ` Project partner`}
-          {user?.purpose?.[0] === "projecttojoin" && ` Project to join`}
-          {user?.purpose?.[0] === "lookingaround" && ` Just looking around`}
-        </Typography>
-        <Typography
-          variant="p"
-          color="inherit"
-          style={{ textTransform: "capitalize" }}
-        >
-          Looking for: {user?.purpose}
-        </Typography>
-        <Typography variant="p" color="inherit">
-          Location: {user?.location}
-        </Typography>
-        <a target="_blank" href="Https://Github.Com/MichalNielubszyc">
-          <Typography
-            variant="p"
-            color="inherit"
-            style={{ textTransform: "capitalize" }}
-          >
-            <GitHubIcon />
-            GitHub Profile
-          </Typography>
-        </a>
-        <a
-          target="_blank"
-          href="https://www.linkedin.com/in/michal-nielubszyc/"
-        >
-          <Typography
-            variant="p"
-            color="inherit"
-            style={{ textTransform: "capitalize" }}
-          >
-            <LinkedInIcon />
-            LinkedIn Profile
-          </Typography>
-        </a>
+
+        <div className="profile-content">
+          <div className="profile-content-line">
+            <Typography
+              variant="body1"
+              color="inherit"
+              style={{ fontWeight: "400", marginRight: "6px" }}
+            >
+              Experience:
+            </Typography>
+            <Typography
+              variant="body1"
+              color="secondary"
+              style={{ textTransform: "capitalize", fontWeight: "900" }}
+            >
+              {user?.experience}
+            </Typography>
+          </div>
+
+          <div className="profile-content-line">
+            <Typography
+              variant="body1"
+              color="inherit"
+              style={{ fontWeight: "400", marginRight: "6px" }}
+            >
+              Looking for:
+            </Typography>
+            <Typography
+              variant="body1"
+              color="secondary"
+              style={{ textTransform: "capitalize", fontWeight: "900" }}
+            >
+              {user?.purpose?.[0] === "projectpartner" && ` Project partner`}
+              {user?.purpose?.[0] === "projecttojoin" && ` Project to join`}
+              {user?.purpose?.[0] === "lookingaround" && ` Just looking around`}
+            </Typography>
+          </div>
+
+          <div className="profile-content-line">
+            <Typography
+              variant="body1"
+              color="inherit"
+              style={{ fontWeight: "400", marginRight: "6px" }}
+            >
+              Location:
+            </Typography>
+            <Typography
+              variant="body1"
+              color="secondary"
+              style={{ textTransform: "capitalize", fontWeight: "900" }}
+            >
+              {user?.location}
+            </Typography>
+          </div>
+
+          <a target="_blank" href={user?.github} rel="noreferrer" className="profile-content-line">
+            <Typography
+              variant="body1"
+              color="secondary"
+              style={{ textTransform: "capitalize", fontWeight: "900", display: "flex", alignItems: "center" }}
+            >
+              <GitHubIcon style={{ marginRight: "6px" }} />
+              GitHub: {user?.github.slice(19)}
+            </Typography>
+          </a>
+
+          <a target="_blank" href={user?.linkedin} rel="noreferrer" className="profile-content-line">
+            <Typography
+              variant="body1"
+              color="secondary"
+              style={{ textTransform: "capitalize", fontWeight: "900", display: "flex", alignItems: "center" }}
+            >
+              <LinkedInIcon style={{ marginRight: "6px" }} />
+              LinkedIn: {user?.linkedin.slice(28).slice(0, -1)}
+            </Typography>
+          </a>
+        </div>
         <Link to="/edit-profile">
-          <Button color="primary" style={{ backgroundColor: "#6C7ED6" }}>
+          <Button
+            color="primary"
+            style={{ backgroundColor: "#6C7ED6", margin: "6px 0 0" }}
+          >
             Edit your profile
           </Button>
         </Link>
       </Paper>
 
       <Paper elevation={3} className="profile-section">
-        <DevicesIcon />
-        <Typography variant="h6" color="inherit">
+        <DevicesIcon color="secondary" />
+        <Typography variant="h6" color="secondary" style={{ fontWeight: "bold", margin: "0 0 6px" }}>
           Technologies:
         </Typography>
-        {/* <ul className="technologies-list" style={{ color: "black" }}>
-          {user?.technologies?.map((technology, index) => {
-            return (
-              <li className="technologies-list-item" key={index}>
-                <img className="technology-icon" alt={technology} src={process.env.PUBLIC_URL + `/technologies/${technology}.png`} />
-                {technology}
-              </li>
-            );
-          })}
-        </ul> */}
         <div className="technologies-list" style={{ color: "black" }}>
           {user?.technologies?.map((technology, index) => {
             return (
               <div className="technologies-list-item" key={index}>
-                <img className="technology-icon" alt={technology} src={process.env.PUBLIC_URL + `/technologies/${technology}.png`} />
-                {technology}
+                <img
+                  className="technology-icon"
+                  alt={technology}
+                  src={
+                    process.env.PUBLIC_URL + `/technologies/${technology}.png`
+                  }
+                />
+                <Typography
+                  variant="body1"
+                  color="inherit"
+                  style={{ fontWeight: "400" }}
+                >
+                  {technology}
+                </Typography>
               </div>
             );
           })}
@@ -113,21 +153,21 @@ export const ProfileInfo = () => {
       </Paper>
 
       <Paper elevation={3} className="profile-section">
-        <BorderColorIcon />
-        <Typography variant="h6" color="inherit">
+        <BorderColorIcon color="secondary" />
+        <Typography variant="h6" color="secondary" style={{ fontWeight: "bold", margin: "0 0 6px" }}>
           About:
         </Typography>
-        <Typography variant="p" color="inherit">
+        <Typography variant="body1" color="inherit" style={{ fontWeight: "400" }}>
           {user?.about}
         </Typography>
       </Paper>
 
       <Paper elevation={3} className="profile-section">
-        <GitHubIcon />
-        <Typography variant="h6" color="inherit">
+        <GitHubIcon color="secondary" />
+        <Typography variant="h6" color="secondary" style={{ fontWeight: "bold", margin: "0 0 6px" }}>
           Projects:
         </Typography>
-        <Typography variant="p" color="inherit">
+        <Typography variant="body1" color="inherit" style={{ fontWeight: "400" }}>
           {user?.projects}
         </Typography>
       </Paper>
