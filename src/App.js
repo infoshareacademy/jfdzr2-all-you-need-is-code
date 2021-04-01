@@ -68,12 +68,11 @@ function App() {
             </PageWrapper>
           </PrivateRoute>
 
-          <PageWrapper>
+          
             <PrivateRoute
               path="/users-page/:userUid"
               component={SingleUserPage}
             />
-          </PageWrapper>
 
           <PrivateRoute path="/chat">
             <PageWrapper>

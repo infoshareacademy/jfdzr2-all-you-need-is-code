@@ -62,6 +62,7 @@
 
 .users-info-container {
     padding: 2vh;
+    width: 100%;
     /* padding: 0 30px; */
 }
 
@@ -91,7 +92,7 @@
  }
 
  .technology-icon-small {
-    height: 26px;
+    height: 25px;
     margin: 3px;
     object-fit: contain;
 }

@@ -15,6 +15,7 @@ import BorderColorIcon from "@material-ui/icons/BorderColor";
 import DevicesIcon from "@material-ui/icons/Devices";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
+import { PageWrapper } from "../common/PageWrapper"
 
 const useStyles = makeStyles((theme) => ({
   large: {
@@ -32,20 +33,6 @@ export const SingleUserPage = ({
   const [state, setState] = useState("initial");
   const classes = useStyles();
 
-//   useEffect(() => {
-//     firebase
-//       .firestore()
-//       .collection("Users")
-//       .document(userUid)
-//       .onSnapshot((userData) => {
-//         setState("loading");
-//         let singleUserData = [];
-//         singleUserData = [userData.data()];
-//         setUser(singleUserData);
-//         setState("loaded");
-//       });
-//   }, []);
-
 useEffect(() => {
     firebase
       .firestore()
@@ -62,6 +49,7 @@ useEffect(() => {
   }, []);
 
   return (
+    <PageWrapper>
     <div className="profile-page-container">
       {state === "initial" && (
         <div className="loading-page">
@@ -185,12 +173,12 @@ useEffect(() => {
                 </Typography>
               </a>
             </div>
-            <Link to="/edit-profile">
+            <Link>
               <Button
                 color="primary"
                 style={{ backgroundColor: "#6C7ED6", margin: "6px 0 0" }}
               >
-                Edit your profile
+                Message
               </Button>
             </Link>
           </Paper>
@@ -267,5 +255,6 @@ useEffect(() => {
         </div>
       )}
     </div>
+    </PageWrapper>
   );
 };
