@@ -94,6 +94,7 @@ export const AllUsersInfo = () => {
               .map((user) => {
                 return (
                   <Paper elevation={3} className="user-section">
+                    <Link to={`/users-page/${user?.userUid}`} className="user-name-link">
                     <Avatar
                       className={classes.large}
                       src={user?.avatarUrl ? user.avatarUrl : defaultAvatar}
@@ -105,6 +106,7 @@ export const AllUsersInfo = () => {
                     >
                       {user?.name}
                     </Typography>
+                    </Link>
 
                     <div className="profile-content">
                       <div className="profile-content-line">
@@ -190,33 +192,6 @@ export const AllUsersInfo = () => {
                         })}
                         <p>...</p>
                       </div>
-                    </div>
-
-                    <div className="user-page-buttons">
-                      <Link to={`/users-page/${user?.userUid}`}>
-                        <Button
-                          color="primary"
-                          style={{
-                            fontSize: "0.8em",
-                            backgroundColor: "#6C7ED6",
-                            padding: "2px",
-                          }}
-                        >
-                          Profile
-                        </Button>
-                      </Link>
-                      <Link>
-                        <Button
-                          color="primary"
-                          style={{
-                            fontSize: "0.8em",
-                            backgroundColor: "#6C7ED6",
-                            padding: "2px",
-                          }}
-                        >
-                          Message
-                        </Button>
-                      </Link>
                     </div>
                   </Paper>
                 );

@@ -102,3 +102,9 @@
     flex-direction: row;
     flex-wrap: wrap;
 }
+
+.user-name-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
