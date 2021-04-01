@@ -45,16 +45,11 @@ function Chat() {
   
 
   const [filter, setFilter] = useState("")
-  // const [newChatUser, setNewChatUser] = useState({});
 
   const activateChat = async (user) => {
     setChatUser(user)
     await fire.firestore().collection("Messages").doc(msgId).set({})
   }
-
-  // const getChatUserDataFromFirestore = (user) => {
-  //   fire.firestore().collection("Users").doc(user)
-  // }
 
   let allChatUsersArray = [];
   useEffect(() => {
@@ -64,38 +59,32 @@ function Chat() {
       .onSnapshot((users) => {
         users.forEach((user) => {
           let userId = { id: user.id };
-          let object = { ...user.data(), ...userId };
+          let object = {...user.data(), ...userId };
           allChatUsersArray = [...allChatUsersArray, object];
           setAllChatUsersInfo(allChatUsersArray);
-                 
+         
         });
-        console.log(allChatUsersArray)
-        const oneArray = allChatUsersArray.find(item => item.id === '9kLaP4CFyxRymegQJbCWwVToonA3').name
-        console.log(oneArray)
       });
   }, [chatList]);
 
   const filterUser = (user) => {
-    const userName = allChatUsersInfo.find(item => item.id = user).name
+    const userName = allChatUsersInfo.find(item => item.id === user)?.name
     return userName
   }
 
-
   const filterAvatar = (user) => {
-    const userAvatar = allChatUsersInfo.find(item => item.id = user).avatarUrl
+    const userAvatar = allChatUsersInfo.find(item => item.id === user)?.avatarUrl
     return userAvatar
   }
-
 
   const sendMessage = async (e) => {
     e.preventDefault();
     const { uid, photoURL } = auth.currentUser;
     await messagesRef.add({
       text: formValue,
-      // createdAt: fire.firestore.FieldValue.serverTimestamp(),
       createdAt: Date().toLocaleString(),
       uid,
-      photoURL,
+      photoURL: filterAvatar(uid),
     });
     setFormValue("");
     scroll.current.scrollIntoView({ bahavior: "smooth" });
@@ -122,10 +111,6 @@ function Chat() {
   }, []);
 
 
-// Daria i test2 9kLaP4CFyxRymegQJbCWwVToonA3 Ji2X9LS1gQQoGWSsx2YYBfNLbHA3
-// 9kLaP4CFyxRymegQJbCWwVToonA3 Daria jmKir10TYzczaR44P5cl69B3l5Z2 test1
-// 008F87GsKuOwR29kkfOFPHrnDTi19kLaP4CFyxRymegQJbCWwVToonA3
-
   return (
     <>
     <CssBaseline />
@@ -142,7 +127,6 @@ function Chat() {
           <Grid item xs={12} style={{ padding: "10px" }}>
            
             <Search 
-            // onClick={activateChat()}
             />
           
           </Grid>
@@ -150,32 +134,20 @@ function Chat() {
           {chatList.map((user) => {
             return (
               <ListItem 
-            button 
-            key= {user}
-            // chatUser={user}
-            onClick={(e) => {
-              activateChat(user);
-              filterUser(user);
-            }}
+              button 
+              key= {user}
+              onClick={(e) => {activateChat(user)}}
             >
-              <ListItemIcon>
+            <ListItemIcon>
                 <Avatar
                   src={filterAvatar(user)}
-                  // src={fire.firestore().collection("Users").doc(user).avatarUrl}
                 />
               </ListItemIcon>
-              <ListItemText>
-                {allChatUsersInfo.find(item => item.id = user).name}
-                {/* {allChatUsersInfo.find(item => item.id = user).name} */}
-              {/* {filterUser(user)} */}
-              {/* {allChatUsersArray.find(item => item.id === '9kLaP4CFyxRymegQJbCWwVToonA3').name.toString()} */}
-
-              {/* {const userName = allChatUsersInfo.find(el => el.id === user)} */}
+              <ListItemText>{filterUser(user)}  
                 </ListItemText>
             </ListItem>
-            )
-
-          })}
+            )}         
+          )}
 
         </Grid>
 
@@ -228,9 +200,9 @@ function Chat() {
         <div className={`message ${messageClass}`}>
           <img
             className="chat-img"
-            src={
-              photoURL || "https://material-ui.com/static/images/avatar/2.jpg"
-            }
+            // src={filterAvatar(uid)
+              // photoURL || "https://material-ui.com/static/images/avatar/2.jpg"
+            // }
           />
           <p className="chat-text">{text}</p>
           {/* <p className="date">{createdAt}</p> */}

@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Search = ({ onFilterChange, onClickMessage }) => {
+export const Search = ({ onFilterChange }) => {
   const currentUser = firebase.auth().currentUser.uid;
   const [allUsersInfo, setAllUsersInfo] = useState([]);
   const classes = useStyles();
@@ -44,11 +44,10 @@ export const Search = ({ onFilterChange, onClickMessage }) => {
     await firebase.firestore().collection("Messages").doc(msgId).set({})
   }
 
-
   
   const handleOnChange = (event) => {
     setFilter(event.target.value);
-    onFilterChange(event.target.value);
+    // onFilterChange(event.target.value);
   };
 
 
@@ -96,8 +95,8 @@ export const Search = ({ onFilterChange, onClickMessage }) => {
                     color="primary"
                     style={{ backgroundColor: "#6C7ED6" }}
                     clickedUser={clickedUser}
-                    onClick={onClickMessage}
-                  >
+                    onClick={(e) => {activateChat(user.id)}}
+                    >
                     Message
                   </Button>
                 </Paper>
