@@ -23,14 +23,6 @@ export const Search = ({ onFilterChange, onClickMessage }) => {
   const sortedMsgArray = msgArray.sort(); 
   const msgId = sortedMsgArray.toString();  
 
-
-
-  const activateChat = async (userUid) => {
-    setChatUser(userUid)
-    await firebase.firestore().collection("Messages").doc(msgId).set({})
-  }
-
-
   let allUsersArray = [];
   useEffect(() => {
     firebase
@@ -46,6 +38,14 @@ export const Search = ({ onFilterChange, onClickMessage }) => {
       });
   }, []);
 
+
+  const activateChat = async (userUid) => {
+    setChatUser(userUid)
+    await firebase.firestore().collection("Messages").doc(msgId).set({})
+  }
+
+
+  
   const handleOnChange = (event) => {
     setFilter(event.target.value);
     onFilterChange(event.target.value);

@@ -40,16 +40,53 @@ function Chat() {
   const query = messagesRef.orderBy("createdAt").limit(250);
   const [messages] = useCollectionData(query, { idField: "id" });
   const [chatList, setChatList] = useState([])
+  const [allChatUsersInfo, setAllChatUsersInfo] = useState([]);
+
   
 
   const [filter, setFilter] = useState("")
   // const [newChatUser, setNewChatUser] = useState({});
 
-  const activateChat = async (userUid) => {
-    setChatUser(userUid)
+  const activateChat = async (user) => {
+    setChatUser(user)
     await fire.firestore().collection("Messages").doc(msgId).set({})
   }
-  
+
+  // const getChatUserDataFromFirestore = (user) => {
+  //   fire.firestore().collection("Users").doc(user)
+  // }
+
+  let allChatUsersArray = [];
+  useEffect(() => {
+    fire
+      .firestore()
+      .collection("Users")
+      .onSnapshot((users) => {
+        users.forEach((user) => {
+          let userId = { id: user.id };
+          let object = { ...user.data(), ...userId };
+          allChatUsersArray = [...allChatUsersArray, object];
+          setAllChatUsersInfo(allChatUsersArray);
+                 
+        });
+        console.log(allChatUsersArray)
+        const oneArray = allChatUsersArray.find(item => item.id === '9kLaP4CFyxRymegQJbCWwVToonA3').name
+        console.log(oneArray)
+      });
+  }, [chatList]);
+
+  const filterUser = (user) => {
+    const userName = allChatUsersInfo.find(item => item.id = user).name
+    return userName
+  }
+
+
+  const filterAvatar = (user) => {
+    const userAvatar = allChatUsersInfo.find(item => item.id = user).avatarUrl
+    return userAvatar
+  }
+
+
   const sendMessage = async (e) => {
     e.preventDefault();
     const { uid, photoURL } = auth.currentUser;
@@ -68,31 +105,26 @@ function Chat() {
     setFilter(filterText);
   }
 
-  const clearState = () => {
-    setChatList([]);
-  }
-
   useEffect(() => {
-    let allMsgArray = [];
-    clearState();
     fire
       .firestore()
       .collection("Messages")
       .onSnapshot((msg) => {
+        let allMsgArray = [];
         msg.forEach((userMsg) => {
-          if (userMsg.id.includes(auth.currentUser.uid)) 
-          {let userMsgId=(userMsg.id.replace(auth.currentUser.uid, ""))
-        allMsgArray = [...allMsgArray, userMsgId];
-        setChatList(allMsgArray);
-      }
+          if (userMsg.id.includes(auth.currentUser.uid)) {
+            let userMsgId = userMsg.id.replace(auth.currentUser.uid, "");
+            allMsgArray = [...allMsgArray, userMsgId];
+          }
         });
+        setChatList(allMsgArray);
       });
   }, []);
+
+
 // Daria i test2 9kLaP4CFyxRymegQJbCWwVToonA3 Ji2X9LS1gQQoGWSsx2YYBfNLbHA3
 // 9kLaP4CFyxRymegQJbCWwVToonA3 Daria jmKir10TYzczaR44P5cl69B3l5Z2 test1
 // 008F87GsKuOwR29kkfOFPHrnDTi19kLaP4CFyxRymegQJbCWwVToonA3
-
-
 
   return (
     <>
@@ -121,17 +153,24 @@ function Chat() {
             button 
             key= {user}
             // chatUser={user}
-            onClick={(e) => {activateChat(user)
+            onClick={(e) => {
+              activateChat(user);
+              filterUser(user);
             }}
             >
               <ListItemIcon>
                 <Avatar
-                  src="https://material-ui.com/static/images/avatar/2.jpg"
+                  src={filterAvatar(user)}
                   // src={fire.firestore().collection("Users").doc(user).avatarUrl}
                 />
               </ListItemIcon>
-              <ListItemText>{user} 
-              {/* {fire.firestore().collection("Users").doc(user).name} */}
+              <ListItemText>
+                {allChatUsersInfo.find(item => item.id = user).name}
+                {/* {allChatUsersInfo.find(item => item.id = user).name} */}
+              {/* {filterUser(user)} */}
+              {/* {allChatUsersArray.find(item => item.id === '9kLaP4CFyxRymegQJbCWwVToonA3').name.toString()} */}
+
+              {/* {const userName = allChatUsersInfo.find(el => el.id === user)} */}
                 </ListItemText>
             </ListItem>
             )
