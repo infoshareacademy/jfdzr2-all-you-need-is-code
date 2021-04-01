@@ -1,11 +1,12 @@
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../user-context/UserContext";
+import firebase from "../../fire"
 
 import { SurveySteps1 } from "./SurveySteps1";
 import { SurveySteps2 } from "./SurveySteps2";
 import { SurveySteps3 } from "./SurveySteps3";
 import { SurveySteps4 } from "./SurveySteps4";
-import { SurveyNavBtns } from "./SurveyNavBtns";
+import { SurveyNavBtnsEdit } from "./SurveyNavBtnsEdit";
 import { Step1 } from "./Step1";
 import { Step1Image } from "./Step1Image";
 import { Step1Name } from "./Step1Name";
@@ -20,6 +21,8 @@ import { Step4Location } from "./Step4Location";
 export const EditProfileWizardForm = () => {
   const { user } = useContext(UserContext);
 
+  const [userUid, setUserUid] = useState(null)
+  const [userEmail, setUserEmail] = useState(null)
   const [step, setStep] = useState(1);
   const [step1Values, setStep1Values] = useState({});
   const [step1NameValues, setStep1Name] = useState(user.name);
@@ -32,6 +35,11 @@ export const EditProfileWizardForm = () => {
   const [step4Values, setStep4Values] = useState(user.about);
   const [step4LocationValues, setStep4LocationValues] = useState(user.location);
 
+  useEffect(() => {
+    setUserUid(firebase.auth().currentUser.uid)
+    setUserEmail(firebase.auth().currentUser.email)
+  }, [userUid]);
+
   const surveyAnswers = [
     step1NameValues,
     step1Values,
@@ -43,6 +51,8 @@ export const EditProfileWizardForm = () => {
     avatarUrl,
     step2GithubValues,
     step2LinkedInValues,
+    userUid,
+    userEmail
   ];
 
   const handleStep1Change = (event) => {
@@ -130,7 +140,7 @@ export const EditProfileWizardForm = () => {
         )}
       </form>
       {step !== 5 && (
-        <SurveyNavBtns
+        <SurveyNavBtnsEdit
           currentStep={step}
           onClick={setStep}
           answers={surveyAnswers}

@@ -1,4 +1,5 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
+import firebase from "../../fire"
 
 import { SurveySteps1 } from "./SurveySteps1";
 import { SurveySteps2 } from "./SurveySteps2";
@@ -18,6 +19,8 @@ import { Step4Location } from "./Step4Location";
 
 export const WizardForm = () => {
 
+  const [userUid, setUserUid] = useState(null)
+  const [userEmail, setUserEmail] = useState(null)
   const [step, setStep] = useState(1);
   const [step1Values, setStep1Values] = useState({});
   const [step1NameValues, setStep1Name] = useState('');
@@ -30,6 +33,11 @@ export const WizardForm = () => {
   const [step4Values, setStep4Values] = useState('');
   const [step4LocationValues, setStep4LocationValues] = useState('');
 
+  useEffect(() => {
+    setUserUid(firebase.auth().currentUser.uid)
+    setUserEmail(firebase.auth().currentUser.email)
+  }, [userUid]);
+
   const surveyAnswers = [
     step1NameValues,
     step1Values,
@@ -41,6 +49,8 @@ export const WizardForm = () => {
     avatarUrl,
     step2GithubValues,
     step2LinkedInValues,
+    userUid,
+    userEmail
   ];
 
   const handleStep1Change = (event) => {

@@ -4,6 +4,7 @@ import WelcomePage from "./views/WelcomePage";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import { ProfilePage } from "./views/ProfilePage";
 import { UsersPage } from "./views/UsersPage";
+import { SingleUserPage } from "./views/SingleUserPage";
 import MainPage from "./views/MainPage";
 import { ChatPage } from "./views/ChatPage";
 import SignInPage from "./views/SignInPage";
@@ -41,37 +42,44 @@ function App() {
         </Route>
 
         <PrivateRoute path="/primary-survey">
-            <PrimarySurvey />
-          </PrivateRoute >
+          <PrimarySurvey />
+        </PrivateRoute>
 
         <UserContextProvider>
           <PrivateRoute path="/edit-profile">
             <EditProfile />
-          </PrivateRoute >
+          </PrivateRoute>
 
           <PrivateRoute path="/main-page">
             <PageWrapper>
               <MainPage />
             </PageWrapper>
-          </PrivateRoute >
+          </PrivateRoute>
 
-          <PrivateRoute  path="/profile-page">
+          <PrivateRoute path="/profile-page">
             <PageWrapper>
               <ProfilePage />
             </PageWrapper>
-          </PrivateRoute >
+          </PrivateRoute>
 
-          <PrivateRoute  path="/users-page">
+          <PrivateRoute exact path="/users-page">
             <PageWrapper>
               <UsersPage />
             </PageWrapper>
-          </PrivateRoute >
+          </PrivateRoute>
 
-          <PrivateRoute  path="/chat">
+          <PageWrapper>
+            <PrivateRoute
+              path="/users-page/:userUid"
+              component={SingleUserPage}
+            />
+          </PageWrapper>
+
+          <PrivateRoute path="/chat">
             <PageWrapper>
               <ChatPage />
             </PageWrapper>
-          </PrivateRoute >
+          </PrivateRoute>
         </UserContextProvider>
       </Switch>
     </ThemeProvider>

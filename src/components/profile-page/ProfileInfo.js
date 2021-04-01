@@ -1,4 +1,4 @@
-import { Paper, Typography, Button, Avatar, SvgIcon } from "@material-ui/core";
+import { Paper, Typography, Button, Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import defaultAvatar from "../../photos/profilePhotos/default.jpg";
 import { useContext } from "react";
@@ -98,7 +98,7 @@ export const ProfileInfo = () => {
               style={{ textTransform: "capitalize", fontWeight: "900", display: "flex", alignItems: "center" }}
             >
               <GitHubIcon style={{ marginRight: "6px" }} />
-              GitHub: {user?.github.slice(19)}
+              GitHub: {user?.github?.slice(19)}
             </Typography>
           </a>
 
@@ -109,7 +109,7 @@ export const ProfileInfo = () => {
               style={{ textTransform: "capitalize", fontWeight: "900", display: "flex", alignItems: "center" }}
             >
               <LinkedInIcon style={{ marginRight: "6px" }} />
-              LinkedIn: {user?.linkedin.slice(28).slice(0, -1)}
+              LinkedIn: {user?.linkedin?.slice(28).slice(0, -1)}
             </Typography>
           </a>
         </div>

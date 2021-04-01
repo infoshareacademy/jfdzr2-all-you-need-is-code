@@ -34,9 +34,10 @@ export const AllUsersInfo = () => {
         setState("loading");
         let allUsersArray = [];
         users.forEach((user) => {
-          let userId = { id: user.id };
-          let object = { ...user.data(), ...userId };
-          allUsersArray = [...allUsersArray, object];
+          // let userId = { id: user.id };
+          // let object = { ...user.data(), ...userId };
+          // allUsersArray = [...allUsersArray, object];
+          allUsersArray = [...allUsersArray, user.data()];
           setAllUsersInfo(allUsersArray);
           setState("loaded");
         });
@@ -58,7 +59,7 @@ export const AllUsersInfo = () => {
       {state === "initial" && (
         <div className="loading-page">
           <Paper elevation={3} className="profile-section">
-            <Typography variant="h5">Loading your friends</Typography>
+            <Typography variant="h5">Loading other users</Typography>
             <CircularProgress color="secondary" />
           </Paper>
         </div>
@@ -82,8 +83,11 @@ export const AllUsersInfo = () => {
               ?.filter((user) => {
                 return user.name !== "";
               })
+              ?.filter((user) => {
+                return user.userUid !== null;
+              })
               .filter((user) => {
-                return user.id !== currentUser;
+                return user.userUid !== currentUser;
               })
               .filter(filterByName)
               .sort((user1,user2) => user2.name.length - user1.name.length)
@@ -144,7 +148,7 @@ export const AllUsersInfo = () => {
                           {user?.purpose?.[0] === "projecttojoin" &&
                             ` Project to join`}
                           {user?.purpose?.[0] === "lookingaround" &&
-                            ` Just looking around`}
+                            ` Looking around`}
                         </Typography>
                       </div>
 
@@ -189,7 +193,7 @@ export const AllUsersInfo = () => {
                     </div>
 
                     <div className="user-page-buttons">
-                      <Link>
+                      <Link to={`/users-page/${user?.userUid}`}>
                         <Button
                           color="primary"
                           style={{
