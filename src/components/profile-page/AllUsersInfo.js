@@ -53,28 +53,8 @@ export const AllUsersInfo = () => {
     return name.toLowerCase().includes(lowerCaseFilter)
   }
 
-  const handleOnChange = (event) => {
-    setFilter(event.target.value);
-    // onFilterChange(event.target.value);
-  };
-
-  const filterByName = ({ name }) => {
-    const lowerCaseFilter = filter.toLowerCase();
-    return name.toLowerCase().includes(lowerCaseFilter);
-  };
-
   return (
     <>
-    <TextField
-                name="search"
-                type="search"
-                id="search"
-                variant="outlined"
-                label="Search"
-                value={filter}
-                onChange={handleOnChange}
-                fullWidth/>
-        
       {state === "initial" && (
         <div className="loading-page">
           <Paper elevation={3} className="profile-section">
