@@ -74,12 +74,12 @@ function Chat() {
     fire.firestore().collection("Messages").doc(msgId).set({})
   }
 
-  let allChatUsersArray = [];
   useEffect(() => {
     fire
       .firestore()
       .collection("Users")
       .onSnapshot((users) => {
+        let allChatUsersArray = [];
         users.forEach((user) => {
           let userId = { id: user.id };
           let object = { ...user.data(), ...userId };
@@ -125,8 +125,8 @@ function Chat() {
         let allMsgArray = [];
         msg.forEach((userMsg) => {
           if (userMsg.id.includes(auth.currentUser.uid)) {
-            let userMsgId = userMsg.id.replace(auth.currentUser.uid, "");
-            allMsgArray = [...allMsgArray, userMsgId];
+            let userMsgId = userMsg.id.replace(auth.currentUser.uid, "").replace("-", "");
+            allMsgArray.push(userMsgId);
           }
         });
         setChatList(allMsgArray);
@@ -151,17 +151,12 @@ function Chat() {
         <Grid item xs={3} component={Paper} className="border-right500 border-top500">
           <List>
             <ListItem button key="Chat">
-
               <ListItemText primary="Chat"></ListItemText>
             </ListItem>
           </List>
-
           <Divider />
           <Grid item xs={12} style={{ padding: "10px" }}>
-
-            <Search
-            />
-
+            <Search onResultSelect={activateChat} />
           </Grid>
           <Divider />
           {chatList.map((user) => {

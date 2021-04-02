@@ -13,22 +13,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Search = ({ onFilterChange }) => {
+export const Search = ({ onResultSelect }) => {
   const currentUser = firebase.auth().currentUser.uid;
   const [allUsersInfo, setAllUsersInfo] = useState([]);
   const classes = useStyles();
   const [filter, setFilter] = useState("");
-  const [chatUser, setChatUser] = useState("");
-  const msgArray = [currentUser+chatUser];
-  const sortedMsgArray = msgArray.sort(); 
-  const msgId = sortedMsgArray.toString();  
 
-  let allUsersArray = [];
   useEffect(() => {
     firebase
       .firestore()
       .collection("Users")
       .onSnapshot((users) => {
+        let allUsersArray = [];
         users.forEach((user) => {
           let userId = { id: user.id };
           let object = { ...user.data(), ...userId };
@@ -37,12 +33,6 @@ export const Search = ({ onFilterChange }) => {
         });
       });
   }, []);
-
-
-  const activateChat = async (userUid) => {
-    setChatUser(userUid)
-    await firebase.firestore().collection("Messages").doc(msgId).set({})
-  }
 
   
   const handleOnChange = (event) => {
@@ -58,12 +48,9 @@ export const Search = ({ onFilterChange }) => {
   return (
     <>
       <TextField
-        name="search"
         type="search"
-        id="search"
         variant="outlined"
         label="Search"
-        autocomplete="false"
         value={filter}
         onChange={handleOnChange}
         fullWidth
@@ -95,7 +82,7 @@ export const Search = ({ onFilterChange }) => {
                     color="primary"
                     style={{ backgroundColor: "#6C7ED6" }}
                     clickedUser={clickedUser}
-                    onClick={(e) => {activateChat(user.id)}}
+                    onClick={(e) => {onResultSelect(user.id)}}
                     >
                     Message
                   </Button>
