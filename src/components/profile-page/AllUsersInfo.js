@@ -21,14 +21,13 @@ export const AllUsersInfo = () => {
   const [filter, setFilter] = useState("");
 
 
-  let allUsersArray = [];
-
   useEffect(() => {
     firebase
       .firestore()
       .collection("Users")
       .onSnapshot((users) => {
         setState("loading");
+        let allUsersArray = [];
         users.forEach((user) => {
           let userId = { id: user.id };
           let object = { ...user.data(), ...userId };
