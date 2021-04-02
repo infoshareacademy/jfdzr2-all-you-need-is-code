@@ -110,7 +110,6 @@ function Chat() {
       photoURL: filterAvatar(uid),
     });
     setFormValue("");
-    scroll.current.scrollIntoView({ bahavior: "smooth" });
   };
 
   // const handleOnFilterChange = (filterText) => {
@@ -132,6 +131,10 @@ function Chat() {
         setChatList(allMsgArray);
       });
   }, []);
+
+  useEffect(() => {
+    scroll.current.scrollIntoView({ bahavior: "smooth" });
+  }, [messages])
 
   const hanldeOnDelete = (user, currentUser) => {
     const collection = currentUser + user
