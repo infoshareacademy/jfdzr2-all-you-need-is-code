@@ -22,8 +22,10 @@ import "../../styles/Chat.css";
 import Button from "@material-ui/core/Button";
 import { Search } from "../../common/Search"
 import { SettingsInputAntennaTwoTone } from "@material-ui/icons";
-import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+// import ClearIcon from '@material-ui/icons/ClearIcon';
 import Tooltip from '@material-ui/core/Tooltip';
+import logo from "../../logo/sayIT.png";
+
 
 
 
@@ -39,9 +41,8 @@ function ChatMessage(props) {
       <div className={`message ${messageClass}`}>
         <img
           className="chat-img"
-        // src={filterAvatar(uid)
-        // photoURL || "https://material-ui.com/static/images/avatar/2.jpg"
-        // }
+        src={photoURL || "https://material-ui.com/static/images/avatar/2.jpg"
+        }
         />
         <p className="chat-text">{text}</p>
         {/* <p className="date">{createdAt}</p> */}
@@ -63,10 +64,6 @@ function Chat() {
 
 
   const [allChatUsersInfo, setAllChatUsersInfo] = useState([]);
-
-
-
-  // const [filter, setFilter] = useState("")
 
   const activateChat = (user) => {
     setChatUser(user)
@@ -110,12 +107,7 @@ function Chat() {
       photoURL: filterAvatar(uid),
     });
     setFormValue("");
-    scroll.current.scrollIntoView({ bahavior: "smooth" });
   };
-
-  // const handleOnFilterChange = (filterText) => {
-  //   setFilter(filterText);
-  // }
 
   useEffect(() => {
     fire
@@ -141,17 +133,25 @@ function Chat() {
     }).catch((error) => {
       console.error("Error removing document: ", error);
     })
-
   }
+
+
+  useEffect(() => {
+    scroll.current.scrollIntoView({ bahavior: "smooth" });
+  }, [messages])
+
+
 
   return (
     <>
       <CssBaseline />
       <Grid container className="chat-section">
         <Grid item xs={3} component={Paper} className="border-right500 border-top500">
-          <List>
-            <ListItem button key="Chat">
-              <ListItemText primary="Chat"></ListItemText>
+          <List  className="header-cointainer">
+            <ListItem key="Chat">
+              <ListItemText  className="header">
+              <img className="logo" src={logo}/>
+              </ListItemText>
             </ListItem>
           </List>
           <Divider />
@@ -173,8 +173,8 @@ function Chat() {
                 </ListItemIcon>
                 <ListItemText>{filterUser(user)}
                 </ListItemText>
-                <Tooltip title={"DELETE CHAT"}>
-                  <DeleteOutlineIcon color="action" onClick={(e) => { hanldeOnDelete(user, currentUser) }} /></Tooltip>
+                {/* <Tooltip title={"DELETE CHAT"}>
+                  <ClearIcon color="action" onClick={(e) => { hanldeOnDelete(user, currentUser) }} /></Tooltip> */}
               </ListItem>
             )
           }
@@ -203,7 +203,6 @@ function Chat() {
             <Grid item xs={11}>
               <form onSubmit={sendMessage}>
                 <TextField
-                  id="outlined-basic-email"
                   label="Your message"
                   fullWidth
                   value={formValue}
