@@ -3,8 +3,6 @@ import '../styles/Chat.css'
 
 export const ChatPage = () => {
     return (
-        <div className='chat-page-container'>
         <Chat />
-        </div>
     )
 }

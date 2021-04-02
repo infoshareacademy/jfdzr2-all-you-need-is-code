@@ -5,9 +5,9 @@
     height: 84vh;
   }
 
-.head-bg {
+/* .head-bg {
     background-color: #e0e0e0;
-  }
+  } */
 
   .border-top500 {
     border-top: 1px solid #e0e0e0;
@@ -76,15 +76,21 @@
   .header-cointainer {
     background-color: #4853A4 ;
     color: white;
-  }
+    padding: 0px;
+    margin: 0px;
+    }
 
   .header {
+    background-color: #4853A4 ;
+    color: white;
     text-align: center;
     font-weight: bold;
+    padding: 0;
+    margin: 0;
   }
 
   .logo {
-      width: 60%;
+      width: 90%;
       height: auto;
       margin: 0;
       padding: 0;
