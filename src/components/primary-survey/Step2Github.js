@@ -24,13 +24,13 @@ export const Step2Github = ({
   return (
     <div className='media-item'>
       <Typography variant="h5" color="primary" style={{ marginTop: "10px" }}>
-        Your GitHub profile:
+        GitHub profile:
       </Typography>
       <div className={classes.root}>
         <TextField
           id="filled-basic"
           key="location"
-          defaultValue="GitHub profile:"
+          // defaultValue="GitHub profile:"
           variant="standard"
           value={state}
           onChange={handleStep2GithubChange}

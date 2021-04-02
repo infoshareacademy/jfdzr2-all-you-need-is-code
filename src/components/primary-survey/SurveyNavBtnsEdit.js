@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 import firebase from "../../fire";
 
-export const SurveyNavBtns = ({ onClick, currentStep, answers }) => {
+export const SurveyNavBtnsEdit = ({ onClick, currentStep, answers }) => {
   const handleSubmit = () => {
     const user = firebase.auth().currentUser.uid
 
@@ -61,10 +61,10 @@ export const SurveyNavBtns = ({ onClick, currentStep, answers }) => {
         </button>
       )}
 
-      <button className={"skip-btn"} onClick={() => handleSubmit()}>
-        <NavLink to="/main-page">
+      <button className={"skip-btn"}>
+        <NavLink to="/profile-page">
           <Typography variant="h6" color="primary">
-            Skip
+            Cancel
           </Typography>
         </NavLink>
       </button>

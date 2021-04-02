@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { UserContext } from "../user-context/UserContext";
 import firebase from "../../fire"
 
 import { SurveySteps1 } from "./SurveySteps1";
 import { SurveySteps2 } from "./SurveySteps2";
 import { SurveySteps3 } from "./SurveySteps3";
 import { SurveySteps4 } from "./SurveySteps4";
-import { SurveyNavBtns } from "./SurveyNavBtns";
+import { SurveyNavBtnsEdit } from "./SurveyNavBtnsEdit";
 import { Step1 } from "./Step1";
 import { Step1Image } from "./Step1Image";
 import { Step1Name } from "./Step1Name";
@@ -17,21 +18,22 @@ import { Step3Projects } from "./Step3Projects";
 import { Step4 } from "./Step4";
 import { Step4Location } from "./Step4Location";
 
-export const WizardForm = () => {
+export const EditProfileWizardForm = () => {
+  const { user } = useContext(UserContext);
 
   const [userUid, setUserUid] = useState(null)
   const [userEmail, setUserEmail] = useState(null)
   const [step, setStep] = useState(1);
-  const [step1Values, setStep1Values] = useState({});
-  const [step1NameValues, setStep1Name] = useState('');
-  const [avatarUrl, setAvatarUrl] = useState('');
+  const [step1Values, setStep1Values] = useState(user.purpose[0] ? user.purpose[0] : {} );
+  const [step1NameValues, setStep1Name] = useState(user.name);
+  const [avatarUrl, setAvatarUrl] = useState(user.avatarUrl);
   const [step2Values, setStep2Values] = useState({});
-  const [step2GithubValues, setStep2GithubValues] = useState('');
-  const [step2LinkedInValues, setStep2LinkedInValues] = useState('');
-  const [step3Values, setStep3Values] = useState({});
-  const [step3ProjectsValues, setStep3ProjectsValues] = useState('');
-  const [step4Values, setStep4Values] = useState('');
-  const [step4LocationValues, setStep4LocationValues] = useState('');
+  const [step2GithubValues, setStep2GithubValues] = useState(user.github);
+  const [step2LinkedInValues, setStep2LinkedInValues] = useState(user.linkedin);
+  const [step3Values, setStep3Values] = useState(user.experience[0] ? user.experience[0] : {});
+  const [step3ProjectsValues, setStep3ProjectsValues] = useState(user.projects);
+  const [step4Values, setStep4Values] = useState(user.about);
+  const [step4LocationValues, setStep4LocationValues] = useState(user.location);
 
   useEffect(() => {
     setUserUid(firebase.auth().currentUser.uid)
@@ -138,7 +140,7 @@ export const WizardForm = () => {
         )}
       </form>
       {step !== 5 && (
-        <SurveyNavBtns
+        <SurveyNavBtnsEdit
           currentStep={step}
           onClick={setStep}
           answers={surveyAnswers}

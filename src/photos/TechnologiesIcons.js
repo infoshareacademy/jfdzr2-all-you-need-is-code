@@ -7,11 +7,11 @@ import FirebaseIcon from './technologies/Firebase.png';
 import Git from './technologies/Git.png';
 import HTML from './technologies/HTML.png';
 import Java from './technologies/Java.png';
-import JS from './technologies/JS.png';
+import JavaScript from './technologies/JS.png';
 import Kotlin from './technologies/Kotlin.png';
 import NodeJS from './technologies/NodeJS.png';
 import PHP from './technologies/PHP.png';
 
-export const TechnologiesIcons = () => {
-    const JavaScript = { JS }
+export const TechnologiesIcons = {
+    JavaScript: JavaScript
 }
