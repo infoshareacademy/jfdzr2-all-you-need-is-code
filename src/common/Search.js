@@ -47,7 +47,6 @@ export const Search = ({ onFilterChange }) => {
   
   const handleOnChange = (event) => {
     setFilter(event.target.value);
-    // onFilterChange(event.target.value);
   };
 
 
@@ -64,6 +63,7 @@ export const Search = ({ onFilterChange }) => {
         id="search"
         variant="outlined"
         label="Search"
+        autocomplete="false"
         value={filter}
         onChange={handleOnChange}
         fullWidth

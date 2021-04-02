@@ -22,6 +22,9 @@ import "../../styles/Chat.css";
 import Button from "@material-ui/core/Button";
 import {Search} from "../../common/Search"
 import { SettingsInputAntennaTwoTone } from "@material-ui/icons";
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import Tooltip from '@material-ui/core/Tooltip';
+
 
 
 const auth = fire.auth();
@@ -46,9 +49,9 @@ function Chat() {
 
   const [filter, setFilter] = useState("")
 
-  const activateChat = async (user) => {
+  const activateChat = (user) => {
     setChatUser(user)
-    await fire.firestore().collection("Messages").doc(msgId).set({})
+    fire.firestore().collection("Messages").doc(msgId).set({})
   }
 
   let allChatUsersArray = [];
@@ -90,9 +93,9 @@ function Chat() {
     scroll.current.scrollIntoView({ bahavior: "smooth" });
   };
 
-  const handleOnFilterChange = (filterText) => {
-    setFilter(filterText);
-  }
+  // const handleOnFilterChange = (filterText) => {
+  //   setFilter(filterText);
+  // }
 
   useEffect(() => {
     fire
@@ -110,6 +113,16 @@ function Chat() {
       });
   }, []);
 
+  const hanldeOnDelete = (user, currentUser) => {
+    const collection = currentUser+user
+    console.log(collection)
+    fire.firestore().collection("Messages").doc(collection).delete().then(() => {
+      console.log("Document successfully deleted!");
+    }).catch((error) => {
+        console.error("Error removing document: ", error);
+    })
+
+  } 
 
   return (
     <>
@@ -145,6 +158,8 @@ function Chat() {
               </ListItemIcon>
               <ListItemText>{filterUser(user)}  
                 </ListItemText>
+                <Tooltip title={"DELETE CHAT"}>
+                <DeleteOutlineIcon color="action" onClick = {(e) => {hanldeOnDelete(user, currentUser)}}/></Tooltip>
             </ListItem>
             )}         
           )}
