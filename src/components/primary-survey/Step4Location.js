@@ -22,7 +22,7 @@ export const Step4Location = ({
   const classes = useStyles();
 
   return (
-    <>
+    <div className='media-item'>
       <Typography variant="h5" color="primary" style={{ marginTop: "10px" }}>
         Your location:
       </Typography>
@@ -36,6 +36,6 @@ export const Step4Location = ({
           onChange={handleStep4LocationChange}
         />
       </div>
-    </>
+    </div>
   );
 };
