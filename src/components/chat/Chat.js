@@ -20,7 +20,7 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useState, useRef, useEffect } from "react";
 import "../../styles/Chat.css";
 import Button from "@material-ui/core/Button";
-import {Search} from "../../common/Search"
+import { Search } from "../../common/Search"
 import { SettingsInputAntennaTwoTone } from "@material-ui/icons";
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -45,7 +45,7 @@ function Chat() {
 
   const [allChatUsersInfo, setAllChatUsersInfo] = useState([]);
 
-  
+
 
   // const [filter, setFilter] = useState("")
 
@@ -63,10 +63,10 @@ function Chat() {
       .onSnapshot((users) => {
         users.forEach((user) => {
           let userId = { id: user.id };
-          let object = {...user.data(), ...userId };
+          let object = { ...user.data(), ...userId };
           allChatUsersArray = [...allChatUsersArray, object];
           setAllChatUsersInfo(allChatUsersArray);
-         
+
         });
       });
   }, [chatList]);
@@ -115,59 +115,60 @@ function Chat() {
   }, []);
 
   const hanldeOnDelete = (user, currentUser) => {
-    const collection = currentUser+user
+    const collection = currentUser + user
     console.log(collection)
     fire.firestore().collection("Messages").doc(collection).delete().then(() => {
       console.log("Document successfully deleted!");
     }).catch((error) => {
-        console.error("Error removing document: ", error);
+      console.error("Error removing document: ", error);
     })
 
-  } 
+  }
 
   return (
     <>
-    <CssBaseline />
+      <CssBaseline />
       <Grid container className="chat-section">
         <Grid item xs={3} component={Paper} className="border-right500 border-top500">
           <List>
             <ListItem button key="Chat">
-              
+
               <ListItemText primary="Chat"></ListItemText>
             </ListItem>
           </List>
 
           <Divider />
           <Grid item xs={12} style={{ padding: "10px" }}>
-           
-            <Search 
+
+            <Search
             />
-          
+
           </Grid>
           <Divider />
           {chatList.map((user) => {
             return (
-              <ListItem 
-              button 
-              key= {user}
-              onClick={(e) => {activateChat(user)}}
-            >
-            <ListItemIcon>
-                <Avatar
-                  src={filterAvatar(user)}
-                />
-              </ListItemIcon>
-              <ListItemText>{filterUser(user)}  
+              <ListItem
+                button
+                key={user}
+                onClick={(e) => { activateChat(user) }}
+              >
+                <ListItemIcon>
+                  <Avatar
+                    src={filterAvatar(user)}
+                  />
+                </ListItemIcon>
+                <ListItemText>{filterUser(user)}
                 </ListItemText>
                 <Tooltip title={"DELETE CHAT"}>
-                <DeleteOutlineIcon color="action" onClick = {(e) => {hanldeOnDelete(user, currentUser)}}/></Tooltip>
-            </ListItem>
-            )}         
+                  <DeleteOutlineIcon color="action" onClick={(e) => { hanldeOnDelete(user, currentUser) }} /></Tooltip>
+              </ListItem>
+            )
+          }
           )}
 
         </Grid>
 
-        <Grid item xs={9}  component={Paper} className="border-top500">
+        <Grid item xs={9} component={Paper} className="border-top500">
           <List className="message-area">
             <ListItem key="1">
               <section className="chat-section">
@@ -198,8 +199,8 @@ function Chat() {
             </Grid>
 
             <Grid xs={1} align="right">
-              <Fab color="secondary" aria-label="add"  onClick={sendMessage}>
-                <SendIcon/>
+              <Fab color="secondary" aria-label="add" onClick={sendMessage}>
+                <SendIcon />
               </Fab>
             </Grid>
           </Grid>
@@ -216,9 +217,9 @@ function Chat() {
         <div className={`message ${messageClass}`}>
           <img
             className="chat-img"
-            // src={filterAvatar(uid)
-              // photoURL || "https://material-ui.com/static/images/avatar/2.jpg"
-            // }
+          // src={filterAvatar(uid)
+          // photoURL || "https://material-ui.com/static/images/avatar/2.jpg"
+          // }
           />
           <p className="chat-text">{text}</p>
           {/* <p className="date">{createdAt}</p> */}
