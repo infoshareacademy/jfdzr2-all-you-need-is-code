@@ -75,7 +75,7 @@ export default function SignInPage() {
         switch (err.code) {
           case "auth/invalid-email":
           case "auth/user-disabled":
-          case "auth//user-not-found":
+          case "auth/user-not-found":
             setEmailError(err.message);
             break;
           case "auth/wrong-password":
@@ -122,6 +122,6 @@ useEffect(() => {
         </Paper>
       </Grid>
       )}
-</div>
+</div> 
   );
 }

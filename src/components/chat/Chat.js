@@ -43,11 +43,13 @@ function Chat() {
   const query = messagesRef.orderBy("createdAt").limit(250);
   const [messages] = useCollectionData(query, { idField: "id" });
   const [chatList, setChatList] = useState([])
+
+
   const [allChatUsersInfo, setAllChatUsersInfo] = useState([]);
 
   
 
-  const [filter, setFilter] = useState("")
+  // const [filter, setFilter] = useState("")
 
   const activateChat = (user) => {
     setChatUser(user)
