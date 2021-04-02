@@ -125,6 +125,10 @@ function Chat() {
       });
   }, []);
 
+  useEffect(() => {
+    scroll.current.scrollIntoView({ bahavior: "smooth" });
+  }, [messages])
+
   const hanldeOnDelete = (user, currentUser) => {
     const collection = currentUser + user
     console.log(collection)
