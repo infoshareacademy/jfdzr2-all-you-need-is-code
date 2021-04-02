@@ -29,15 +29,13 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 const auth = fire.auth();
 
-
+const makeMsgId = (userUid, chatUserUid) => [userUid, chatUserUid].sort().join('-')
 
 function Chat() {
   const scroll = useRef();
   const currentUser = auth.currentUser.uid;
   const [chatUser, setChatUser] = useState("");
-  const msgArray = [currentUser+chatUser];
-  const sortedMsgArray = msgArray.sort(); 
-  const msgId = sortedMsgArray.toString();  
+  const msgId = makeMsgId(currentUser, chatUser)
   const [formValue, setFormValue] = useState("");
   const messagesRef = fire.firestore().collection("Messages").doc(msgId).collection(msgId);
   const query = messagesRef.orderBy("createdAt").limit(250);
@@ -53,6 +51,7 @@ function Chat() {
 
   const activateChat = (user) => {
     setChatUser(user)
+    const msgId = makeMsgId(currentUser, user)
     fire.firestore().collection("Messages").doc(msgId).set({})
   }
 
