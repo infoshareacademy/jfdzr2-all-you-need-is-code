@@ -5,17 +5,16 @@ import Likes from "../photos/likes.png";
 import Coment from "../photos/coment.png";
 import fire from "../fire";
 import React, { useState } from "react";
-import { Form, Col, Button } from "react-bootstrap";
-import { useFormik } from "formik";
+import { Button, TextField } from "@material-ui/core";
 export default function Post(props) {
-  const [like, setLike] = useState(0);
-  const [moment, setMoment] = useState(0);
-  const [modalComment, setModalComment] = useState("close");
+  const [showComment, setShowComment] = useState(false);
+  const [myValue, setValue] = useState("");
+
   function handleComment() {
-    if (modalComment == "close") {
-      setModalComment("open");
+    if (!showComment) {
+      setShowComment(true);
     } else {
-      setModalComment("close");
+      setShowComment(false);
     }
   }
   function handleLike(e) {
@@ -23,46 +22,62 @@ export default function Post(props) {
     const docRef = fire.firestore().collection("Posts").doc(e.target.id);
     var likeByYou = false;
     var i = 0;
-    fire
-      .firestore()
-      .collection("Posts")
-      .doc(e.target.id)
-      .collection("Likes")
+    let arrayPeopleLike = [];
+
+    docRef
       .get()
       .then((snap) => {
-        snap.forEach((doc) => {
-          i++;
-          if (!likeByYou & (i === snap.size)) {
-            docRef.collection(`Likes`).doc(userUid).set({
-              like: true,
-            });
-          }
-
-          if (doc.id === fire.auth().currentUser.uid) {
-            docRef.collection("Likes").doc(userUid).delete();
-            likeByYou = true;
-          }
-        });
-
-        if (snap.size === 0) {
-          docRef.collection(`Likes`).doc(userUid).set({
-            like: true,
-          });
+        arrayPeopleLike = Object.keys(snap.data().likes);
+        if (arrayPeopleLike.includes(userUid)) {
+          likeByYou = true;
+        }
+      })
+      .then(() => {
+        if (likeByYou) {
+        } else {
+          let data = {};
+          docRef
+            .get()
+            .then((query) => {
+              data = query.data().likes;
+            })
+            .then(
+              fire.firestore().runTransaction(function (transaction) {
+                // This code may get re-run multiple times if there are conflicts.
+                return transaction.get(docRef).then(function (doc) {
+                  transaction.update(docRef, {
+                    likes: {
+                      [userUid]: true,
+                    },
+                  });
+                });
+              })
+            );
         }
       });
   }
   function handleSubmit(e) {
+    console.log(document.querySelector(".commentValue").innerText);
+    const userUid = fire.auth().currentUser.uid.toString();
     const docRef = fire.firestore().collection("Posts").doc(e.target.id);
     e.preventDefault();
-
     docRef
-      .collection("Comments")
-      .doc()
-      .set({
-        comment: document.querySelector(".commentValue").value,
-      })
+      .get()
+      .then((query) => {})
+      .then(
+        fire.firestore().runTransaction(function (transaction) {
+          // This code may get re-run multiple times if there are conflicts.
+          return transaction.get(docRef).then(function (doc) {
+            transaction.update(docRef, {
+              comments: {
+                [userUid]: myValue,
+              },
+            });
+          });
+        })
+      )
       .then(() => {
-        document.querySelector(".commentValue").value = "";
+        setValue("");
       });
   }
 
@@ -77,7 +92,6 @@ export default function Post(props) {
         <h2 className="tittle">{props.title}</h2>
         <div className="contentOfThePost">
           <p className="textOfPost">{props.text}</p>
-
           <div className="postStatus">
             <button onClick={handleLike} className="likesSection">
               <img className="likesPhoto" id={props.index} src={Likes}></img>
@@ -90,46 +104,50 @@ export default function Post(props) {
 
             <p className="data">{props.time}</p>
           </div>
-          {modalComment === "open" && (
-            <Form
-              onSubmit={handleSubmit}
-              id={props.index}
-              className="formComment"
-            >
-              <Form.Row>
-                <Col>
-                  <Form.Control
-                    className="commentValue"
-                    placeholder="What's in your mind?"
-                    type="text"
-                  />
-                </Col>
+          <form
+            onSubmit={handleSubmit}
+            id={props.index}
+            className="formComment"
+          >
+            <TextField
+              id="standard-secondary"
+              value={myValue}
+              onChange={(e) => setValue(e.target.value)}
+              className="commentValue"
+              type="text"
+              placeholder="What's in your mind?"
+            ></TextField>
 
-                <Button variant="primary" type="submit">
-                  Submit
-                </Button>
-              </Form.Row>
-            </Form>
-            
+            <Button className="buttonSubmit" variant="contained" type="submit" color="secondary">
+              Submit
+            </Button>
+          </form>
+
+          {showComment === false && props.comment != null && (
+            <>
+              <div className="coment" id="firstcomment">
+                <img className="photoOfComentator" src={profilePhoto}></img>
+                <div className="comentContent">
+                  <h5 className="comentatorName">Hubert Urbański</h5>
+                  <p>{props.comment}</p>
+                </div>
+              </div>
+            </>
           )}
-           {
-           props.liczba.map((item,index) => (
-             
-            <div className="coment">
-            <img className="photoOfComentator" src={profilePhoto}></img>
-            <div className="comentContent">
-              <h5 className="comentatorName">Hubert Urbański</h5>
-              <p>{item.comment}</p>
 
-              
-            </div>
-          </div>
-            
-            ))}
-          
-           
-          
-          
+          {showComment === true && (
+            <>
+              {props.comments.map((item, index) => (
+                <div className="coment" id="allcomments">
+                  <img className="photoOfComentator" src={profilePhoto}></img>
+                  <div className="comentContent">
+                    <h5 className="comentatorName">Hubert Urbański</h5>
+                    <p>{item}</p>
+                  </div>
+                </div>
+              ))}
+            </>
+          )}
         </div>
       </div>
     </div>

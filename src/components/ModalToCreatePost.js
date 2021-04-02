@@ -16,13 +16,14 @@ export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
     },
     onSubmit: (values) => {
       document.querySelector("#ModalCreatePost").style.display = "none";
+      document.querySelector(".page").style.opacity = "1";
       fire.firestore().collection("Posts").doc().set({
         title: values["name"],
         text: values["comment"],
+        likes: {},
+        comments: {},
+        // created: fire.database.ServerValue.TIMESTAMP,
       });
-      //   fire.firestore().collection("Posts").doc("31BPX5oTs9DMAWeGsrhv").collection("comments").doc("XD").set({
-      //       com:1
-      //   })
       formik.values.comment = "";
       formik.values.title = "";
     },

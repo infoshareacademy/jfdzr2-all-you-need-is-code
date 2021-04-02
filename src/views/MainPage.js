@@ -33,53 +33,34 @@ export default function MainPage() {
       .collection("Posts")
       .onSnapshot((querySnapshot) => {
         const posts = [];
+        const comments = [];
         let i = 0;
-        let a = [];
         querySnapshot.forEach((doc) => {
-          fire
-            .firestore()
-            .collection("Posts")
-            .doc(doc.id)
-            .collection("Comments")
-            .get()
-            .then((snap) => {
-              const tempDoc = [];
+          i++;
+          comments.push(Object.values(doc.data().comments));
+          posts.push({
+            id: doc.id,
+            ...doc.data(),
+            likes: Object.keys(doc.data().likes).length,
+            comments: comments,
+          });
 
-              snap.forEach((doc) => {
-                tempDoc.push({ id: doc.id, ...doc.data() });
-              });
-              a.push(tempDoc);
-              setComments(a);
-            });
-          fire
-            .firestore()
-            .collection("Posts")
-            .doc(doc.id)
-            .collection("Likes")
-            .get()
-            .then((snap) => {
-              i++;
-
-              posts.push({
-                comments: comments[0],
-                id: doc.id,
-                likesCounter: snap.size,
-                ...doc.data(),
-              });
-
-              if (i === querySnapshot.size) {
-                setPosts(posts);
-              }
-            });
+          if (i === querySnapshot.size) {
+            setPosts(posts);
+          }
         });
       });
   }, []);
+  const test = [
+    ["3", "4", "5"],
+    ["3", "3"],
+  ];
   return (
     <>
       <MainPageWrapper>
         <div className="page">
           <div className="body">
-            <div id="body" className="bodyOfPage">
+            <div className="bodyOfPage">
               <div className="buttonSection">
                 <button onClick={toggleModal} className="btn btn-writeMessage">
                   Write a message
@@ -94,6 +75,7 @@ export default function MainPage() {
                 </button>
               </div>
             </div>
+          
             {posts.map((post, index) => (
               <div>
                 {
@@ -101,10 +83,12 @@ export default function MainPage() {
                     key={post.id}
                     title={post.title}
                     text={post.text}
-                    likes={post.likesCounter}
                     index={post.id}
                     time={post.time}
-                    liczba={comments[index]}
+                    likes={post.likes}
+                    comments={post.comments[index]}
+                    comment={post.comments[index][0]}
+
                   />
                 }
               </div>
