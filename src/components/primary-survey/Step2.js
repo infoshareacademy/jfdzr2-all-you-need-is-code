@@ -46,19 +46,34 @@ export const Step2 = ({ state, onChange: handleStep2Change }) => {
             return (
               <div className="technologies-list-survey">
               <img className="technology-icon-survey" alt={technology} src={process.env.PUBLIC_URL + `/technologies/${technology}.png`} />
+              {state.includes(technology) && (
               <FormControlLabel
-                control={
-                  <Checkbox
-                    id={technology}
-                    defaultChecked={state[technology]}
-                    onChange={handleStep2Change}
-                    name={technology}
-                    color="primary"
-                    key={index}
-                  />
+                control={    
+                    <Checkbox
+                        id={technology}
+                        checked={state}
+                        onChange={handleStep2Change}
+                        name={technology}
+                        color="primary"
+                        key={index}
+                      />
                 }
                 label={technology}
-              />
+              />)}
+              {!state.includes(technology) && (
+              <FormControlLabel
+                control={    
+                    <Checkbox
+                        id={technology}
+                        defaultChecked={state[technology]}
+                        onChange={handleStep2Change}
+                        name={technology}
+                        color="primary"
+                        key={index}
+                      />
+                }
+                label={technology}
+              />)}
               </div>
             );
           })}

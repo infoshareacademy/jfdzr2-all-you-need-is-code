@@ -27,7 +27,7 @@ export const EditProfileWizardForm = () => {
   const [step1Values, setStep1Values] = useState(user.purpose[0] ? user.purpose[0] : {} );
   const [step1NameValues, setStep1Name] = useState(user.name);
   const [avatarUrl, setAvatarUrl] = useState(user.avatarUrl);
-  const [step2Values, setStep2Values] = useState({});
+  const [step2Values, setStep2Values] = useState(user.technologies);
   const [step2GithubValues, setStep2GithubValues] = useState(user.github);
   const [step2LinkedInValues, setStep2LinkedInValues] = useState(user.linkedin);
   const [step3Values, setStep3Values] = useState(user.experience[0] ? user.experience[0] : {});
