@@ -31,6 +31,25 @@ const auth = fire.auth();
 
 const makeMsgId = (userUid, chatUserUid) => [userUid, chatUserUid].sort().join('-')
 
+function ChatMessage(props) {
+  const { text, uid, photoURL, createdAt } = props.message;
+  const messageClass = uid === auth.currentUser.uid ? "sent" : "received";
+  return (
+    <>
+      <div className={`message ${messageClass}`}>
+        <img
+          className="chat-img"
+        // src={filterAvatar(uid)
+        // photoURL || "https://material-ui.com/static/images/avatar/2.jpg"
+        // }
+        />
+        <p className="chat-text">{text}</p>
+        {/* <p className="date">{createdAt}</p> */}
+      </div>
+    </>
+  );
+}
+
 function Chat() {
   const scroll = useRef();
   const currentUser = auth.currentUser.uid;
@@ -208,25 +227,6 @@ function Chat() {
       </Grid>
     </>
   );
-
-  function ChatMessage(props) {
-    const { text, uid, photoURL, createdAt } = props.message;
-    const messageClass = uid === auth.currentUser.uid ? "sent" : "received";
-    return (
-      <>
-        <div className={`message ${messageClass}`}>
-          <img
-            className="chat-img"
-          // src={filterAvatar(uid)
-          // photoURL || "https://material-ui.com/static/images/avatar/2.jpg"
-          // }
-          />
-          <p className="chat-text">{text}</p>
-          {/* <p className="date">{createdAt}</p> */}
-        </div>
-      </>
-    );
-  }
 }
 
 export default Chat;
