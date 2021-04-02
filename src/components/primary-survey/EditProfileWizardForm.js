@@ -24,13 +24,13 @@ export const EditProfileWizardForm = () => {
   const [userUid, setUserUid] = useState(null)
   const [userEmail, setUserEmail] = useState(null)
   const [step, setStep] = useState(1);
-  const [step1Values, setStep1Values] = useState(user.purpose[0]);
+  const [step1Values, setStep1Values] = useState(user.purpose[0] ? user.purpose[0] : {} );
   const [step1NameValues, setStep1Name] = useState(user.name);
   const [avatarUrl, setAvatarUrl] = useState(user.avatarUrl);
   const [step2Values, setStep2Values] = useState({});
   const [step2GithubValues, setStep2GithubValues] = useState(user.github);
   const [step2LinkedInValues, setStep2LinkedInValues] = useState(user.linkedin);
-  const [step3Values, setStep3Values] = useState(user.experience[0]);
+  const [step3Values, setStep3Values] = useState(user.experience[0] ? user.experience[0] : {});
   const [step3ProjectsValues, setStep3ProjectsValues] = useState(user.projects);
   const [step4Values, setStep4Values] = useState(user.about);
   const [step4LocationValues, setStep4LocationValues] = useState(user.location);
