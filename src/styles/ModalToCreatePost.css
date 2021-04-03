@@ -1,5 +1,10 @@
 
 .ModalCreatePost{
+    color: white;
+    letter-spacing: 0.05em;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
     display: none;
     justify-content: center;
     width: 100%;
@@ -8,8 +13,8 @@
 .ModalForm{
     position: absolute;
     top: 100px;
-    height: 50vh;
-    width: 50%;
+    
+    width: 40%;
     background-color:#4853A4;
     border-radius: 6px;
     opacity: 1;
@@ -17,23 +22,9 @@
 .ModalForm>*{
     margin: 6px;
 }
-.describeProject{
-    
-    min-height: 100px;
-    width: 350px;
-    
-}
-.tech{
-    height: 240px;
-    margin:0;
-    margin-top: -40px;
-    text-align: center;
-    
-}
-.submit{
 
-  
-}
+
+
 .close{
     position: absolute;
     top: 0;
