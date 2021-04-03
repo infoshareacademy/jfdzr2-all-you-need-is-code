@@ -1,6 +1,5 @@
 import { useFormik } from "formik";
 import "../styles/ModalToCreatePost.css";
-import { Tech } from "./technologies";
 import "bootstrap/dist/css/bootstrap.css";
 import { Paper, TextField, Typography, Button } from "@material-ui/core";
 import React, { useState } from "react";
