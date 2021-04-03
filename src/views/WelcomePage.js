@@ -3,15 +3,10 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Logo from "../logo/FindIT.png";
-import SignIn from "../components/WelcomePage/SignIn";
 import { Typography } from "@material-ui/core";
 import "../styles/WelcomePage.css";
-import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
 import {LogInBtn} from '../components/WelcomePage/Buttons'
 import {SignInBtn} from '../components/WelcomePage/Buttons'
-import {useState} from 'react'
-import { link } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    justifyContent: "center",
     width: "100%",
     height: "100%",
     padding: "150px 100px",
@@ -44,6 +40,12 @@ const useStyles = makeStyles((theme) => ({
   TextField: {
     border: '1px solid yellow',
   },
+  emptyspace: {
+    flex: "1",
+  },
+  footer: {
+  marginTop: "auto",  
+  }
 }));
 
 export default function WelcomePage() {
@@ -60,20 +62,10 @@ export default function WelcomePage() {
             <div className={classes.welcome}>Welcome</div>
           </Typography>
           <Typography align="justify" variant="body4">
-            FindIT is a place ... Here some text Lorem ipsum dolor sit amet
-            consectetur adipisicing elit. Sint, quidem molestiae ut, amet
-            dolore, id atque debitis minima non iusto sequi autem alias
-            obcaecati sunt vel eum! Aspernatur, dolorem ut. Here some text Lorem
-            ipsum dolor sit amet consectetur adipisicing elit. Sint, quidem
-            molestiae ut, amet dolore, id atque debitis minima non iusto sequi
-            autem alias obcaecati sunt vel eum! Aspernatur, dolorem ut. Here
-            some text Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Sint, quidem molestiae ut, amet dolore, id atque debitis minima non
-            iusto sequi autem alias obcaecati sunt vel eum! Aspernatur, dolorem
-            ut. Here some text Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Sint, quidem molestiae ut, amet dolore, id atque
-            debitis minima non iusto sequi autem alias obcaecati sunt vel eum!
-            Aspernatur, dolorem ut.
+          If you've ever wondered how to get a partner for your new it project, you don't know how to solve your long-bothering experience, this place is for you!
+            FindIT is a platform where you you can find a partner for your dream project in any programming language, you can join an existing team and support it with your knowledge or simply meet people as interested in IT as you are
+            Simply sign in or log in and start your it journey!
+            We need only your email address and password
           </Typography>
         <Grid container>
           <Grid item xs={6}>
@@ -82,8 +74,6 @@ export default function WelcomePage() {
           <Grid item xs={6}>
            <SignInBtn />
           </Grid>
-          {/* </div> */}
-          {/* <SignIn /> */}
           </Grid>
         </Paper>
       </Grid>
