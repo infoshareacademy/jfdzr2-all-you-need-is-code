@@ -1,18 +1,6 @@
-* {
-  letter-spacing: 0.05em;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 500;
-}
-.modalOfPost {
-  color: rgba(0, 0, 0, 0.32);
-  margin-top: 4%;
-  background-color: white;
-  border-radius: 2%;
-}
 .Modal {
-  height: 370px;
-  width: 40vw;
+  /* height: 370px; */
+  width: 50vw;
 }
 .informationAboutTheWriter {
   display: flex;

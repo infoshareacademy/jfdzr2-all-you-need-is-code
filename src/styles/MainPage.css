@@ -1,53 +1,25 @@
-*{
-    margin: 0;
-    padding: 0;
-}
-.page{
+.page {
     display: flex;
-    justify-content: center;
-    background-color:#e5e5e5;
-    width: 100vw;   
-    
-}
-.body{ 
-    width: 50vw;
-    
-    margin-top: 2vh; 
-}
-.bodyOfPage{
-   
-    
-    opacity:1;
-}
-.bodyOfPageOpacity{
-    opacity: 0.6;
-}
-.buttonSection{
-    
-    width: 100%;
-    /* margin-left: 10%; */
-    margin-top: 80px;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 50px;
-}
-.buttonYourNetwork{
-    /* margin-left: 10px; */
-    margin-top: 2vh; 
+    flex-direction: column;
+    align-items: center;
+    width: 60vw;
+    margin: 2vh 0;
 }
 
-.buttonYourNetwork,.btn-writeMessage,.btn-sortBy{
-    
+.buttonSection{  
+    width: 50vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-sortBy{
     background-color: transparent;
     color: #A8A8A8;
     border: none;
     outline: none;
     cursor: pointer;
 }
-.btn-writeMessage{
-    background-color: white;
-    text-align: center; 
-}
+
 .buttonYourNetwork:hover,.btn-writeMessage:hover,.btn-sortBy:hover{
     color: black;
 }

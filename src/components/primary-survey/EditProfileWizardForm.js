@@ -62,7 +62,13 @@ export const EditProfileWizardForm = () => {
     setStep1Name(event.target.value);
   };
   const handleStep2Change = (event) => {
-    setStep2Values({ ...step2Values, [event.target.id]: event.target.checked });
+    if (event.target.checked) {
+      // add to table
+      setStep2Values(values => [ ...values, event.target.id ]);
+    } else {
+      // remove from table
+      setStep2Values(values => values.filter(v => v !== event.target.id));
+    }
   };
   const handleStep2GithubChange = (event) => {
     setStep2GithubValues(event.target.value);
