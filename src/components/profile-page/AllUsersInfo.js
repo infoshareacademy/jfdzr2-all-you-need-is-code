@@ -43,16 +43,15 @@ export const AllUsersInfo = () => {
         });
       });
   }, []);
-
   const handleOnChange = (event) => {
     setFilter(event.target.value);
     // onFilterChange(event.target.value);
   };
 
-  const filterByName = ({ name }) => {
+  const filterByName = ({name}) => {
     const lowerCaseFilter = filter.toLowerCase();
-    return name.toLowerCase().includes(lowerCaseFilter);
-  };
+    return name.toLowerCase().includes(lowerCaseFilter)
+  }
 
   return (
     <>

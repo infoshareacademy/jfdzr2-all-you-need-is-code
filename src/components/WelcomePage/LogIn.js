@@ -19,7 +19,7 @@ const theme = createMuiTheme({
   },
 });
 
-export default function SignIn(props) {
+export default function LogIn(props) {
   const {
     email,
     setEmail,
@@ -53,7 +53,7 @@ export default function SignIn(props) {
             autoFocus
             onChange={(e) => setEmail(e.target.value)}
           />
-          <p>{emailError}</p>
+          <p error>{emailError}</p>
           
           <TextField
             variant="outlined"
