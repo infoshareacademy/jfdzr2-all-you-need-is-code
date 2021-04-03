@@ -1,11 +1,10 @@
 import "../styles/Post.css";
 import profilePhoto from "../photos/profilePhotos/profilePhoto.jpeg";
-// import Share from '../photos/share.png'
 import Likes from "../photos/likes.png";
 import Coment from "../photos/coment.png";
 import fire from "../fire";
 import React, { useState } from "react";
-import { Button, TextField } from "@material-ui/core";
+import { Button, TextField, Paper } from "@material-ui/core";
 export default function Post(props) {
   const [showComment, setShowComment] = useState(false);
   const [myValue, setValue] = useState("");
@@ -61,6 +60,10 @@ export default function Post(props) {
     const userUid = fire.auth().currentUser.uid.toString();
     const docRef = fire.firestore().collection("Posts").doc(e.target.id);
     e.preventDefault();
+    const data = {
+      name: "Kamil",
+    };
+    
     docRef
       .get()
       .then((query) => {})
@@ -70,6 +73,7 @@ export default function Post(props) {
           return transaction.get(docRef).then(function (doc) {
             transaction.update(docRef, {
               comments: {
+                 ...data,
                 [userUid]: myValue,
               },
             });
@@ -82,7 +86,7 @@ export default function Post(props) {
   }
 
   return (
-    <div className="Modal">
+    <Paper elevation={3} className="Modal">
       <div className="modalOfPost">
         <div className="informationAboutTheWriter">
           <img className="profile-Post-Photo" src={profilePhoto}></img>
@@ -118,7 +122,12 @@ export default function Post(props) {
               placeholder="What's in your mind?"
             ></TextField>
 
-            <Button className="buttonSubmit" variant="contained" type="submit" color="secondary">
+            <Button
+              className="buttonSubmit"
+              variant="contained"
+              type="submit"
+              color="secondary"
+            >
               Submit
             </Button>
           </form>
@@ -150,6 +159,6 @@ export default function Post(props) {
           )}
         </div>
       </div>
-    </div>
+    </Paper>
   );
 }

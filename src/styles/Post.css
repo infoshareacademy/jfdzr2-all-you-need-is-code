@@ -1,11 +1,18 @@
+* {
+  letter-spacing: 0.05em;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+}
 .modalOfPost {
   color: rgba(0, 0, 0, 0.32);
   margin-top: 4%;
-
-  width: 45vw;
-  height: 370px;
   background-color: white;
   border-radius: 2%;
+}
+.Modal {
+  height: 370px;
+  width: 40vw;
 }
 .informationAboutTheWriter {
   display: flex;
@@ -17,7 +24,6 @@
 }
 .informationAboutTheWriter > * {
   margin-top: 10px;
-  font-family: Roboto;
 }
 .positionInProgramming {
   padding-top: 5px;
@@ -121,9 +127,11 @@
   margin-top: 10px;
   margin-bottom: 2s0px;
 }
-#standard-secondary{
-  width:400px
+#standard-secondary {
+  width: 300px;
+  
 }
-.buttonSubmit{
-  margin-left:10px ;
+.buttonSubmit {
+  position: absolute;
+  left: 20px;
 }

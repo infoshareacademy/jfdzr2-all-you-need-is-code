@@ -16,9 +16,7 @@ export default function MainPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState({});
-  const handleLogout = () => {
-    fire.auth().signOut();
-  };
+
   function toggleModal() {
     setIsModalOpen((current) => !current);
     if (isModalOpen) {
@@ -51,10 +49,7 @@ export default function MainPage() {
         });
       });
   }, []);
-  const test = [
-    ["3", "4", "5"],
-    ["3", "3"],
-  ];
+
   return (
     <>
       <MainPageWrapper>
@@ -63,15 +58,10 @@ export default function MainPage() {
             <div className="bodyOfPage">
               <div className="buttonSection">
                 <button onClick={toggleModal} className="btn btn-writeMessage">
-                  Write a message
+                  Create Post
                 </button>
                 <button className="btn-sortBy">
                   Sort by: <b>Popular</b> v
-                </button>
-                <button className="btn-sortBy" onClick={handleLogout}>
-                  <Link to="/">
-                    <b>Logout</b>
-                  </Link>
                 </button>
               </div>
             </div>
