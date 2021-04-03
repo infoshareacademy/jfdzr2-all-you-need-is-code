@@ -60,26 +60,28 @@ export default function Post(props) {
     const userUid = fire.auth().currentUser.uid.toString();
     const docRef = fire.firestore().collection("Posts").doc(e.target.id);
     e.preventDefault();
-    const data = {
-      name: "Kamil",
-    };
-    
+    let data = {};
+    let comments = {};
     docRef
       .get()
-      .then((query) => {})
-      .then(
+      .then((query) => {
+        data = query.data().comments;
+        
+        comments = { ...data, ...{ [userUid]: myValue } };
+      })
+      .then(() => {
+        console.log(data)
+        console.log(comments)
         fire.firestore().runTransaction(function (transaction) {
-          // This code may get re-run multiple times if there are conflicts.
           return transaction.get(docRef).then(function (doc) {
             transaction.update(docRef, {
-              comments: {
-                 ...data,
-                [userUid]: myValue,
-              },
+              comments
+
+              
             });
           });
-        })
-      )
+        });
+      })
       .then(() => {
         setValue("");
       });
