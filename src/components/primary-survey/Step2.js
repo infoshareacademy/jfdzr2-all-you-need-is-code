@@ -16,15 +16,23 @@ export const Step2 = ({ state, onChange: handleStep2Change }) => {
     "Firebase",
     "TypeScript",
     "NodeJS",
-    "AngularJS",
+    "Angular",
     "Vue.js",
     "GIT",
     "Java",
     "Python",
-    "Ruby on Rails",
-    "C#",
+    "Ruby",
     "PHP.",
     "Kotlin",
+    "C Sharp",
+    'C',
+    'C++',
+    'Elm',
+    'Unity',
+    'Scala',
+    'Swift',
+    'Go',
+    'Rust'
   ];
 
   return (
@@ -36,6 +44,8 @@ export const Step2 = ({ state, onChange: handleStep2Change }) => {
         <FormGroup row>
           {technologies.map((technology, index) => {
             return (
+              <div className="technologies-list-survey">
+              <img className="technology-icon-survey" alt={technology} src={process.env.PUBLIC_URL + `/technologies/${technology}.png`} />
               <FormControlLabel
                 control={
                   <Checkbox
@@ -49,6 +59,7 @@ export const Step2 = ({ state, onChange: handleStep2Change }) => {
                 }
                 label={technology}
               />
+              </div>
             );
           })}
         </FormGroup>

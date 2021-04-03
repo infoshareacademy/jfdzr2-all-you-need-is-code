@@ -15,9 +15,12 @@ export const SurveyNavBtns = ({ onClick, currentStep, answers }) => {
       about: answers[4],
       location: answers[5],
       projects: answers[6],
-      avatarUrl: answers[7]
+      avatarUrl: answers[7],
+      github: answers[8],
+      linkedin: answers[9],
+      userUid: answers[10],
+      userEmail: answers[11]
     }
-    console.log(answers[6]);
     firebase.firestore().collection('Users').doc(user).set(answersObject)
   };
 
@@ -58,7 +61,7 @@ export const SurveyNavBtns = ({ onClick, currentStep, answers }) => {
         </button>
       )}
 
-      <button className={"skip-btn"}>
+      <button className={"skip-btn"} onClick={() => handleSubmit()}>
         <NavLink to="/main-page">
           <Typography variant="h6" color="primary">
             Skip

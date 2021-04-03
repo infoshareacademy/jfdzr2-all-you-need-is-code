@@ -1,16 +1,19 @@
 import { PrimarySurvey } from "./views/PrimarySurvey";
+import { EditProfile } from "./views/EditProfile";
 import WelcomePage from "./views/WelcomePage";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import { ProfilePage } from "./views/ProfilePage";
 import { UsersPage } from "./views/UsersPage";
+import { SingleUserPage } from "./views/SingleUserPage";
 import MainPage from "./views/MainPage";
-import { NavBar } from "./components/navBar/NavBar";
 import { ChatPage } from "./views/ChatPage";
 import SignInPage from "./views/SignInPage";
 import LogInPage from "./views/LogInPage";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { UserContextProvider } from "./components/user-context/UserContextProvider";
 import { PageWrapper } from "./common/PageWrapper";
+import { useState, useEffect } from "react";
+import fire from "./fire";
 
 const theme = createMuiTheme({
   palette: {
@@ -33,31 +36,77 @@ function App() {
         <Route path="/sign-in">
           <SignInPage />
         </Route>
+
         <Route path="/log-in">
-          <SignInPage />
+          <LogInPage />
         </Route>
-        {/* <UserContextProvider> */}
-          <Route path="/primary-survey">
-            <PrimarySurvey />
-          </Route>
-          <PageWrapper>
-            <Route path="/main-page">
+
+        <PrivateRoute path="/primary-survey">
+          <PrimarySurvey />
+        </PrivateRoute>
+
+        <UserContextProvider>
+          <PrivateRoute path="/edit-profile">
+            <EditProfile />
+          </PrivateRoute>
+
+          <PrivateRoute path="/main-page">
+            <PageWrapper>
               <MainPage />
-            </Route>
-            <Route path="/profile-page">
+            </PageWrapper>
+          </PrivateRoute>
+
+          <PrivateRoute path="/profile-page">
+            <PageWrapper>
               <ProfilePage />
-            </Route>
-            <Route path="/users-page">
+            </PageWrapper>
+          </PrivateRoute>
+
+          <PrivateRoute exact path="/users-page">
+            <PageWrapper>
               <UsersPage />
-            </Route>
-            <Route path="/chat">
+            </PageWrapper>
+          </PrivateRoute>
+
+          
+            <PrivateRoute
+              path="/users-page/:userUid"
+              component={SingleUserPage}
+            />
+
+          <PrivateRoute path="/chat">
+            <PageWrapper>
               <ChatPage />
-            </Route>
-          </PageWrapper>
-        {/* </UserContextProvider> */}
+            </PageWrapper>
+          </PrivateRoute>
+        </UserContextProvider>
       </Switch>
     </ThemeProvider>
   );
 }
+const PrivateRoute = ({ children, ...rest }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [status, setStatus] = useState("idle");
+  useEffect(() => {
+    setStatus("loading");
+    fire.auth().onAuthStateChanged((user) => {
+      setIsLoggedIn(Boolean(user));
+      setStatus("resolved");
+    });
+  }, []);
+  if (status === "loading") {
+    return <p>loading...</p>;
+  }
+  return (
+    status === "resolved" && (
+      <Route
+        {...rest}
+        render={({ location }) =>
+          isLoggedIn ? children : <Redirect to="/log-in" />
+        }
+      />
+    )
+  );
+};
 
 export default App;

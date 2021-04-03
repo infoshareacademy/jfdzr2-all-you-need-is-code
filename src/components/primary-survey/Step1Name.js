@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import "../../styles/ToggleButtons.css";
 
 export const Step1Name = ({ state, onChange: handleStep1NameChange }) => {
+  
   const useStyles = makeStyles((theme) => ({
     root: {
       "& .MuiTextField-root": {

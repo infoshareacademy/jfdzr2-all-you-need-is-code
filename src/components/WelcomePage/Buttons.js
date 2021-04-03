@@ -1,5 +1,4 @@
 import { Typography } from "@material-ui/core";
-import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 
 
@@ -21,10 +20,7 @@ export const LogInBtn = () => {
 
 export const SignInBtn = () => {
 
-  const handleClick = () => {
-    console.log('Hello SignIn');
-  }
-
+  
 return (
 <button className="signin-btn">
 <Link to="/sign-in">

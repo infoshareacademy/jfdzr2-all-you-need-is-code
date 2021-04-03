@@ -1,4 +1,3 @@
-import { NavBar } from '../components/navBar/NavBar';
 import { AllUsersInfo } from '../components/profile-page/AllUsersInfo'
 import '../styles/ProfilePage.css'
 

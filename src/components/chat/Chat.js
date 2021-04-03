@@ -14,112 +14,179 @@ import Avatar from "@material-ui/core/Avatar";
 import Fab from "@material-ui/core/Fab";
 import SendIcon from "@material-ui/icons/Send";
 import CssBaseline from '@material-ui/core/CssBaseline';
-
 import db from "../../fire";
 import fire from "../../fire";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useState, useRef, useEffect } from "react";
 import "../../styles/Chat.css";
 import Button from "@material-ui/core/Button";
+import { Search } from "../../common/Search"
+import { SettingsInputAntennaTwoTone } from "@material-ui/icons";
+// import ClearIcon from '@material-ui/icons/ClearIcon';
+import Tooltip from '@material-ui/core/Tooltip';
+import logo from "../../logo/sayIT.png";
+
+
+
 
 const auth = fire.auth();
 
+const makeMsgId = (userUid, chatUserUid) => [userUid, chatUserUid].sort().join('-')
+
+function ChatMessage(props) {
+  const { text, uid, photoURL, createdAt } = props.message;
+  const messageClass = uid === auth.currentUser.uid ? "sent" : "received";
+  return (
+    <>
+      <div className={`message ${messageClass}`}>
+        <img
+          className="chat-img"
+        src={photoURL || "https://material-ui.com/static/images/avatar/2.jpg"
+        }
+        />
+        <p className="chat-text">{text}</p>
+        {/* <p className="date">{createdAt}</p> */}
+      </div>
+    </>
+  );
+}
 
 function Chat() {
   const scroll = useRef();
   const currentUser = auth.currentUser.uid;
-  const [chatUser, setChatUser] = useState("test")
-  const msgArray = [currentUser.substring(0,5), chatUser.substring(0,5)];
-  const sortedMsgArray = msgArray.sort(); 
-  const msgId = sortedMsgArray.toString();  
+  const [chatUser, setChatUser] = useState("");
+  const msgId = makeMsgId(currentUser, chatUser)
   const [formValue, setFormValue] = useState("");
   const messagesRef = fire.firestore().collection("Messages").doc(msgId).collection(msgId);
   const query = messagesRef.orderBy("createdAt").limit(250);
   const [messages] = useCollectionData(query, { idField: "id" });
+  const [chatList, setChatList] = useState([])
 
-  function getUserID(id) {
-      setChatUser(id)
+
+  const [allChatUsersInfo, setAllChatUsersInfo] = useState([]);
+
+  const activateChat = (user) => {
+    setChatUser(user)
+    const msgId = makeMsgId(currentUser, user)
+    fire.firestore().collection("Messages").doc(msgId).set({})
   }
 
   useEffect(() => {
-    setChatUser(chatUser)
-  }, [chatUser])
+    fire
+      .firestore()
+      .collection("Users")
+      .onSnapshot((users) => {
+        let allChatUsersArray = [];
+        users.forEach((user) => {
+          let userId = { id: user.id };
+          let object = { ...user.data(), ...userId };
+          allChatUsersArray = [...allChatUsersArray, object];
+          setAllChatUsersInfo(allChatUsersArray);
+
+        });
+      });
+  }, [chatList]);
+
+  const filterUser = (user) => {
+    const userName = allChatUsersInfo.find(item => item.id === user)?.name
+    return userName
+  }
+
+  const filterAvatar = (user) => {
+    const userAvatar = allChatUsersInfo.find(item => item.id === user)?.avatarUrl
+    return userAvatar
+  }
 
   const sendMessage = async (e) => {
     e.preventDefault();
     const { uid, photoURL } = auth.currentUser;
     await messagesRef.add({
       text: formValue,
-      // createdAt: fire.firestore.FieldValue.serverTimestamp(),
-      createdAt: Date.now(),
+      createdAt: Date().toLocaleString(),
       uid,
-      photoURL,
+      photoURL: filterAvatar(uid),
     });
     setFormValue("");
-    // setChatUser("");
-    scroll.current.scrollIntoView({ bahavior: "smooth" });
   };
+
+  useEffect(() => {
+    fire
+      .firestore()
+      .collection("Messages")
+      .onSnapshot((msg) => {
+        let allMsgArray = [];
+        msg.forEach((userMsg) => {
+          if (userMsg.id.includes(auth.currentUser.uid)) {
+            let userMsgId = userMsg.id.replace(auth.currentUser.uid, "").replace("-", "");
+            allMsgArray.push(userMsgId);
+          }
+        });
+        setChatList(allMsgArray);
+      });
+  }, []);
+
+  useEffect(() => {
+    scroll.current.scrollIntoView({ bahavior: "smooth" });
+  }, [messages])
+
+  const hanldeOnDelete = (user, currentUser) => {
+    const collection = currentUser + user
+    console.log(collection)
+    fire.firestore().collection("Messages").doc(collection).delete().then(() => {
+      console.log("Document successfully deleted!");
+    }).catch((error) => {
+      console.error("Error removing document: ", error);
+    })
+  }
+
+
+  useEffect(() => {
+    scroll.current.scrollIntoView({ bahavior: "smooth" });
+  }, [messages])
+
 
 
   return (
     <>
-    <CssBaseline />
+      <CssBaseline />
       <Grid container className="chat-section">
         <Grid item xs={3} component={Paper} className="border-right500 border-top500">
-          <List>
-            <ListItem button key="Auth">
-              <ListItemIcon>
-                <Avatar
-                  alt="Auth"
-                  src="https://material-ui.com/static/images/avatar/1.jpg"
-                />
-              </ListItemIcon>
-              <ListItemText primary="Auth"></ListItemText>
+          <List  className="header-cointainer">
+            <ListItem key="Chat">
+              <ListItemText  className="header">
+              <img className="logo" src={logo}/>
+              </ListItemText>
             </ListItem>
           </List>
           <Divider />
           <Grid item xs={12} style={{ padding: "10px" }}>
-            <TextField
-              id="outlined-basic-email"
-              label="Search"
-              variant="outlined"
-              fullWidth
-            />
+            <Search onResultSelect={activateChat} />
           </Grid>
           <Divider />
-          <List>
-            <ListItem 
-            button 
-            key="User1"
-            chatUser="008F87GsKuOwR29kkfOFPHrnDTi1"
-            onClick={(e) => getUserID("008F87GsKuOwR29kkfOFPHrnDTi1")}
-            >
-              <ListItemIcon>
-                <Avatar
-                  alt="User1"
-                  src="https://material-ui.com/static/images/avatar/3.jpg"
-                />
-              </ListItemIcon>
-              <ListItemText primary="User1">User2</ListItemText>
-            </ListItem>
-            <ListItem
-            button
-            key="User2"
-            id="84ngZSRV3ZdQ1VPsxm2kJZQ1f4T2"
-            onClick={(e) => getUserID("84ngZSRV3ZdQ1VPsxm2kJZQ1f4T2")}
-            >
-              <ListItemIcon>
-                <Avatar
-                  alt="User2"
-                  src="https://material-ui.com/static/images/avatar/2.jpg"
-                />
-              </ListItemIcon>
-              <ListItemText primary="User2">User2</ListItemText>
-            </ListItem>
-          </List>
+          {chatList.map((user) => {
+            return (
+              <ListItem
+                button
+                key={user}
+                onClick={(e) => { activateChat(user) }}
+              >
+                <ListItemIcon>
+                  <Avatar
+                    src={filterAvatar(user)}
+                  />
+                </ListItemIcon>
+                <ListItemText>{filterUser(user)}
+                </ListItemText>
+                {/* <Tooltip title={"DELETE CHAT"}>
+                  <ClearIcon color="action" onClick={(e) => { hanldeOnDelete(user, currentUser) }} /></Tooltip> */}
+              </ListItem>
+            )
+          }
+          )}
+
         </Grid>
 
-        <Grid item xs={9}  component={Paper} className="border-top500">
+        <Grid item xs={9} component={Paper} className="border-top500">
           <List className="message-area">
             <ListItem key="1">
               <section className="chat-section">
@@ -140,7 +207,6 @@ function Chat() {
             <Grid item xs={11}>
               <form onSubmit={sendMessage}>
                 <TextField
-                  id="outlined-basic-email"
                   label="Your message"
                   fullWidth
                   value={formValue}
@@ -150,7 +216,7 @@ function Chat() {
             </Grid>
 
             <Grid xs={1} align="right">
-              <Fab color="secondary" aria-label="add">
+              <Fab color="secondary" aria-label="add" onClick={sendMessage}>
                 <SendIcon />
               </Fab>
             </Grid>
@@ -159,24 +225,6 @@ function Chat() {
       </Grid>
     </>
   );
-
-  function ChatMessage(props) {
-    const { text, uid, photoURL } = props.message;
-    const messageClass = uid === auth.currentUser.uid ? "sent" : "received";
-    return (
-      <>
-        <div className={`message ${messageClass}`}>
-          <img
-            className="chat-img"
-            src={
-              photoURL || "https://material-ui.com/static/images/avatar/2.jpg"
-            }
-          />
-          <p className="chat-text">{text}</p>
-        </div>
-      </>
-    );
-  }
 }
 
 export default Chat;
