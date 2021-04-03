@@ -30,8 +30,8 @@ export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
     onSubmit: (values) => {
       document.querySelector("#ModalCreatePost").style.display = "none";
       document.querySelector(".page").style.opacity = "1";
-      fire.firestore().collection("Posts").doc().set({ 
-        id:fire.auth().currentUser.uid,
+      fire.firestore().collection("Posts").doc().set({
+        id: fire.auth().currentUser.uid,
         title: values["title"],
         text: values["comment"],
         likes: {},
@@ -51,6 +51,7 @@ export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
         className="ModalCreatePost"
         style={{ display: isModalOpen ? "flex" : "none" }}
       >
+        
         <form
           className="ModalForm"
           onSubmit={formik.handleSubmit}
@@ -60,50 +61,38 @@ export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
             alignItems: "center",
           }}
         >
-          <div style={{ marginTop: "20px", width: "40%" }}>
-            <Typography
-              style={{ textAlign: "center" }}
-              variant="h5"
-              color="primary"
-            >
-              Title
-            </Typography>
+          <Typography variant="h6" style={{color: "white", marginTop: "20px"}}>
+          Create new post
+        </Typography>
+          <div style={{width: "70%" }}>
             <div className={classes.root}>
               <TextField
                 value={formik.values.title}
                 onChange={formik.handleChange}
                 id="title"
                 key="title"
+                label="Title of your post"
                 variant="standard"
               />
             </div>
           </div>
-          <div style={{ marginTop: "20px", width: "70%" }}>
-            <Typography
-              style={{ textAlign: "center" }}
-              variant="h5"
-              color="primary"
-            >
-              Describe your project
-            </Typography>
+          <div style={{ width: "70%" }}>
             <div className={classes.root}>
               <TextField
                 value={formik.values.comment}
                 onChange={formik.handleChange}
                 id="comment"
                 key="comment"
-                label=""
+                label="What's on your mind?"
                 variant="standard"
+                multiline
+                rows={5}
               />
             </div>
           </div>
-         
+
           <div style={{ marginTop: "-10px" }}>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-            >
+            <Button type="submit" variant="contained" color="primary" style={{marginBottom: "20px"}}>
               send
             </Button>
           </div>
@@ -114,7 +103,9 @@ export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
             className="close"
             aria-label="Close"
           >
-            <span aria-hidden="true">&times;</span>
+            <span style={{ color: "white" }} aria-hidden="true">
+              &times;
+            </span>
           </button>
         </form>
 
