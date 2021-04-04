@@ -10,8 +10,11 @@ import {
   PostAddSharp,
   Unsubscribe,
 } from "@material-ui/icons";
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import { propTypes } from "react-bootstrap/esm/Image";
 import { Link } from "react-router-dom";
+import { Paper, Typography, Button, Avatar } from "@material-ui/core";
+
 export default function MainPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [posts, setPosts] = useState([]);
@@ -52,42 +55,38 @@ export default function MainPage() {
 
   return (
     <>
-      <MainPageWrapper>
-        <div className="page">
-          <div className="body">
-            <div className="bodyOfPage">
-              <div className="buttonSection">
-                <button onClick={toggleModal} className="btn btn-writeMessage">
-                  Create Post
-                </button>
-                <button className="btn-sortBy">
-                  Sort by: <b>Popular</b> v
-                </button>
-              </div>
-            </div>
-          
-            {posts.map((post, index) => (
-              <div>
-                {
-                  <Post
-                    key={post.id}
-                    title={post.title}
-                    text={post.text}
-                    index={post.id}
-                    time={post.time}
-                    likes={post.likes}
-                    comments={post.comments[index]}
-                    comment={post.comments[index][0]}
-
-                  />
-                }
-              </div>
-            ))}
-
-            <NavBar />
+      <div className="page">
+          <div className="buttonSection">
+            <div style={{width: "160px"}} />
+            <Button
+            color="primary"
+            style={{ backgroundColor: "#6C7ED6", margin: "6px 0 0", width: "40%" }}
+            onClick={toggleModal}
+          >
+            Create new post
+          </Button>
+            <button className="btn-sortBy">
+              Sort by: <b>Popular</b><ArrowDropDownIcon />
+            </button>
           </div>
-        </div>
-      </MainPageWrapper>
+
+        {posts.map((post, index) => (
+          <div>
+            {
+              <Post
+                id={post.id}
+                title={post.title}
+                text={post.text}
+                index={post.id}
+                time={post.time}
+                likes={post.likes}
+                comments={post.comments[index]}
+                comment={post.comments[index][0]}
+              />
+            }
+          </div>
+        ))}
+      </div>
       <ModalToCreatePost isModalOpen={isModalOpen} toggleModal={toggleModal} />
     </>
   );

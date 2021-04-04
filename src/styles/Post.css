@@ -1,44 +1,22 @@
-* {
-  letter-spacing: 0.05em;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 500;
-}
-.modalOfPost {
-  color: rgba(0, 0, 0, 0.32);
-  margin-top: 4%;
-  background-color: white;
-  border-radius: 2%;
-}
 .Modal {
-  height: 370px;
   width: 40vw;
+  padding: 20px 50px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
 }
 .informationAboutTheWriter {
   display: flex;
-  justify-content: space-between;
-  width: 70%;
-  margin-top: 20px;
-  margin-left: 7px;
-  align-items: top;
-}
-.informationAboutTheWriter > * {
-  margin-top: 10px;
-}
-.positionInProgramming {
-  padding-top: 5px;
-  color: rgba(0, 0, 0, 0.32);
+  justify-content: flex-start;
 }
 
-.nameOfWriter {
-  color: #4853a4;
+.name-time-container {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
 }
-.profile-Post-Photo {
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  color: rgba(0, 0, 0, 0.32);
-  border-radius: 100%;
-  height: 75px;
-}
+
 .data {
   width: 60%;
   font-family: Roboto;
@@ -46,6 +24,7 @@
   text-align: end;
   color: rgba(0, 0, 0, 0.32);
 }
+
 .likesSection {
   background-color: transparent;
   border: none;
@@ -56,33 +35,26 @@
   color: #a8a8a8;
 }
 .likesPhoto {
-  margin-top: -7px;
-  width: 50px;
-  height: 40px;
+  margin: -7px 6px 0 0;
+  width: 40px;
+  height: auto;
 }
 .comentPhoto {
-  margin-top: -7px;
-  width: 50px;
-  height: 40px;
+  margin: -7px 6px 0 0;
+  width: 35px;
+  height: auto;
 }
-.sharePhoto {
-  margin-left: 10px;
-  margin-top: -7px;
-  width: 50px;
-  height: 40px;
-}
-.likesSection > * {
-  padding-left: 10px;
-}
+
 .comentSection {
   border: none;
   background-color: transparent;
   display: flex;
   outline: none;
+  justify-content: flex-start;
+  width: 400px;
 }
 
 .comentSection > * {
-  padding-left: 10px;
   color: #a8a8a8;
 }
 .postStatus {
@@ -91,29 +63,21 @@
   display: flex;
   justify-content: space-between;
 }
-.contentOfThePost {
-  padding-left: 100px;
-  padding-right: 100px;
-}
 
-.textOfPost {
-  font-size: 1.2em;
-  color: #a8a8a8;
-}
-.photoOfComentator {
-  width: 70px;
-  border-radius: 100%;
-}
-.coment {
+
+.comment {
   margin-top: 10px;
   display: flex;
+  flex-direction: row;
 }
 .comentatorName {
   color: #4853a4;
   margin: 0;
 }
-.comentContent > * {
-  padding-left: 20px;
+.commentContent {
+  margin-left: 6px;
+  display: flex;
+  flex-direction: column;
 }
 
 .comentText {
