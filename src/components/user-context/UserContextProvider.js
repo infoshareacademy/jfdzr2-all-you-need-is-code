@@ -11,6 +11,35 @@ const purposeToLabelMapping = {
   lookingaround: "Just looking around"
 }
 
+export const technologies = [
+  "JavaScript",
+  "CSS",
+  "HTML",
+  "ReactJS",
+  "Redux",
+  "RWD",
+  "Firebase",
+  "TypeScript",
+  "NodeJS",
+  "Angular",
+  "Vue.js",
+  "GIT",
+  "Java",
+  "Python",
+  "Ruby",
+  "PHP.",
+  "Kotlin",
+  "C Sharp",
+  'C',
+  'C++',
+  'Elm',
+  'Unity',
+  'Scala',
+  'Swift',
+  'Go',
+  'Rust'
+];
+
 export const purposes = Object.keys(purposeToLabelMapping)
 
 export const labelFromPurpose = purpose => {

@@ -2,6 +2,7 @@ import { Typography } from "@material-ui/core";
 import { NavLink } from "react-router-dom";
 
 import firebase from "../../fire";
+import { technologies } from "../user-context/UserContextProvider";
 
 export const SurveyNavBtns = ({ onClick, currentStep, answers, type = 'create' }) => {
   const handleSubmit = () => {
@@ -10,7 +11,8 @@ export const SurveyNavBtns = ({ onClick, currentStep, answers, type = 'create' }
     const answersObject = {
       name: answers[0],
       purpose: answers[1],
-      technologies: Object.keys(answers[2]),
+      // we need to make sure the tech names match the ones for which we have icons
+      technologies: answers[2].filter(answer => technologies.includes(answer)),
       experience: Object.keys(answers[3]),
       about: answers[4],
       location: answers[5],

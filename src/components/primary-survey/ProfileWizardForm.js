@@ -9,7 +9,7 @@ import { SurveyNavBtns } from "./SurveyNavBtns";
 import { PurposePicker } from "./PurposePicker";
 import { Step1Image } from "./Step1Image";
 import { Step1Name } from "./Step1Name";
-import { Step2 } from "./Step2";
+import { TechnologyPicker } from "./TechnologyPicker";
 import { Step2Github } from "./Step2Github";
 import { Step2LinkedIn } from "./Step2LinkedIn";
 import { Step3 } from "./Step3";
@@ -27,7 +27,7 @@ export const ProfileWizardForm = ({ type }) => {
   const [purpose, setPurpose] = useState(user.purpose || '');
   const [step1NameValues, setStep1Name] = useState(user.name);
   const [avatarUrl, setAvatarUrl] = useState(user.avatarUrl);
-  const [step2Values, setStep2Values] = useState(user.technologies);
+  const [technologies, setTechnologies] = useState(user.technologies);
   const [step2GithubValues, setStep2GithubValues] = useState(user.github);
   const [step2LinkedInValues, setStep2LinkedInValues] = useState(user.linkedin);
   const [step3Values, setStep3Values] = useState(user.experience[0] ? user.experience[0] : {});
@@ -43,7 +43,7 @@ export const ProfileWizardForm = ({ type }) => {
   const surveyAnswers = [
     step1NameValues,
     purpose,
-    step2Values,
+    technologies,
     step3Values,
     step4Values,
     step4LocationValues,
@@ -58,15 +58,7 @@ export const ProfileWizardForm = ({ type }) => {
   const handleStep1NameChange = (event) => {
     setStep1Name(event.target.value);
   };
-  const handleStep2Change = (event) => {
-    if (event.target.checked) {
-      // add to table
-      setStep2Values(values => [ ...values, event.target.id ]);
-    } else {
-      // remove from table
-      setStep2Values(values => values.filter(v => v !== event.target.id));
-    }
-  };
+  
   const handleStep2GithubChange = (event) => {
     setStep2GithubValues(event.target.value);
   };
@@ -110,7 +102,7 @@ export const ProfileWizardForm = ({ type }) => {
         )}
         {step === 2 && (
           <div className="survey-section">
-            <Step2 state={step2Values} onChange={handleStep2Change} />
+            <TechnologyPicker values={technologies} onChange={setTechnologies} />
           </div>
         )}
         {step === 3 && (
