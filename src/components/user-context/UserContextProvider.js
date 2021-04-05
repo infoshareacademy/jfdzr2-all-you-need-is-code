@@ -3,6 +3,18 @@ import firebase from "../../fire";
 
 import { UserContext } from "./UserContext";
 
+const purposeToLabelMapping = {
+  projectpartner: "Project partner",
+  projecttojoin: "Project to join",
+  lookingaround: "Just looking around"
+}
+
+export const purposes = Object.keys(purposeToLabelMapping)
+
+export const labelFromPurpose = purpose => {
+  return purposeToLabelMapping[purpose] || 'Unknown'
+}
+
 export const UserContextProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
   const [user, setUser] = useState(null);

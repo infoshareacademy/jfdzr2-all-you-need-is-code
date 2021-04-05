@@ -6,7 +6,7 @@ import { SurveySteps2 } from "./SurveySteps2";
 import { SurveySteps3 } from "./SurveySteps3";
 import { SurveySteps4 } from "./SurveySteps4";
 import { SurveyNavBtns } from "./SurveyNavBtns";
-import { Step1 } from "./Step1";
+import { PurposePicker } from "./PurposePicker";
 import { Step1Image } from "./Step1Image";
 import { Step1Name } from "./Step1Name";
 import { Step2 } from "./Step2";
@@ -22,7 +22,7 @@ export const WizardForm = () => {
   const [userUid, setUserUid] = useState(null)
   const [userEmail, setUserEmail] = useState(null)
   const [step, setStep] = useState(1);
-  const [step1Values, setStep1Values] = useState({});
+  const [purpose, setPurpose] = useState('');
   const [step1NameValues, setStep1Name] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
   const [step2Values, setStep2Values] = useState({});
@@ -40,7 +40,7 @@ export const WizardForm = () => {
 
   const surveyAnswers = [
     step1NameValues,
-    step1Values,
+    purpose,
     step2Values,
     step3Values,
     step4Values,
@@ -53,14 +53,17 @@ export const WizardForm = () => {
     userEmail
   ];
 
-  const handleStep1Change = (event) => {
-    setStep1Values({ [event.target.id]: event.target.checked });
-  };
   const handleStep1NameChange = (event) => {
     setStep1Name(event.target.value);
   };
   const handleStep2Change = (event) => {
-    setStep2Values({ ...step2Values, [event.target.id]: event.target.checked });
+    if (event.target.checked) {
+      // add to table
+      setStep2Values(values => [ ...values, event.target.id ]);
+    } else {
+      // remove from table
+      setStep2Values(values => values.filter(v => v !== event.target.id));
+    }
   };
   const handleStep2GithubChange = (event) => {
     setStep2GithubValues(event.target.value);
@@ -100,7 +103,7 @@ export const WizardForm = () => {
                 changeAvatarUrl={setAvatarUrl}
               />
             </div>
-            <Step1 state={step1Values} onChange={handleStep1Change} />
+            <PurposePicker value={purpose} onChange={setPurpose} />
           </div>
         )}
         {step === 2 && (

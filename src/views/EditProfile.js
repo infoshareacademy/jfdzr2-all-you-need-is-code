@@ -2,7 +2,7 @@ import { Typography } from "@material-ui/core";
 import '../styles/PrimarySurvey.css';
 import logo from '../logo/FindITRotated.png';
 
-import { EditProfileWizardForm } from '../components/primary-survey/EditProfileWizardForm'
+import { ProfileWizardForm } from '../components/primary-survey/ProfileWizardForm'
 import { useContext } from "react";
 import { UserContext } from "../components/user-context/UserContext";
 
@@ -20,7 +20,7 @@ export const EditProfile = () => {
         <Typography variant="h5" color='primary'>
           Answer a few simple questions
         </Typography>
-        {user && <EditProfileWizardForm /> 
+        {user && <ProfileWizardForm /> 
         }
       </div>
       <div className="right-column"></div>

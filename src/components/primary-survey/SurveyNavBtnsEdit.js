@@ -9,7 +9,7 @@ export const SurveyNavBtnsEdit = ({ onClick, currentStep, answers }) => {
 
     const answersObject = {
       name: answers[0],
-      purpose: Object.keys(answers[1]),
+      purpose: answers[1],
       technologies: Object.keys(answers[2]),
       experience: Object.keys(answers[3]),
       about: answers[4],

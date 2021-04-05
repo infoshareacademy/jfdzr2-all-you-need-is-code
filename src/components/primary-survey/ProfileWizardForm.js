@@ -7,7 +7,7 @@ import { SurveySteps2 } from "./SurveySteps2";
 import { SurveySteps3 } from "./SurveySteps3";
 import { SurveySteps4 } from "./SurveySteps4";
 import { SurveyNavBtnsEdit } from "./SurveyNavBtnsEdit";
-import { Step1 } from "./Step1";
+import { PurposePicker } from "./PurposePicker";
 import { Step1Image } from "./Step1Image";
 import { Step1Name } from "./Step1Name";
 import { Step2 } from "./Step2";
@@ -18,13 +18,13 @@ import { Step3Projects } from "./Step3Projects";
 import { Step4 } from "./Step4";
 import { Step4Location } from "./Step4Location";
 
-export const EditProfileWizardForm = () => {
+export const ProfileWizardForm = () => {
   const { user } = useContext(UserContext);
 
   const [userUid, setUserUid] = useState(null)
   const [userEmail, setUserEmail] = useState(null)
   const [step, setStep] = useState(1);
-  const [step1Values, setStep1Values] = useState(user.purpose[0] ? user.purpose[0] : {} );
+  const [purpose, setPurpose] = useState(user.purpose || '');
   const [step1NameValues, setStep1Name] = useState(user.name);
   const [avatarUrl, setAvatarUrl] = useState(user.avatarUrl);
   const [step2Values, setStep2Values] = useState(user.technologies);
@@ -42,7 +42,7 @@ export const EditProfileWizardForm = () => {
 
   const surveyAnswers = [
     step1NameValues,
-    step1Values,
+    purpose,
     step2Values,
     step3Values,
     step4Values,
@@ -55,9 +55,6 @@ export const EditProfileWizardForm = () => {
     userEmail
   ];
 
-  const handleStep1Change = (event) => {
-    setStep1Values({ [event.target.id]: event.target.checked });
-  };
   const handleStep1NameChange = (event) => {
     setStep1Name(event.target.value);
   };
@@ -108,7 +105,7 @@ export const EditProfileWizardForm = () => {
                 changeAvatarUrl={setAvatarUrl}
               />
             </div>
-            <Step1 state={step1Values} onChange={handleStep1Change} />
+            <PurposePicker value={purpose} onChange={setPurpose} />
           </div>
         )}
         {step === 2 && (

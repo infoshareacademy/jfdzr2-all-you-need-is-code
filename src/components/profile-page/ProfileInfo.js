@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import defaultAvatar from "../../photos/profilePhotos/default.jpg";
 import { useContext } from "react";
 import { UserContext } from "../user-context/UserContext";
+import { labelFromPurpose } from "../user-context/UserContextProvider";
 import { Link } from "react-router-dom";
 
 import BorderColorIcon from "@material-ui/icons/BorderColor";
@@ -68,9 +69,8 @@ export const ProfileInfo = () => {
               color="secondary"
               style={{ textTransform: "capitalize", fontWeight: "900" }}
             >
-              {user?.purpose?.[0] === "projectpartner" && ` Project partner`}
-              {user?.purpose?.[0] === "projecttojoin" && ` Project to join`}
-              {user?.purpose?.[0] === "lookingaround" && ` Just looking around`}
+              {' '}
+              {labelFromPurpose(user?.purpose)}
             </Typography>
           </div>
 
