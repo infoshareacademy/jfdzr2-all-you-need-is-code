@@ -3,11 +3,10 @@ import '../styles/PrimarySurvey.css';
 import logo from '../logo/FindITRotated.png';
 
 import { WizardForm } from '../components/primary-survey/WizardForm'
-import { useContext } from "react";
-import { UserContext } from "../components/user-context/UserContext";
+import { useUser } from "../components/user-context/UserContextProvider";
 
 export const PrimarySurvey = () => {
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
 
   return (
     <div className="primary-survey">

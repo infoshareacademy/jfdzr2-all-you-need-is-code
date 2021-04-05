@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext, createContext } from "react";
 import firebase from "../../fire";
 
-import { UserContext } from "./UserContext";
+export const UserContext = createContext({
+  user: {},
+});
 
 const purposeToLabelMapping = {
   projectpartner: "Project partner",
@@ -48,3 +50,7 @@ export const UserContextProvider = ({ children }) => {
     </UserContext.Provider>
   );
 };
+
+export const useUser = () => {
+  return useContext(UserContext)
+}

@@ -1,5 +1,4 @@
-import { useState, useEffect, useContext } from "react";
-import { UserContext } from "../user-context/UserContext";
+import { useState, useEffect } from "react";
 import firebase from "../../fire"
 
 import { SurveySteps1 } from "./SurveySteps1";
@@ -17,9 +16,10 @@ import { Step3 } from "./Step3";
 import { Step3Projects } from "./Step3Projects";
 import { Step4 } from "./Step4";
 import { Step4Location } from "./Step4Location";
+import { useUser } from "../user-context/UserContextProvider";
 
 export const ProfileWizardForm = () => {
-  const { user } = useContext(UserContext);
+  const { user } = useUser()
 
   const [userUid, setUserUid] = useState(null)
   const [userEmail, setUserEmail] = useState(null)
