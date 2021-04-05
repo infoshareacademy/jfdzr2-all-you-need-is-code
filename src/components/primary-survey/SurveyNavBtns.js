@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 import firebase from "../../fire";
 
-export const SurveyNavBtns = ({ onClick, currentStep, answers }) => {
+export const SurveyNavBtns = ({ onClick, currentStep, answers, type = 'create' }) => {
   const handleSubmit = () => {
     const user = firebase.auth().currentUser.uid
 
@@ -61,13 +61,28 @@ export const SurveyNavBtns = ({ onClick, currentStep, answers }) => {
         </button>
       )}
 
-      <button className={"skip-btn"} onClick={() => handleSubmit()}>
-        <NavLink to="/main-page">
-          <Typography variant="h6" color="primary">
-            Skip
-          </Typography>
-        </NavLink>
-      </button>
+      {
+        type === 'create' && 
+        <button className={"skip-btn"} onClick={() => handleSubmit()}>
+          <NavLink to="/main-page">
+            <Typography variant="h6" color="primary">
+              Skip
+            </Typography>
+          </NavLink>
+        </button>
+      }
+
+      {
+        type === 'edit' &&
+        <button className={"skip-btn"}>
+          <NavLink to="/profile-page">
+            <Typography variant="h6" color="primary">
+              Cancel
+            </Typography>
+          </NavLink>
+        </button>
+      }
+      
     </div>
   );
 };

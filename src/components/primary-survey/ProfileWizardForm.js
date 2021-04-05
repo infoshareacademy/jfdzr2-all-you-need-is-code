@@ -5,7 +5,7 @@ import { SurveySteps1 } from "./SurveySteps1";
 import { SurveySteps2 } from "./SurveySteps2";
 import { SurveySteps3 } from "./SurveySteps3";
 import { SurveySteps4 } from "./SurveySteps4";
-import { SurveyNavBtnsEdit } from "./SurveyNavBtnsEdit";
+import { SurveyNavBtns } from "./SurveyNavBtns";
 import { PurposePicker } from "./PurposePicker";
 import { Step1Image } from "./Step1Image";
 import { Step1Name } from "./Step1Name";
@@ -143,10 +143,11 @@ export const ProfileWizardForm = () => {
         )}
       </form>
       {step !== 5 && (
-        <SurveyNavBtnsEdit
+        <SurveyNavBtns
           currentStep={step}
           onClick={setStep}
           answers={surveyAnswers}
+          type="edit"
         />
       )}
     </>
