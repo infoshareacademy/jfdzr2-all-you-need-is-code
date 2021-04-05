@@ -30,9 +30,8 @@ export default function Post(props) {
     const userUid = fire.auth().currentUser.uid.toString();
     const docRef = fire.firestore().collection("Posts").doc(e.target.id);
     var likeByYou = false;
-    var i = 0;
     let arrayPeopleLike = [];
-
+    let likes = {};
     docRef
       .get()
       .then((snap) => {
@@ -42,46 +41,53 @@ export default function Post(props) {
         }
       })
       .then(() => {
-        if (likeByYou) {
-        } else {
-          let data = {};
-          docRef
-            .get()
-            .then((query) => {
+        let data = {};
+        docRef
+          .get()
+          .then((query) => {
+            if (likeByYou) {
               data = query.data().likes;
-            })
-            .then(
-              fire.firestore().runTransaction(function (transaction) {
-                // This code may get re-run multiple times if there are conflicts.
-                return transaction.get(docRef).then(function (doc) {
-                  transaction.update(docRef, {
-                    likes: {
-                      [userUid]: true,
-                    },
-                  });
+              delete data[userUid.toString()];
+              likes = { ...data };
+            } else {
+              data = query.data().likes;
+              likes = { ...data, ...{ [userUid]: true } };
+            }
+          })
+          .then(() => {
+            fire.firestore().runTransaction(function (transaction) {
+              // This code may get re-run multiple times if there are conflicts.
+              return transaction.get(docRef).then(function (doc) {
+                transaction.update(docRef, {
+                  likes,
                 });
-              })
-            );
-        }
+              });
+            });
+          });
       });
   }
   function handleSubmit(e) {
-    console.log(document.querySelector(".commentValue").innerText);
     const userUid = fire.auth().currentUser.uid.toString();
     const docRef = fire.firestore().collection("Posts").doc(e.target.id);
     e.preventDefault();
     let data = {};
     let comments = {};
+    let i = 0;
     docRef
       .get()
       .then((query) => {
         data = query.data().comments;
-
-        comments = { ...data, ...{ [userUid]: myValue } };
+        if (Object.keys(data).includes(userUid)) {
+          for (let j = 0; j < Object.keys(data).length; j++) {
+            if (!Object.keys(data).includes(userUid + j.toString())) {
+              comments = { ...data, ...{ [userUid + j.toString()]: myValue } };
+            }
+          }
+        } else {
+          comments = { ...data, ...{ [userUid]: myValue } };
+        }
       })
       .then(() => {
-        console.log(data);
-        console.log(comments);
         fire.firestore().runTransaction(function (transaction) {
           return transaction.get(docRef).then(function (doc) {
             transaction.update(docRef, {
@@ -97,7 +103,7 @@ export default function Post(props) {
 
   const [state, setState] = useState("initial");
   const [myUser, setMyUser] = useState({});
-
+  const [allUsers, setAllUsers] = useState({});
   const useStyles = makeStyles((theme) => ({
     large: {
       width: theme.spacing(8),
@@ -121,7 +127,28 @@ export default function Post(props) {
         setState("loaded");
       });
   }, [props.id]);
+  useEffect(() => {
+    let i = 0;
 
+    let allUsers = {};
+    let user = {};
+    fire
+      .firestore()
+      .collection("Users")
+      .onSnapshot((querySnapshot) => {
+        querySnapshot.docs.forEach((doc) => {
+          i++;
+          let cloneallUser = allUsers;
+
+          user = { [doc.id]: doc.data().name };
+          allUsers = { ...allUsers, ...user };
+        });
+        if (i === querySnapshot.size) {
+          setAllUsers(allUsers)
+        }
+      });
+  });
+  // console.log(fire.auth().currentUser.uid)
   return (
     <>
       {state === "initial" && (
@@ -192,29 +219,28 @@ export default function Post(props) {
 
               <Button
                 color="secondary"
-                className="buttonSubmit"
                 variant="contained"
                 type="submit"
                 style={{
                   backgroundColor: "#6C7ED6",
-                  margin: "6px 0 0",
+                  margin: "6px 10px 0px",
                 }}
               >
                 Send
               </Button>
             </form>
-
+                
             {showComment === false && props.comment != null && (
               <>
                 <div className="comment" id="firstcomment">
-                  <Link>
+                  <Link to={`/users-page/${props.commentsId[0]}`}>
                     <Avatar className={classes.small} src={profilePhoto} />
                   </Link>
 
                   <div className="commentContent">
                     <Link>
                       <Typography variant="body1" color="secondary">
-                        Hubert Urbański
+                        {props.commentsId[0]}
                       </Typography>
                     </Link>
                     <Typography variant="body2">{props.comment}</Typography>
@@ -222,7 +248,6 @@ export default function Post(props) {
                 </div>
               </>
             )}
-
             {showComment === true && (
               <>
                 {props.comments.map((item, index) => (
@@ -233,9 +258,9 @@ export default function Post(props) {
                       </Link>
 
                       <div className="commentContent">
-                        <Link>
+                        <Link to={`/users-page/${props.commentsId[index]}`} >
                           <Typography variant="body1" color="secondary">
-                            Hubert Urbański
+                            {props.commentsId[index]}
                           </Typography>
                         </Link>
                         <Typography variant="body2">{item}</Typography>
