@@ -39,7 +39,7 @@ export default function SignIn(props) {
         Sign up
         </Typography>
         <Typography variant="caption" align="center">
-        Do not reause your bank password, we didn't spend a lot on security for this app
+        Do not reuse your bank password, we did not spend a lot on security for this app
         </Typography>
 
      <form className={classes.theme} noValidate>

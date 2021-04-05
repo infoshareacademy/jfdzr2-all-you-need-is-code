@@ -65,9 +65,8 @@ export default function WelcomePage() {
             <div className={classes.welcome}>Welcome</div>
           </Typography>
           <Typography align="justify" variant="body4">
-          If you've ever wondered how to get a partner for your new IT project and you don't know how to solve your long-bothering experience, this place is for you!
-            FindIT is a platform where you you can find a partner for your dream project in any programming language, you can join an existing team and support it with your knowledge or simply meet people as interested in IT as you are
-            Simply sign in or log in and start your it journey! We only need your email address and password.
+          If you've ever wondered how to get a partner for your new IT project or you are looking for a new exiting project to join - this place is for you!
+            FindIT is a platform where you you can find a partner for your dream project in any programming language or join an existing team and support it with your knowledge. Just sign up or log in and start your IT journey! We only need your email address and password.
           </Typography>
         <Grid container>
           <Grid item xs={6}>
