@@ -102,7 +102,8 @@ function Chat() {
     const { uid, photoURL } = auth.currentUser;
     await messagesRef.add({
       text: formValue,
-      createdAt: Date().toLocaleString(),
+      createdAt: Date.now(),
+      // createdAt: Date().toLocaleString(),
       uid,
       photoURL: filterAvatar(uid),
     });
