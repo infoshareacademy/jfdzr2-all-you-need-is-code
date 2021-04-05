@@ -103,7 +103,8 @@ export default function Post(props) {
 
   const [state, setState] = useState("initial");
   const [myUser, setMyUser] = useState({});
-  const [allUsers, setAllUsers] = useState({});
+  const [allUsersName, setAllUsersName] = useState({});
+  const [allUsersAvatar, setAllUsersAvatar] = useState({});
   const useStyles = makeStyles((theme) => ({
     large: {
       width: theme.spacing(8),
@@ -130,25 +131,29 @@ export default function Post(props) {
   useEffect(() => {
     let i = 0;
 
-    let allUsers = {};
-    let user = {};
+    let allUsersName = {};
+    let allUsersAvatar = {};
+    let userName = {};
+    let userAvatar = {};
     fire
       .firestore()
       .collection("Users")
       .onSnapshot((querySnapshot) => {
         querySnapshot.docs.forEach((doc) => {
           i++;
-          let cloneallUser = allUsers;
 
-          user = { [doc.id]: doc.data().name };
-          allUsers = { ...allUsers, ...user };
+          userName = { [doc.id]: doc.data().name };
+          userAvatar = { [doc.id]: doc.data().avatarUrl };
+          allUsersName = { ...allUsersName, ...userName };
+          allUsersAvatar = { ...allUsersAvatar, ...userAvatar };
         });
         if (i === querySnapshot.size) {
-          setAllUsers(allUsers)
+          setAllUsersName(allUsersName);
+          setAllUsersAvatar(allUsersAvatar);
         }
       });
-  });
-  // console.log(fire.auth().currentUser.uid)
+  }, []);
+
   return (
     <>
       {state === "initial" && (
@@ -174,7 +179,7 @@ export default function Post(props) {
                   </Typography>
                 </Link>
                 <Typography variant="body1" color="secondary">
-                  03.04.2021, 21:23
+                {props.time}
                 </Typography>
               </div>
             </div>
@@ -201,7 +206,7 @@ export default function Post(props) {
                 <p>More comments</p>
               </button>
 
-              <p className="data">{props.time}</p>
+              
             </div>
             <form
               onSubmit={handleSubmit}
@@ -229,18 +234,25 @@ export default function Post(props) {
                 Send
               </Button>
             </form>
-                
+
             {showComment === false && props.comment != null && (
               <>
                 <div className="comment" id="firstcomment">
-                  <Link to={`/users-page/${props.commentsId[0]}`}>
-                    <Avatar className={classes.small} src={profilePhoto} />
+                  <Link
+                    to={`/users-page/${props.commentsId[0].substring(0, 28)}`}
+                  >
+                    <Avatar
+                      className={classes.small}
+                      src={allUsersAvatar[props.commentsId[0].substring(0, 28)]}
+                    />
                   </Link>
 
                   <div className="commentContent">
-                    <Link>
+                    <Link
+                      to={`/users-page/${props.commentsId[0].substring(0, 28)}`}
+                    >
                       <Typography variant="body1" color="secondary">
-                        {props.commentsId[0]}
+                        {allUsersName[props.commentsId[0].substring(0, 28)]}
                       </Typography>
                     </Link>
                     <Typography variant="body2">{props.comment}</Typography>
@@ -248,19 +260,41 @@ export default function Post(props) {
                 </div>
               </>
             )}
+
             {showComment === true && (
               <>
                 {props.comments.map((item, index) => (
                   <>
                     <div className="comment" id="allcomments">
-                      <Link>
-                        <Avatar className={classes.small} src={profilePhoto} />
+                      <Link
+                        to={`/users-page/${props.commentsId[index].substring(
+                          0,
+                          28
+                        )}`}
+                      >
+                        <Avatar
+                          className={classes.small}
+                          src={
+                            allUsersAvatar[
+                              props.commentsId[index].substring(0, 28)
+                            ]
+                          }
+                        />
                       </Link>
 
                       <div className="commentContent">
-                        <Link to={`/users-page/${props.commentsId[index]}`} >
+                        <Link
+                          to={`/users-page/${props.commentsId[index].substring(
+                            0,
+                            28
+                          )}`}
+                        >
                           <Typography variant="body1" color="secondary">
-                            {props.commentsId[index]}
+                            {
+                              allUsersName[
+                                props.commentsId[index].substring(0, 28)
+                              ]
+                            }
                           </Typography>
                         </Link>
                         <Typography variant="body2">{item}</Typography>

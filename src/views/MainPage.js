@@ -79,17 +79,18 @@ export default function MainPage() {
                 index={post.idDoc}
                 time={post.time}
                 likes={post.likes}
-                // comments={post.comments[index]}
                 comments={Object.values(post.commentsId[index])}
                 commentsId={Object.keys(post.commentsId[index])}
                 comment={Object.values(post.commentsId[index])[0]}
-                idd={"Eg7ynnieF3TZiHiIKRcwnFOQY1l2"}
               />
             }
           </div>
         ))}
       </div>
-      
+      {/* {posts.map((post, index) => {
+          console.log(Object.keys(post.commentsId[0])[0])
+          
+      })} */}
       <ModalToCreatePost isModalOpen={isModalOpen} toggleModal={toggleModal} />
     </>
   );
