@@ -30,7 +30,6 @@ import defaultAvatar from "../../photos/profilePhotos/default.jpg";
 
 
 
-
 const auth = fire.auth();
 
 const makeMsgId = (userUid, chatUserUid) => [userUid, chatUserUid].sort().join('-')
@@ -152,13 +151,12 @@ function Chat() {
       {/* <CssBaseline /> */}
       <Grid container className="chat-section">
         <Grid item xs={3} component={Paper} className="border-right500 border-top500">
-          <List  className="header-cointainer">
-            <ListItem key="Chat">
-              <ListItemText  className="header">
+          <img className="logo-cointainer" src={logo} />
+          
+          
+          {/* <List  className="header-cointainer">
               <img className="logo" src={logo}/>
-              </ListItemText>
-            </ListItem>
-          </List>
+          </List> */}
           <Divider />
           <Grid item xs={12} style={{ padding: "10px" }}>
             <Search onResultSelect={activateChat} />

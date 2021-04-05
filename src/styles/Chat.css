@@ -54,25 +54,11 @@
   text-align: left;
 }
 
-.header-cointainer {
+.logo-cointainer {
   background-color: #4853a4;
   color: white;
   padding: 0px;
   margin: 0px;
-}
-
-.header {
-  background-color: #4853a4;
-  color: white;
-  text-align: center;
-  font-weight: bold;
-  padding: 0;
-  margin: 0;
-}
-
-.logo {
-  width: 90%;
+  width: 100%;
   height: auto;
-  margin: 0;
-  padding: 0;
 }
