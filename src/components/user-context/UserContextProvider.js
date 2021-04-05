@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext, createContext } from "react";
 import firebase from "../../fire";
 
-export const UserContext = createContext({
+const UserContext = createContext({
   user: {},
 });
 
