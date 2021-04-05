@@ -22,16 +22,12 @@ import "../../styles/Chat.css";
 import Button from "@material-ui/core/Button";
 import { Search } from "../../common/Search"
 import { SettingsInputAntennaTwoTone } from "@material-ui/icons";
-// import ClearIcon from '@material-ui/icons/ClearIcon';
 // import Tooltip from '@material-ui/core/Tooltip';
 import logo from "../../logo/sayIT.png";
 import defaultAvatar from "../../photos/profilePhotos/default.jpg";
-
-
-
+import StarsIcon from '@material-ui/icons/Stars';
 
 const auth = fire.auth();
-
 const makeMsgId = (userUid, chatUserUid) => [userUid, chatUserUid].sort().join('-')
 
 function ChatMessage(props) {
@@ -60,8 +56,7 @@ function Chat() {
   const query = messagesRef.orderBy("createdAt").limit(250);
   const [messages] = useCollectionData(query, { idField: "id" });
   const [chatList, setChatList] = useState([])
-
-
+  const [activeChatUser, setActiveChatUser] = useState("");
   const [allChatUsersInfo, setAllChatUsersInfo] = useState([]);
 
   const activateChat = (user) => {
@@ -152,11 +147,6 @@ function Chat() {
       <Grid container className="chat-section">
         <Grid item xs={3} component={Paper} className="border-right500 border-top500">
           <img className="logo-cointainer" src={logo} />
-          
-          
-          {/* <List  className="header-cointainer">
-              <img className="logo" src={logo}/>
-          </List> */}
           <Divider />
           <Grid item xs={12} style={{ padding: "10px" }}>
             <Search onResultSelect={activateChat} />
@@ -167,7 +157,11 @@ function Chat() {
               <ListItem
                 button
                 key={user}
-                onClick={(e) => { activateChat(user) }}
+                onClick={(e) => { 
+                  activateChat(user);
+                  setActiveChatUser(user);
+                  console.log(activeChatUser)
+                }}
               >
                 <ListItemIcon>
                   <Avatar
@@ -176,8 +170,9 @@ function Chat() {
                 </ListItemIcon>
                 <ListItemText>{filterUser(user)}
                 </ListItemText>
-                {/* <Tooltip title={"DELETE CHAT"}>
-                  <ClearIcon color="action" onClick={(e) => { hanldeOnDelete(user, currentUser) }} /></Tooltip> */}
+                {/* <Tooltip title={"DELETE CHAT"}> */}
+                  {activeChatUser===user ? <StarsIcon color="secondary"/> : ""}
+                  {/* </Tooltip> */}
               </ListItem>
             )
           }
