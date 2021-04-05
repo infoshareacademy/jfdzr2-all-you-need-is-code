@@ -1,7 +1,7 @@
 import { Typography } from "@material-ui/core";
 import "../../styles/ToggleButtons.css";
 
-export const Step1 = ({ state, onChange: handleStep1Change }) => {
+export const Step1 = ({ state, onChange }) => {
   return (
     <>
       <Typography variant="h5" color="primary">
@@ -14,7 +14,7 @@ export const Step1 = ({ state, onChange: handleStep1Change }) => {
                 type="radio"
                 name="step1"
                 id="projectpartner"
-                onChange={handleStep1Change}
+                onChange={onChange}
                 checked={state}
               />
           )}
@@ -23,7 +23,7 @@ export const Step1 = ({ state, onChange: handleStep1Change }) => {
                 type="radio"
                 name="step1"
                 id="projectpartner"
-                onChange={handleStep1Change}
+                onChange={onChange}
                 defaultChecked={state.projectpartner}
               />
           )}
@@ -37,7 +37,7 @@ export const Step1 = ({ state, onChange: handleStep1Change }) => {
                 type="radio"
                 name="step1"
                 id="projecttojoin"
-                onChange={handleStep1Change}
+                onChange={onChange}
                 checked={state}
               />
           )}
@@ -46,7 +46,7 @@ export const Step1 = ({ state, onChange: handleStep1Change }) => {
                 type="radio"
                 name="step1"
                 id="projecttojoin"
-                onChange={handleStep1Change}
+                onChange={onChange}
                 defaultChecked={state.projecttojoin}
               />
           )}
@@ -58,7 +58,7 @@ export const Step1 = ({ state, onChange: handleStep1Change }) => {
                 type="radio"
                 name="step1"
                 id="lookingaround"
-                onChange={handleStep1Change}
+                onChange={onChange}
                 checked={state}
               />
           )}
@@ -67,7 +67,7 @@ export const Step1 = ({ state, onChange: handleStep1Change }) => {
                 type="radio"
                 name="step1"
                 id="lookingaround"
-                onChange={handleStep1Change}
+                onChange={onChange}
                 degfaultChecked={state.lookingaround}
               />
           )}
