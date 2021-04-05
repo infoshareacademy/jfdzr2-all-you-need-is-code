@@ -2,7 +2,7 @@ import { Typography } from "@material-ui/core";
 import '../styles/PrimarySurvey.css';
 import logo from '../logo/FindITRotated.png';
 
-import { WizardForm } from '../components/primary-survey/WizardForm'
+import { ProfileWizardForm } from '../components/primary-survey/ProfileWizardForm'
 import { useUser } from "../components/user-context/UserContextProvider";
 
 export const PrimarySurvey = () => {
@@ -19,7 +19,7 @@ export const PrimarySurvey = () => {
         <Typography variant="h5" color='primary'>
           Answer a few simple questions
         </Typography>
-        {user && <WizardForm /> 
+        {user && <ProfileWizardForm type="create" /> 
         }
       </div>
       <div className="right-column"></div>

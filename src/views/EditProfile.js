@@ -3,7 +3,6 @@ import '../styles/PrimarySurvey.css';
 import logo from '../logo/FindITRotated.png';
 
 import { ProfileWizardForm } from '../components/primary-survey/ProfileWizardForm'
-
 import { useUser } from "../components/user-context/UserContextProvider";
 
 export const EditProfile = () => {
@@ -20,7 +19,7 @@ export const EditProfile = () => {
         <Typography variant="h5" color='primary'>
           Answer a few simple questions
         </Typography>
-        {user && <ProfileWizardForm /> 
+        {user && <ProfileWizardForm type="edit" /> 
         }
       </div>
       <div className="right-column"></div>

@@ -18,7 +18,7 @@ import { Step4 } from "./Step4";
 import { Step4Location } from "./Step4Location";
 import { useUser } from "../user-context/UserContextProvider";
 
-export const ProfileWizardForm = () => {
+export const ProfileWizardForm = ({ type }) => {
   const { user } = useUser()
 
   const [userUid, setUserUid] = useState(null)
@@ -147,7 +147,7 @@ export const ProfileWizardForm = () => {
           currentStep={step}
           onClick={setStep}
           answers={surveyAnswers}
-          type="edit"
+          type={type}
         />
       )}
     </>
