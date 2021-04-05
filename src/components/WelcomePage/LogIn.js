@@ -3,7 +3,6 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import useStyles from "../../views/WelcomePage";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
-// import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 
 
@@ -35,10 +34,13 @@ export default function LogIn(props) {
 
   return (
 
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} >
       <div>
         <Typography component="h1" variant="h5" align="center">
         Log in
+        </Typography>
+        <Typography variant="caption" align="center">
+        Did you forget your password? Just sign up again with a new (can be fake) email
         </Typography>
      <form className={classes.theme} noValidate>
           <TextField
@@ -54,7 +56,6 @@ export default function LogIn(props) {
             onChange={(e) => setEmail(e.target.value)}
           />
           <p error>{emailError}</p>
-          
           <TextField
             variant="outlined"
             margin="normal"

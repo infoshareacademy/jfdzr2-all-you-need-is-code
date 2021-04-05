@@ -3,7 +3,6 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import useStyles from "../../views/WelcomePage";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
-// import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 
 
@@ -39,6 +38,10 @@ export default function SignIn(props) {
         <Typography component="h1" variant="h5" align="center">
         Sign up
         </Typography>
+        <Typography variant="caption" align="center">
+        Do not reause your bank password, we didn't spend a lot on security for this app
+        </Typography>
+
      <form className={classes.theme} noValidate>
           <TextField
             variant="outlined"
@@ -53,7 +56,6 @@ export default function SignIn(props) {
             onChange={(e) => setEmail(e.target.value)}
           />
           <p>{emailError}</p>
-          
           <TextField
             variant="outlined"
             margin="normal"
