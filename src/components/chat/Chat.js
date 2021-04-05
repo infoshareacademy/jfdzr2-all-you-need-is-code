@@ -41,12 +41,11 @@ function ChatMessage(props) {
   return (
     <>
       <div className={`message ${messageClass}`}>
-        <img
-          className="chat-img"
+        <Avatar
         src={photoURL || defaultAvatar}
         />
         <p className="chat-text">{text}</p>
-        {/* <p className="date">{createdAt}</p> */}
+        {/* <div className="date">{createdAt}</div> */}
       </div>
     </>
   );
@@ -150,7 +149,7 @@ function Chat() {
 
   return (
     <>
-      <CssBaseline />
+      {/* <CssBaseline /> */}
       <Grid container className="chat-section">
         <Grid item xs={3} component={Paper} className="border-right500 border-top500">
           <List  className="header-cointainer">
