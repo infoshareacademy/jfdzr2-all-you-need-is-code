@@ -1,5 +1,3 @@
-# jfdzr2-project-2
-
 [FindIT Application](https://infoshareacademy.github.io/jfdzr2-all-you-need-is-code/#/)
 
 This is a project developed during a 6-months long "Junior Frontend Developer" bootcamp organized by InfoShare Academy. It was created by a team: [Daria Zalewska](https://github.com/daria-zalewska), [Michał Nielubszyc](https://github.com/MichalNielubszyc), [Kamil Plewka](https://github.com/Kamil12a). 
