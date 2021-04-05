@@ -25,15 +25,18 @@ export const ProfileWizardForm = ({ type }) => {
   const [userEmail, setUserEmail] = useState(null)
   const [step, setStep] = useState(1);
   const [purpose, setPurpose] = useState(user.purpose || '');
-  const [step1NameValues, setStep1Name] = useState(user.name);
-  const [avatarUrl, setAvatarUrl] = useState(user.avatarUrl);
-  const [technologies, setTechnologies] = useState(user.technologies);
-  const [step2GithubValues, setStep2GithubValues] = useState(user.github);
-  const [step2LinkedInValues, setStep2LinkedInValues] = useState(user.linkedin);
+  const [step1NameValues, setStep1Name] = useState(user.name || '');
+  const [avatarUrl, setAvatarUrl] = useState(user.avatarUrl || '');
+  const [technologies, setTechnologies] = useState(user.technologies || []);
+  const [step2GithubValues, setStep2GithubValues] = useState(user.github || '');
+  const [step2LinkedInValues, setStep2LinkedInValues] = useState(user.linkedin || '');
+
+  // TODO needs to be fixed the same way we did `purpose`
   const [step3Values, setStep3Values] = useState(user.experience[0] ? user.experience[0] : {});
-  const [step3ProjectsValues, setStep3ProjectsValues] = useState(user.projects);
-  const [step4Values, setStep4Values] = useState(user.about);
-  const [step4LocationValues, setStep4LocationValues] = useState(user.location);
+
+  const [step3ProjectsValues, setStep3ProjectsValues] = useState(user.projects || '');
+  const [step4Values, setStep4Values] = useState(user.about || '');
+  const [step4LocationValues, setStep4LocationValues] = useState(user.location || '');
 
   useEffect(() => {
     setUserUid(firebase.auth().currentUser.uid)
