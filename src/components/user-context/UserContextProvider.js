@@ -5,12 +5,6 @@ const UserContext = createContext({
   user: {},
 });
 
-const purposeToLabelMapping = {
-  projectpartner: "Project partner",
-  projecttojoin: "Project to join",
-  lookingaround: "Just looking around"
-}
-
 export const technologies = [
   "JavaScript",
   "CSS",
@@ -40,10 +34,29 @@ export const technologies = [
   'Rust'
 ];
 
+const purposeToLabelMapping = {
+  projectpartner: "Project partner",
+  projecttojoin: "Project to join",
+  lookingaround: "Just looking around"
+}
+
 export const purposes = Object.keys(purposeToLabelMapping)
 
 export const labelFromPurpose = purpose => {
   return purposeToLabelMapping[purpose] || 'Unknown'
+}
+
+const experienceToLabelMapping = {
+  student: "Student",
+  junior: "Junior",
+  mid: "Mid",
+  senior: "Senior"
+}
+
+export const experiences = Object.keys(experienceToLabelMapping)
+
+export const labelFromExperience = experience => {
+  return experienceToLabelMapping[experience] || 'Unknown'
 }
 
 export const UserContextProvider = ({ children }) => {

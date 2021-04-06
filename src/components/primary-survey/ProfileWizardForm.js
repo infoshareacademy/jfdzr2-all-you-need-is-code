@@ -12,7 +12,7 @@ import { Step1Name } from "./Step1Name";
 import { TechnologyPicker } from "./TechnologyPicker";
 import { Step2Github } from "./Step2Github";
 import { Step2LinkedIn } from "./Step2LinkedIn";
-import { Step3 } from "./Step3";
+import { ExperiencePicker } from "./ExperiencePicker";
 import { Step3Projects } from "./Step3Projects";
 import { Step4 } from "./Step4";
 import { Step4Location } from "./Step4Location";
@@ -30,10 +30,7 @@ export const ProfileWizardForm = ({ type }) => {
   const [technologies, setTechnologies] = useState(user.technologies || []);
   const [step2GithubValues, setStep2GithubValues] = useState(user.github || '');
   const [step2LinkedInValues, setStep2LinkedInValues] = useState(user.linkedin || '');
-
-  // TODO needs to be fixed the same way we did `purpose`
-  const [step3Values, setStep3Values] = useState(user.experience[0] ? user.experience[0] : {});
-
+  const [experience, setExperience] = useState(user.experience || '');
   const [step3ProjectsValues, setStep3ProjectsValues] = useState(user.projects || '');
   const [step4Values, setStep4Values] = useState(user.about || '');
   const [step4LocationValues, setStep4LocationValues] = useState(user.location || '');
@@ -47,7 +44,7 @@ export const ProfileWizardForm = ({ type }) => {
     step1NameValues,
     purpose,
     technologies,
-    step3Values,
+    experience,
     step4Values,
     step4LocationValues,
     step3ProjectsValues,
@@ -68,9 +65,9 @@ export const ProfileWizardForm = ({ type }) => {
   const handleStep2LinkedInChange = (event) => {
     setStep2LinkedInValues(event.target.value);
   };
-  const handleStep3Change = (event) => {
-    setStep3Values({ [event.target.id]: event.target.checked });
-  };
+  // const handleStep3Change = (event) => {
+  //   setStep3Values({ [event.target.id]: event.target.checked });
+  // };
   const handleStep3ProjectsChange = (event) => {
     setStep3ProjectsValues(event.target.value);
   };
@@ -110,7 +107,7 @@ export const ProfileWizardForm = ({ type }) => {
         )}
         {step === 3 && (
           <div className="survey-section">
-            <Step3 state={step3Values} onChange={handleStep3Change} />
+            <ExperiencePicker value={experience} onChange={setExperience} />
             <Step3Projects
               state={step3ProjectsValues}
               onChange={handleStep3ProjectsChange}

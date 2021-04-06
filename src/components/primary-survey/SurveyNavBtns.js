@@ -13,7 +13,7 @@ export const SurveyNavBtns = ({ onClick, currentStep, answers, type = 'create' }
       purpose: answers[1],
       // we need to make sure the tech names match the ones for which we have icons
       technologies: answers[2].filter(answer => technologies.includes(answer)),
-      experience: Object.keys(answers[3]),
+      experience: answers[3],
       about: answers[4],
       location: answers[5],
       projects: answers[6],
