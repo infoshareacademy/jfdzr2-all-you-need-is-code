@@ -105,6 +105,7 @@ export default function Post(props) {
   const [myUser, setMyUser] = useState({});
   const [allUsersName, setAllUsersName] = useState({});
   const [allUsersAvatar, setAllUsersAvatar] = useState({});
+  const [array,setArray]=useState([])
   const useStyles = makeStyles((theme) => ({
     large: {
       width: theme.spacing(8),
@@ -130,7 +131,6 @@ export default function Post(props) {
   }, [props.id]);
   useEffect(() => {
     let i = 0;
-
     let allUsersName = {};
     let allUsersAvatar = {};
     let userName = {};
@@ -150,9 +150,10 @@ export default function Post(props) {
         if (i === querySnapshot.size) {
           setAllUsersName(allUsersName);
           setAllUsersAvatar(allUsersAvatar);
+          
         }
       });
-  }, []);
+  }, [props.commentsId]);
 
   return (
     <>

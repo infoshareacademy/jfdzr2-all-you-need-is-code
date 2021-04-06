@@ -49,14 +49,15 @@ export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
     onSubmit: (values) => {
       document.querySelector("#ModalCreatePost").style.display = "none";
       document.querySelector(".page").style.opacity = "1";
+      const date = new Date();
       fire.firestore().collection("Posts").doc().set({
         id: fire.auth().currentUser.uid,
         title: values["title"],
         text: values["comment"],
         likes: {},
         comments: {},
-        time:getDate()
-        // created: fire.database.ServerValue.TIMESTAMP,
+        time:getDate(),
+        created: date.getTime()
       });
       formik.values.comment = "";
       formik.values.title = "";

@@ -1,7 +1,5 @@
-import { NavBar } from "../components/navBar/NavBar";
 import "../styles/MainPage.css";
 import Post from "../components/Post";
-import { MainPageWrapper } from "../common/MainPageWrapper";
 import ModalToCreatePost from "../components/ModalToCreatePost";
 import React, { useState, useEffect } from "react";
 import fire from "../fire";
@@ -19,6 +17,7 @@ export default function MainPage() {
       document.querySelector(".page").style.opacity = "0.5";
     }
   }
+
   useEffect(() => {
     const unsubscribe = fire
       .firestore()
@@ -41,6 +40,19 @@ export default function MainPage() {
           });
 
           if (i === querySnapshot.size) {
+            console.log(posts[0].created)
+            console.log(posts[1].created)
+            console.log(posts[2].created)
+            for (let j = 0; j < posts.length ; j++) {
+              for (let p = 0; p < posts.length; p++) {
+                if(posts[j].created>posts[p].created){
+                  let postPlace=posts[j]
+                  posts[j]=posts[p]
+                  posts[p]=postPlace
+                }
+                
+              }
+            }
             setPosts(posts);
           }
         });
