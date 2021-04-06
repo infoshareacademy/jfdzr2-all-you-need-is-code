@@ -2,16 +2,18 @@ import { Typography } from "@material-ui/core";
 import { NavLink } from "react-router-dom";
 
 import firebase from "../../fire";
+import { technologies } from "../user-context/UserContextProvider";
 
-export const SurveyNavBtns = ({ onClick, currentStep, answers }) => {
+export const SurveyNavBtns = ({ onClick, currentStep, answers, type = 'create' }) => {
   const handleSubmit = () => {
     const user = firebase.auth().currentUser.uid
 
     const answersObject = {
       name: answers[0],
-      purpose: Object.keys(answers[1]),
-      technologies: Object.keys(answers[2]),
-      experience: Object.keys(answers[3]),
+      purpose: answers[1],
+      // we need to make sure the tech names match the ones for which we have icons
+      technologies: answers[2].filter(answer => technologies.includes(answer)),
+      experience: answers[3],
       about: answers[4],
       location: answers[5],
       projects: answers[6],
@@ -61,13 +63,28 @@ export const SurveyNavBtns = ({ onClick, currentStep, answers }) => {
         </button>
       )}
 
-      <button className={"skip-btn"} onClick={() => handleSubmit()}>
-        <NavLink to="/main-page">
-          <Typography variant="h6" color="primary">
-            Skip
-          </Typography>
-        </NavLink>
-      </button>
+      {
+        type === 'create' && 
+        <button className={"skip-btn"} onClick={() => handleSubmit()}>
+          <NavLink to="/main-page">
+            <Typography variant="h6" color="primary">
+              Skip
+            </Typography>
+          </NavLink>
+        </button>
+      }
+
+      {
+        type === 'edit' &&
+        <button className={"skip-btn"}>
+          <NavLink to="/profile-page">
+            <Typography variant="h6" color="primary">
+              Cancel
+            </Typography>
+          </NavLink>
+        </button>
+      }
+      
     </div>
   );
 };

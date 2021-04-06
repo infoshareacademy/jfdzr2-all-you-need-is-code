@@ -24,7 +24,7 @@ export const Step2Github = ({
   return (
     <div className='media-item'>
       <Typography variant="h5" color="primary" style={{ marginTop: "10px" }}>
-        GitHub profile:
+        GitHub login:
       </Typography>
       <div className={classes.root}>
         <TextField

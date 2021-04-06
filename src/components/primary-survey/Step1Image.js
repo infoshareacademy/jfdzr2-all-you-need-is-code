@@ -1,8 +1,5 @@
 import CustomUploadButton from "react-firebase-file-uploader/lib/CustomUploadButton";
-import { useState } from "react";
 import firebase from "../../fire";
-import { Typography, Button } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 
 export const Step1Image = ({currentAvatarUrl, changeAvatarUrl}) => {
     const user = firebase.auth().currentUser.uid;

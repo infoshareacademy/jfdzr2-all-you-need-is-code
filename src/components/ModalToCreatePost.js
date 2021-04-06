@@ -19,7 +19,26 @@ export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
       },
     },
   }));
-
+  function getDate(){
+    var date = new Date();
+    var year=date.getFullYear()
+    if(date.getDate()<10){
+      var day="0"+date.getDate()
+    }
+    else{
+      var day=date.getDate()
+    }
+    if(date.getMonth()<10){
+      var month="0"+date.getMonth();
+    }
+    else{
+      var day=date.getMonth();
+    }
+    var hours=date.getHours()
+    var minutes=date.getMinutes()
+    console.log(day+"."+month+"."+year+","+hours+":"+minutes)
+    return day+"."+month+"."+year+","+hours+":"+minutes
+  }
   const classes = useStyles();
   const formik = useFormik({
     initialValues: {
@@ -30,13 +49,15 @@ export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
     onSubmit: (values) => {
       document.querySelector("#ModalCreatePost").style.display = "none";
       document.querySelector(".page").style.opacity = "1";
+      const date = new Date();
       fire.firestore().collection("Posts").doc().set({
         id: fire.auth().currentUser.uid,
         title: values["title"],
         text: values["comment"],
         likes: {},
         comments: {},
-        // created: fire.database.ServerValue.TIMESTAMP,
+        time:getDate(),
+        created: date.getTime()
       });
       formik.values.comment = "";
       formik.values.title = "";

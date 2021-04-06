@@ -8,6 +8,7 @@ import { SingleUserPage } from "./views/SingleUserPage";
 import MainPage from "./views/MainPage";
 import { ChatPage } from "./views/ChatPage";
 import SignInPage from "./views/SignInPage";
+import {YourPosts} from "./views/YourPosts"
 import LogInPage from "./views/LogInPage";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { UserContextProvider } from "./components/user-context/UserContextProvider";
@@ -61,7 +62,6 @@ function App() {
               <ProfilePage />
             </PageWrapper>
           </PrivateRoute>
-
           <PrivateRoute exact path="/users-page">
             <PageWrapper>
               <UsersPage />

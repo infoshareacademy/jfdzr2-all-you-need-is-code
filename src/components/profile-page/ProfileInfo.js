@@ -1,8 +1,7 @@
 import { Paper, Typography, Button, Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import defaultAvatar from "../../photos/profilePhotos/default.jpg";
-import { useContext } from "react";
-import { UserContext } from "../user-context/UserContext";
+import { labelFromPurpose, useUser } from "../user-context/UserContextProvider";
 import { Link } from "react-router-dom";
 
 import BorderColorIcon from "@material-ui/icons/BorderColor";
@@ -18,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const ProfileInfo = () => {
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
 
   const classes = useStyles();
 
@@ -68,9 +67,8 @@ export const ProfileInfo = () => {
               color="secondary"
               style={{ textTransform: "capitalize", fontWeight: "900" }}
             >
-              {user?.purpose?.[0] === "projectpartner" && ` Project partner`}
-              {user?.purpose?.[0] === "projecttojoin" && ` Project to join`}
-              {user?.purpose?.[0] === "lookingaround" && ` Just looking around`}
+              {" "}
+              {labelFromPurpose(user?.purpose)}
             </Typography>
           </div>
 
@@ -90,28 +88,86 @@ export const ProfileInfo = () => {
               {user?.location}
             </Typography>
           </div>
-
-          <a target="_blank" href={user?.github} rel="noreferrer" className="profile-content-line">
-            <Typography
-              variant="body1"
-              color="secondary"
-              style={{ textTransform: "capitalize", fontWeight: "900", display: "flex", alignItems: "center" }}
+          {user.github !== "" && (
+            <a
+              target="_blank"
+              href={`https://github.com/${user?.github}`}
+              rel="noreferrer"
+              className="profile-content-line"
             >
-              <GitHubIcon style={{ marginRight: "6px" }} />
-              GitHub: {user?.github?.slice(19)}
-            </Typography>
-          </a>
+              <Typography
+                variant="body1"
+                color="secondary"
+                style={{
+                  textTransform: "capitalize",
+                  fontWeight: "900",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <GitHubIcon style={{ marginRight: "6px" }} />
+                GitHub: {user?.github}
+              </Typography>
+            </a>
+          )}
+          {user.github === "" && (
+            <div className="profile-content-line">
+              <Typography
+                variant="body1"
+                color="secondary"
+                style={{
+                  textTransform: "capitalize",
+                  fontWeight: "900",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <GitHubIcon style={{ marginRight: "6px" }} />
+                GitHub: -
+              </Typography>
+            </div>
+          )}
 
-          <a target="_blank" href={user?.linkedin} rel="noreferrer" className="profile-content-line">
-            <Typography
-              variant="body1"
-              color="secondary"
-              style={{ textTransform: "capitalize", fontWeight: "900", display: "flex", alignItems: "center" }}
+          {user.linkedin !== "" && (
+            <a
+              target="_blank"
+              href={`https://www.linkedin.com/in/${user?.linkedin}/`}
+              rel="noreferrer"
+              className="profile-content-line"
             >
-              <LinkedInIcon style={{ marginRight: "6px" }} />
-              LinkedIn: {user?.linkedin?.slice(28).slice(0, -1)}
-            </Typography>
-          </a>
+              <Typography
+                variant="body1"
+                color="secondary"
+                style={{
+                  textTransform: "capitalize",
+                  fontWeight: "900",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <LinkedInIcon style={{ marginRight: "6px" }} />
+                LinkedIn: {user?.linkedin}
+              </Typography>
+            </a>
+          )}
+          {user.linkedin === "" && (
+            <div className="profile-content-line"
+            >
+              <Typography
+                variant="body1"
+                color="secondary"
+                style={{
+                  textTransform: "capitalize",
+                  fontWeight: "900",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <LinkedInIcon style={{ marginRight: "6px" }} />
+                LinkedIn: -
+              </Typography>
+            </div>
+          )}
         </div>
         <Link to="/edit-profile">
           <Button
@@ -125,7 +181,11 @@ export const ProfileInfo = () => {
 
       <Paper elevation={3} className="profile-section">
         <DevicesIcon color="secondary" />
-        <Typography variant="h6" color="secondary" style={{ fontWeight: "bold", margin: "0 0 6px" }}>
+        <Typography
+          variant="h6"
+          color="secondary"
+          style={{ fontWeight: "bold", margin: "0 0 6px" }}
+        >
           Technologies:
         </Typography>
         <div className="technologies-list" style={{ color: "black" }}>
@@ -154,20 +214,36 @@ export const ProfileInfo = () => {
 
       <Paper elevation={3} className="profile-section">
         <BorderColorIcon color="secondary" />
-        <Typography variant="h6" color="secondary" style={{ fontWeight: "bold", margin: "0 0 6px" }}>
+        <Typography
+          variant="h6"
+          color="secondary"
+          style={{ fontWeight: "bold", margin: "0 0 6px" }}
+        >
           About:
         </Typography>
-        <Typography variant="body1" color="inherit" style={{ fontWeight: "400" }}>
+        <Typography
+          variant="body1"
+          color="inherit"
+          style={{ fontWeight: "400" }}
+        >
           {user?.about}
         </Typography>
       </Paper>
 
       <Paper elevation={3} className="profile-section">
         <GitHubIcon color="secondary" />
-        <Typography variant="h6" color="secondary" style={{ fontWeight: "bold", margin: "0 0 6px" }}>
+        <Typography
+          variant="h6"
+          color="secondary"
+          style={{ fontWeight: "bold", margin: "0 0 6px" }}
+        >
           Projects:
         </Typography>
-        <Typography variant="body1" color="inherit" style={{ fontWeight: "400" }}>
+        <Typography
+          variant="body1"
+          color="inherit"
+          style={{ fontWeight: "400" }}
+        >
           {user?.projects}
         </Typography>
       </Paper>

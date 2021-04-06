@@ -30,9 +30,8 @@ export default function Post(props) {
     const userUid = fire.auth().currentUser.uid.toString();
     const docRef = fire.firestore().collection("Posts").doc(e.target.id);
     var likeByYou = false;
-    var i = 0;
     let arrayPeopleLike = [];
-
+    let likes = {};
     docRef
       .get()
       .then((snap) => {
@@ -42,46 +41,53 @@ export default function Post(props) {
         }
       })
       .then(() => {
-        if (likeByYou) {
-        } else {
-          let data = {};
-          docRef
-            .get()
-            .then((query) => {
+        let data = {};
+        docRef
+          .get()
+          .then((query) => {
+            if (likeByYou) {
               data = query.data().likes;
-            })
-            .then(
-              fire.firestore().runTransaction(function (transaction) {
-                // This code may get re-run multiple times if there are conflicts.
-                return transaction.get(docRef).then(function (doc) {
-                  transaction.update(docRef, {
-                    likes: {
-                      [userUid]: true,
-                    },
-                  });
+              delete data[userUid.toString()];
+              likes = { ...data };
+            } else {
+              data = query.data().likes;
+              likes = { ...data, ...{ [userUid]: true } };
+            }
+          })
+          .then(() => {
+            fire.firestore().runTransaction(function (transaction) {
+              // This code may get re-run multiple times if there are conflicts.
+              return transaction.get(docRef).then(function (doc) {
+                transaction.update(docRef, {
+                  likes,
                 });
-              })
-            );
-        }
+              });
+            });
+          });
       });
   }
   function handleSubmit(e) {
-    console.log(document.querySelector(".commentValue").innerText);
     const userUid = fire.auth().currentUser.uid.toString();
     const docRef = fire.firestore().collection("Posts").doc(e.target.id);
     e.preventDefault();
     let data = {};
     let comments = {};
+    let i = 0;
     docRef
       .get()
       .then((query) => {
         data = query.data().comments;
-
-        comments = { ...data, ...{ [userUid]: myValue } };
+        if (Object.keys(data).includes(userUid)) {
+          for (let j = 0; j < Object.keys(data).length; j++) {
+            if (!Object.keys(data).includes(userUid + j.toString())) {
+              comments = { ...data, ...{ [userUid + j.toString()]: myValue } };
+            }
+          }
+        } else {
+          comments = { ...data, ...{ [userUid]: myValue } };
+        }
       })
       .then(() => {
-        console.log(data);
-        console.log(comments);
         fire.firestore().runTransaction(function (transaction) {
           return transaction.get(docRef).then(function (doc) {
             transaction.update(docRef, {
@@ -97,7 +103,9 @@ export default function Post(props) {
 
   const [state, setState] = useState("initial");
   const [myUser, setMyUser] = useState({});
-
+  const [allUsersName, setAllUsersName] = useState({});
+  const [allUsersAvatar, setAllUsersAvatar] = useState({});
+  const [array,setArray]=useState([])
   const useStyles = makeStyles((theme) => ({
     large: {
       width: theme.spacing(8),
@@ -121,6 +129,31 @@ export default function Post(props) {
         setState("loaded");
       });
   }, [props.id]);
+  useEffect(() => {
+    let i = 0;
+    let allUsersName = {};
+    let allUsersAvatar = {};
+    let userName = {};
+    let userAvatar = {};
+    fire
+      .firestore()
+      .collection("Users")
+      .onSnapshot((querySnapshot) => {
+        querySnapshot.docs.forEach((doc) => {
+          i++;
+
+          userName = { [doc.id]: doc.data().name };
+          userAvatar = { [doc.id]: doc.data().avatarUrl };
+          allUsersName = { ...allUsersName, ...userName };
+          allUsersAvatar = { ...allUsersAvatar, ...userAvatar };
+        });
+        if (i === querySnapshot.size) {
+          setAllUsersName(allUsersName);
+          setAllUsersAvatar(allUsersAvatar);
+          
+        }
+      });
+  }, [props.commentsId]);
 
   return (
     <>
@@ -147,7 +180,7 @@ export default function Post(props) {
                   </Typography>
                 </Link>
                 <Typography variant="body1" color="secondary">
-                  03.04.2021, 21:23
+                {props.time}
                 </Typography>
               </div>
             </div>
@@ -174,7 +207,7 @@ export default function Post(props) {
                 <p>More comments</p>
               </button>
 
-              <p className="data">{props.time}</p>
+              
             </div>
             <form
               onSubmit={handleSubmit}
@@ -192,12 +225,11 @@ export default function Post(props) {
 
               <Button
                 color="secondary"
-                className="buttonSubmit"
                 variant="contained"
                 type="submit"
                 style={{
                   backgroundColor: "#6C7ED6",
-                  margin: "6px 0 0",
+                  margin: "6px 10px 0px",
                 }}
               >
                 Send
@@ -207,14 +239,21 @@ export default function Post(props) {
             {showComment === false && props.comment != null && (
               <>
                 <div className="comment" id="firstcomment">
-                  <Link>
-                    <Avatar className={classes.small} src={profilePhoto} />
+                  <Link
+                    to={`/users-page/${props.commentsId[0].substring(0, 28)}`}
+                  >
+                    <Avatar
+                      className={classes.small}
+                      src={allUsersAvatar[props.commentsId[0].substring(0, 28)]}
+                    />
                   </Link>
 
                   <div className="commentContent">
-                    <Link>
+                    <Link
+                      to={`/users-page/${props.commentsId[0].substring(0, 28)}`}
+                    >
                       <Typography variant="body1" color="secondary">
-                        Hubert Urbański
+                        {allUsersName[props.commentsId[0].substring(0, 28)]}
                       </Typography>
                     </Link>
                     <Typography variant="body2">{props.comment}</Typography>
@@ -228,14 +267,35 @@ export default function Post(props) {
                 {props.comments.map((item, index) => (
                   <>
                     <div className="comment" id="allcomments">
-                      <Link>
-                        <Avatar className={classes.small} src={profilePhoto} />
+                      <Link
+                        to={`/users-page/${props.commentsId[index].substring(
+                          0,
+                          28
+                        )}`}
+                      >
+                        <Avatar
+                          className={classes.small}
+                          src={
+                            allUsersAvatar[
+                              props.commentsId[index].substring(0, 28)
+                            ]
+                          }
+                        />
                       </Link>
 
                       <div className="commentContent">
-                        <Link>
+                        <Link
+                          to={`/users-page/${props.commentsId[index].substring(
+                            0,
+                            28
+                          )}`}
+                        >
                           <Typography variant="body1" color="secondary">
-                            Hubert Urbański
+                            {
+                              allUsersName[
+                                props.commentsId[index].substring(0, 28)
+                              ]
+                            }
                           </Typography>
                         </Link>
                         <Typography variant="body2">{item}</Typography>

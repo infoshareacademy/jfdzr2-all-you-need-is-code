@@ -1,7 +1,63 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext, createContext } from "react";
 import firebase from "../../fire";
 
-import { UserContext } from "./UserContext";
+const UserContext = createContext({
+  user: {},
+});
+
+export const technologies = [
+  "JavaScript",
+  "CSS",
+  "HTML",
+  "ReactJS",
+  "Redux",
+  "RWD",
+  "Firebase",
+  "TypeScript",
+  "NodeJS",
+  "Angular",
+  "Vue.js",
+  "GIT",
+  "Java",
+  "Python",
+  "Ruby",
+  "PHP.",
+  "Kotlin",
+  "C Sharp",
+  'C',
+  'C++',
+  'Elm',
+  'Unity',
+  'Scala',
+  'Swift',
+  'Go',
+  'Rust'
+];
+
+const purposeToLabelMapping = {
+  projectpartner: "Project partner",
+  projecttojoin: "Project to join",
+  lookingaround: "Just looking around"
+}
+
+export const purposes = Object.keys(purposeToLabelMapping)
+
+export const labelFromPurpose = purpose => {
+  return purposeToLabelMapping[purpose] || 'Unknown'
+}
+
+const experienceToLabelMapping = {
+  student: "Student",
+  junior: "Junior",
+  mid: "Mid",
+  senior: "Senior"
+}
+
+export const experiences = Object.keys(experienceToLabelMapping)
+
+export const labelFromExperience = experience => {
+  return experienceToLabelMapping[experience] || 'Unknown'
+}
 
 export const UserContextProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
@@ -36,3 +92,7 @@ export const UserContextProvider = ({ children }) => {
     </UserContext.Provider>
   );
 };
+
+export const useUser = () => {
+  return useContext(UserContext)
+}
