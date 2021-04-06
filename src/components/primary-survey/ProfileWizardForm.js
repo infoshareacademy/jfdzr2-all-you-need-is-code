@@ -6,32 +6,37 @@ import { SurveySteps2 } from "./SurveySteps2";
 import { SurveySteps3 } from "./SurveySteps3";
 import { SurveySteps4 } from "./SurveySteps4";
 import { SurveyNavBtns } from "./SurveyNavBtns";
-import { Step1 } from "./Step1";
+import { PurposePicker } from "./PurposePicker";
 import { Step1Image } from "./Step1Image";
 import { Step1Name } from "./Step1Name";
-import { Step2 } from "./Step2";
+import { TechnologyPicker } from "./TechnologyPicker";
 import { Step2Github } from "./Step2Github";
 import { Step2LinkedIn } from "./Step2LinkedIn";
 import { Step3 } from "./Step3";
 import { Step3Projects } from "./Step3Projects";
 import { Step4 } from "./Step4";
 import { Step4Location } from "./Step4Location";
+import { useUser } from "../user-context/UserContextProvider";
 
-export const WizardForm = () => {
+export const ProfileWizardForm = ({ type }) => {
+  const { user } = useUser()
 
   const [userUid, setUserUid] = useState(null)
   const [userEmail, setUserEmail] = useState(null)
   const [step, setStep] = useState(1);
-  const [step1Values, setStep1Values] = useState({});
-  const [step1NameValues, setStep1Name] = useState('');
-  const [avatarUrl, setAvatarUrl] = useState('');
-  const [step2Values, setStep2Values] = useState({});
-  const [step2GithubValues, setStep2GithubValues] = useState('');
-  const [step2LinkedInValues, setStep2LinkedInValues] = useState('');
-  const [step3Values, setStep3Values] = useState({});
-  const [step3ProjectsValues, setStep3ProjectsValues] = useState('');
-  const [step4Values, setStep4Values] = useState('');
-  const [step4LocationValues, setStep4LocationValues] = useState('');
+  const [purpose, setPurpose] = useState(user.purpose || '');
+  const [step1NameValues, setStep1Name] = useState(user.name || '');
+  const [avatarUrl, setAvatarUrl] = useState(user.avatarUrl || '');
+  const [technologies, setTechnologies] = useState(user.technologies || []);
+  const [step2GithubValues, setStep2GithubValues] = useState(user.github || '');
+  const [step2LinkedInValues, setStep2LinkedInValues] = useState(user.linkedin || '');
+
+  // TODO needs to be fixed the same way we did `purpose`
+  const [step3Values, setStep3Values] = useState(user.experience[0] ? user.experience[0] : {});
+
+  const [step3ProjectsValues, setStep3ProjectsValues] = useState(user.projects || '');
+  const [step4Values, setStep4Values] = useState(user.about || '');
+  const [step4LocationValues, setStep4LocationValues] = useState(user.location || '');
 
   useEffect(() => {
     setUserUid(firebase.auth().currentUser.uid)
@@ -40,8 +45,8 @@ export const WizardForm = () => {
 
   const surveyAnswers = [
     step1NameValues,
-    step1Values,
-    step2Values,
+    purpose,
+    technologies,
     step3Values,
     step4Values,
     step4LocationValues,
@@ -53,15 +58,10 @@ export const WizardForm = () => {
     userEmail
   ];
 
-  const handleStep1Change = (event) => {
-    setStep1Values({ [event.target.id]: event.target.checked });
-  };
   const handleStep1NameChange = (event) => {
     setStep1Name(event.target.value);
   };
-  const handleStep2Change = (event) => {
-    setStep2Values({ ...step2Values, [event.target.id]: event.target.checked });
-  };
+  
   const handleStep2GithubChange = (event) => {
     setStep2GithubValues(event.target.value);
   };
@@ -100,12 +100,12 @@ export const WizardForm = () => {
                 changeAvatarUrl={setAvatarUrl}
               />
             </div>
-            <Step1 state={step1Values} onChange={handleStep1Change} />
+            <PurposePicker value={purpose} onChange={setPurpose} />
           </div>
         )}
         {step === 2 && (
           <div className="survey-section">
-            <Step2 state={step2Values} onChange={handleStep2Change} />
+            <TechnologyPicker values={technologies} onChange={setTechnologies} />
           </div>
         )}
         {step === 3 && (
@@ -142,6 +142,7 @@ export const WizardForm = () => {
           currentStep={step}
           onClick={setStep}
           answers={surveyAnswers}
+          type={type}
         />
       )}
     </>
