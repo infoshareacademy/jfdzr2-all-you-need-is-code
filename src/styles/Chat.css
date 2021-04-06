@@ -1,6 +1,6 @@
 .chat-section {
     width: 100%;
-    height: 84.2vh;
+    height: 76vh;
     padding-top: 1.9vh;
     padding-bottom: 10vh;
   }
@@ -24,13 +24,30 @@
 
 .chat-text {
   max-width: 500px;
-  margin-bottom: 12px;
+  margin-bottom: 0px;
   line-height: 24px;
   padding: 10px 20px;
   border-radius: 25px;
   position: relative;
   color: white;
   text-align: center;
+}
+
+.sent .date {
+  font-size: xx-small;
+  margin-bottom: 10px;
+  margin-right: 5px;
+  text-align: end;
+  color: grey;
+}
+
+
+.received .date {
+  font-size: xx-small;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  text-align: start;
+  color: grey;
 }
 
 .message {
@@ -54,11 +71,15 @@
   text-align: left;
 }
 
+
 .logo-cointainer {
-  background-color: #4853a4;
-  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
   padding: 0px;
   margin: 0px;
-  width: 100%;
+  width: 55%;
   height: auto;
 }

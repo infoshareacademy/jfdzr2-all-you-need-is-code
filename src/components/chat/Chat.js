@@ -1,11 +1,8 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
 import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -13,34 +10,40 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Avatar from "@material-ui/core/Avatar";
 import Fab from "@material-ui/core/Fab";
 import SendIcon from "@material-ui/icons/Send";
-import CssBaseline from '@material-ui/core/CssBaseline';
 // import db from "../../fire";
 import fire from "../../fire";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useState, useRef, useEffect } from "react";
 import "../../styles/Chat.css";
-import Button from "@material-ui/core/Button";
 import { Search } from "../../common/Search"
-import { SettingsInputAntennaTwoTone } from "@material-ui/icons";
 // import Tooltip from '@material-ui/core/Tooltip';
 import logo from "../../logo/sayIT.png";
 import defaultAvatar from "../../photos/profilePhotos/default.jpg";
 import StarsIcon from '@material-ui/icons/Stars';
+import { Link } from "react-router-dom";
 
 const auth = fire.auth();
 const makeMsgId = (userUid, chatUserUid) => [userUid, chatUserUid].sort().join('-')
 
+
+
 function ChatMessage(props) {
   const { text, uid, photoURL, createdAt } = props.message;
   const messageClass = uid === auth.currentUser.uid ? "sent" : "received";
+  const formatedDate = Date(createdAt).toString().substr(4, 20)
   return (
     <>
       <div className={`message ${messageClass}`}>
+      <Link to={`/users-page/${uid}`}>
         <Avatar
+        onClick = {(e)=> console.log(uid)}
         src={photoURL || defaultAvatar}
         />
+        </Link>
+        <div>
         <p className="chat-text">{text}</p>
-        {/* <div className="date">{createdAt}</div> */}
+        <div className="date">{formatedDate}</div>
+        </div>
       </div>
     </>
   );
@@ -97,7 +100,6 @@ function Chat() {
     await messagesRef.add({
       text: formValue,
       createdAt: Date.now(),
-      // createdAt: Date().toLocaleString(),
       uid,
       photoURL: filterAvatar(uid),
     });
@@ -143,10 +145,11 @@ function Chat() {
 
   return (
     <>
-      {/* <CssBaseline /> */}
       <Grid container className="chat-section">
         <Grid item xs={3} component={Paper} className="border-right500 border-top500">
-          <img className="logo-cointainer" src={logo} />
+          <div className="logo-cointainer">
+          <img className="logo" src={logo} />
+          </div>
           <Divider />
           <Grid item xs={12} style={{ padding: "10px" }}>
             <Search onResultSelect={activateChat} />
@@ -160,7 +163,6 @@ function Chat() {
                 onClick={(e) => { 
                   activateChat(user);
                   setActiveChatUser(user);
-                  console.log(activeChatUser)
                 }}
               >
                 <ListItemIcon>
