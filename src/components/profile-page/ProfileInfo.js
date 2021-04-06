@@ -131,7 +131,7 @@ export const ProfileInfo = () => {
           {user.linkedin !== "" && (
             <a
               target="_blank"
-              href={user?.linkedin}
+              href={`https://www.linkedin.com/in/${user?.linkedin}/`}
               rel="noreferrer"
               className="profile-content-line"
             >
@@ -146,7 +146,7 @@ export const ProfileInfo = () => {
                 }}
               >
                 <LinkedInIcon style={{ marginRight: "6px" }} />
-                LinkedIn: {user?.linkedin?.slice(28).slice(0, -1)}
+                LinkedIn: {user?.linkedin}
               </Typography>
             </a>
           )}
