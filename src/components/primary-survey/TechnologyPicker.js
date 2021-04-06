@@ -29,17 +29,17 @@ export const TechnologyPicker = ({ values = [], onChange }) => {
           {technologies.map((technology, index) => {
             const isPicked = values.includes(technology);
             return (
-              <div className="technologies-list-survey">
+              <div key={index} className="technologies-list-survey">
                 <img className="technology-icon-survey" alt={technology} src={process.env.PUBLIC_URL + `/technologies/${technology}.png`} />
                   <FormControlLabel
                     control={
                       <Checkbox
+                        key={index}
                         id={technology}
                         checked={isPicked}
                         onChange={handleChange}
                         name={technology}
                         color="primary"
-                        key={index}
                       />
                     }
                     label={technology}

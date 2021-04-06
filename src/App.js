@@ -8,7 +8,7 @@ import { SingleUserPage } from "./views/SingleUserPage";
 import MainPage from "./views/MainPage";
 import { ChatPage } from "./views/ChatPage";
 import SignInPage from "./views/SignInPage";
-import {YourPosts} from "./views/YourPosts"
+import { YourPosts } from "./views/YourPosts";
 import LogInPage from "./views/LogInPage";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { UserContextProvider } from "./components/user-context/UserContextProvider";
@@ -68,17 +68,23 @@ function App() {
             </PageWrapper>
           </PrivateRoute>
 
-          
-            <PrivateRoute
-              path="/users-page/:userUid"
-              component={SingleUserPage}
-            />
+          <PrivateRoute
+            path="/users-page/:userUid"
+            component={SingleUserPage}
+          />
 
           <PrivateRoute path="/chat">
             <PageWrapper>
               <ChatPage />
             </PageWrapper>
           </PrivateRoute>
+
+          <PrivateRoute path="/your-posts">
+            <PageWrapper>
+              <YourPosts />
+            </PageWrapper>
+          </PrivateRoute>
+
         </UserContextProvider>
       </Switch>
     </ThemeProvider>
@@ -89,10 +95,15 @@ const PrivateRoute = ({ children, ...rest }) => {
   const [status, setStatus] = useState("idle");
   useEffect(() => {
     setStatus("loading");
-    fire.auth().onAuthStateChanged((user) => {
+    const unsubscribe = fire.auth().onAuthStateChanged((user) => {
       setIsLoggedIn(Boolean(user));
       setStatus("resolved");
     });
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
   }, []);
   if (status === "loading") {
     return <p>loading...</p>;

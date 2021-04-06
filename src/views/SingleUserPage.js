@@ -32,6 +32,14 @@ export const SingleUserPage = ({
   const [user, setUser] = useState([]);
   const [state, setState] = useState("initial");
   const classes = useStyles();
+  
+  
+const handleOnClick = (user1) => {
+const auth = firebase.auth();
+const user2 = auth.currentUser.uid
+const msgId = [user1, user2].sort().join('-')
+firebase.firestore().collection("Messages").doc(msgId).set({})
+}  
 
   useEffect(() => {
     firebase

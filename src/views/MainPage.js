@@ -40,9 +40,6 @@ export default function MainPage() {
           });
 
           if (i === querySnapshot.size) {
-            console.log(posts[0].created)
-            console.log(posts[1].created)
-            console.log(posts[2].created)
             for (let j = 0; j < posts.length ; j++) {
               for (let p = 0; p < posts.length; p++) {
                 if(posts[j].created>posts[p].created){
@@ -82,9 +79,10 @@ export default function MainPage() {
         </div>
 
         {posts.map((post, index) => (
-          <div>
+          <div key={index}>
             {
               <Post
+                key={post.id}
                 id={post.id}
                 title={post.title}
                 text={post.text}

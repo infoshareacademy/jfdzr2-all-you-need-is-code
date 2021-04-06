@@ -45,6 +45,9 @@ const useStyles = makeStyles((theme) => ({
   },
   footer: {
   marginTop: "auto",  
+  },
+  logincontainer : {
+    width: "50vh",
   }
 }));
 
@@ -58,14 +61,12 @@ export default function WelcomePage() {
       <Grid item xs={false} sm={4} md={5} className={classes.image} />
       <Grid item xs={12} sm={8} md={7}>
         <Paper className={classes.paper} elevation={6} square>
-          <Typography variant="h4" color="white" align="left">
+          <Typography variant="h4" color="primary" align="left">
             <div className={classes.welcome}>Welcome</div>
           </Typography>
-          <Typography align="justify" variant="body4">
-          If you've ever wondered how to get a partner for your new it project, you don't know how to solve your long-bothering experience, this place is for you!
-            FindIT is a platform where you you can find a partner for your dream project in any programming language, you can join an existing team and support it with your knowledge or simply meet people as interested in IT as you are
-            Simply sign in or log in and start your it journey!
-            We need only your email address and password
+          <Typography align="justify" variant="body2">
+          If you've ever wondered how to get a partner for your new IT project or you are looking for a new exiting project to join - this place is for you!
+            FindIT is a platform where you you can find a partner for your dream project in any programming language or join an existing team and support it with your knowledge. Just sign up or log in and start your IT journey! We only need your email address and password.
           </Typography>
         <Grid container>
           <Grid item xs={6}>
