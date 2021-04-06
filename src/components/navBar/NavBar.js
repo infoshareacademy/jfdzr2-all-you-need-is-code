@@ -54,7 +54,9 @@ export const NavBar = () => {
               <NavLink to="/users-page" className="text-center navItem">
                 users
               </NavLink>
-              <Nav.Link className="text-center navItem">your posts</Nav.Link>
+              <NavLink to="/your-posts" className="text-center navItem">
+                your posts
+                </NavLink>
             </div>
           </div>
 

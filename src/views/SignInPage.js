@@ -59,6 +59,7 @@ export default function SignInPage() {
   const [passwordError, setPasswordError] = useState('');
 
 
+ 
   const clearInputs = () => {
     setEmail('');
     setPassword('');
@@ -84,7 +85,9 @@ export default function SignInPage() {
       });
     };
 
+
 useEffect(() => {
+  const unsubscribe =   
   fire.auth().onAuthStateChanged((user) => {
       if (user) {
           clearInputs();
@@ -95,6 +98,12 @@ useEffect(() => {
       setUser("");
   }
       });
+      return () => {
+        if (unsubscribe) {
+          unsubscribe();
+        }
+      };
+
 }, []);
 
   return ( 

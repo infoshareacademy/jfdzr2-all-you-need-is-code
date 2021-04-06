@@ -61,10 +61,10 @@ export default function WelcomePage() {
       <Grid item xs={false} sm={4} md={5} className={classes.image} />
       <Grid item xs={12} sm={8} md={7}>
         <Paper className={classes.paper} elevation={6} square>
-          <Typography variant="h4" color="white" align="left">
+          <Typography variant="h4" color="primary" align="left">
             <div className={classes.welcome}>Welcome</div>
           </Typography>
-          <Typography align="justify" variant="body4">
+          <Typography align="justify" variant="body2">
           If you've ever wondered how to get a partner for your new IT project or you are looking for a new exiting project to join - this place is for you!
             FindIT is a platform where you you can find a partner for your dream project in any programming language or join an existing team and support it with your knowledge. Just sign up or log in and start your IT journey! We only need your email address and password.
           </Typography>

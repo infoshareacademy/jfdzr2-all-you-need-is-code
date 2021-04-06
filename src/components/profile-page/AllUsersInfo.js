@@ -176,6 +176,7 @@ export const AllUsersInfo = () => {
                         {user?.technologies?.slice(0,4).map((technology, index) => {
                           return (
                             <img
+                              key={index}
                               className="technology-icon-small"
                               alt={technology}
                               src={
