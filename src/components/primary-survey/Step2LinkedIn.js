@@ -24,7 +24,7 @@ export const Step2LinkedIn = ({
   return (
     <div className='media-item'>
       <Typography variant="h5" color="primary" style={{ marginTop: "10px" }}>
-        LinkedIn profile:
+        LinkedIn login:
       </Typography>
       <div className={classes.root}>
         <TextField
