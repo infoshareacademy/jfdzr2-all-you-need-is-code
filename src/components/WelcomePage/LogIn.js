@@ -40,7 +40,7 @@ export default function LogIn(props) {
         Log in
         </Typography>
         <Typography variant="caption" align="center">
-        Did you forget your password? Just sign up again with a new (can be fake) email
+        Did you forget your password? Sorry we do not support "forget password" option
         </Typography>
      <form className={classes.theme} noValidate>
           <TextField
