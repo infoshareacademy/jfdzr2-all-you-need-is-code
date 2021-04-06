@@ -7,9 +7,8 @@ import { Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { Link, NavLink } from "react-router-dom";
-import { useContext } from "react";
-import { UserContext } from "../user-context/UserContext";
 import fire from "../../fire";
+import { useUser } from "../user-context/UserContextProvider";
 
 const useStyles = makeStyles((theme) => ({
   large: {
@@ -25,7 +24,7 @@ export const NavBar = () => {
 
   const classes = useStyles();
 
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
 
   return (
     <>
