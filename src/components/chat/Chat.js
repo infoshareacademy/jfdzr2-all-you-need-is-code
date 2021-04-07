@@ -159,6 +159,7 @@ function Chat() {
             return (
                <div className={activeMsg(user)}>
                 <ListItem
+                style={{ textOverflow: "ellipsis", overflow: "hidden" }}
                 button
                 key={user}
                 onClick={(e) => { 
