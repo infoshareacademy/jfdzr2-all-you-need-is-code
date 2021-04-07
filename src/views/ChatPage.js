@@ -1,5 +1,5 @@
-import Chat from '../components/chat/Chat'
-import '../styles/Chat.css'
+import Chat from '../components/chat/Chat';
+
 
 export const ChatPage = () => {
     return (

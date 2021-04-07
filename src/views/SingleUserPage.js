@@ -33,6 +33,15 @@ export const SingleUserPage = ({
   const [state, setState] = useState("initial");
   const classes = useStyles();
 
+ 
+ 
+const handleOnClick = (user1) => {
+const auth = firebase.auth();
+const user2 = auth.currentUser.uid
+const msgId = [user1, user2].sort().join('-')
+firebase.firestore().collection("Messages").doc(msgId).set({})
+}  
+
   useEffect(() => {
     firebase
       .firestore()
@@ -211,10 +220,11 @@ export const SingleUserPage = ({
                   </div>
                 )}
               </div>
-              <Link>
+              <Link to='/chat'>
                 <Button
                   color="primary"
                   style={{ backgroundColor: "#6C7ED6", margin: "6px 0 0" }}
+                  onClick = {(e) => handleOnClick(userUid)}
                 >
                   Message
                 </Button>
