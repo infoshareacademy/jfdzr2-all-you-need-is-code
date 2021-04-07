@@ -37,7 +37,7 @@ export const technologies = [
 const purposeToLabelMapping = {
   projectpartner: "Project partner",
   projecttojoin: "Project to join",
-  lookingaround: "Just looking around"
+  lookingaround: "Looking around"
 }
 
 export const purposes = Object.keys(purposeToLabelMapping)

@@ -16,6 +16,11 @@ import DevicesIcon from "@material-ui/icons/Devices";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import { PageWrapper } from "../common/PageWrapper";
+import {
+  labelFromPurpose,
+  labelFromExperience,
+  useUser,
+} from "../components/user-context/UserContextProvider";
 
 const useStyles = makeStyles((theme) => ({
   large: {
@@ -33,14 +38,12 @@ export const SingleUserPage = ({
   const [state, setState] = useState("initial");
   const classes = useStyles();
 
- 
- 
-const handleOnClick = (user1) => {
-const auth = firebase.auth();
-const user2 = auth.currentUser.uid
-const msgId = [user1, user2].sort().join('-')
-firebase.firestore().collection("Messages").doc(msgId).set({})
-}  
+  const handleOnClick = (user1) => {
+    const auth = firebase.auth();
+    const user2 = auth.currentUser.uid;
+    const msgId = [user1, user2].sort().join("-");
+    firebase.firestore().collection("Messages").doc(msgId).set({});
+  };
 
   useEffect(() => {
     firebase
@@ -98,7 +101,8 @@ firebase.firestore().collection("Messages").doc(msgId).set({})
                     color="secondary"
                     style={{ textTransform: "capitalize", fontWeight: "900" }}
                   >
-                    {user?.experience}
+                    {" "}
+                    {labelFromExperience(user?.experience)}
                   </Typography>
                 </div>
 
@@ -115,12 +119,8 @@ firebase.firestore().collection("Messages").doc(msgId).set({})
                     color="secondary"
                     style={{ textTransform: "capitalize", fontWeight: "900" }}
                   >
-                    {user?.purpose?.[0] === "projectpartner" &&
-                      ` Project partner`}
-                    {user?.purpose?.[0] === "projecttojoin" &&
-                      ` Project to join`}
-                    {user?.purpose?.[0] === "lookingaround" &&
-                      ` Just looking around`}
+                    {" "}
+                    {labelFromPurpose(user?.purpose)}
                   </Typography>
                 </div>
 
@@ -137,7 +137,7 @@ firebase.firestore().collection("Messages").doc(msgId).set({})
                     color="secondary"
                     style={{ textTransform: "capitalize", fontWeight: "900" }}
                   >
-                    {user?.location}
+                    {user?.location ? user.location : "unknown"}
                   </Typography>
                 </div>
                 {user.github !== "" && (
@@ -175,7 +175,7 @@ firebase.firestore().collection("Messages").doc(msgId).set({})
                       }}
                     >
                       <GitHubIcon style={{ marginRight: "6px" }} />
-                      GitHub: -
+                      GitHub: Unknown
                     </Typography>
                   </div>
                 )}
@@ -215,16 +215,16 @@ firebase.firestore().collection("Messages").doc(msgId).set({})
                       }}
                     >
                       <LinkedInIcon style={{ marginRight: "6px" }} />
-                      LinkedIn: -
+                      LinkedIn: Unknown
                     </Typography>
                   </div>
                 )}
               </div>
-              <Link to='/chat'>
+              <Link to="/chat">
                 <Button
                   color="primary"
                   style={{ backgroundColor: "#6C7ED6", margin: "6px 0 0" }}
-                  onClick = {(e) => handleOnClick(userUid)}
+                  onClick={(e) => handleOnClick(userUid)}
                 >
                   Message
                 </Button>
