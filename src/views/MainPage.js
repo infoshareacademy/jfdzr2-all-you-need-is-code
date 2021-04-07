@@ -24,41 +24,36 @@ export default function MainPage() {
       .collection("Posts")
       .onSnapshot((querySnapshot) => {
         const posts = [];
-        const comments = [];
-        const commentsId = [];
         let i = 0;
         querySnapshot.forEach((doc) => {
           i++;
-          comments.push(Object.values(doc.data().comments));
-          commentsId.push(doc.data().comments);
+          
           posts.push({
             idDoc: doc.id,
             ...doc.data(),
             likes: Object.keys(doc.data().likes).length,
-            comments: comments,
-            commentsId: commentsId,
+            comments: Object.entries(doc.data().comments || {}).map(([id, value]) => ({ id, value })),
           });
 
           if (i === querySnapshot.size) {
-            // console.log(posts[0].created)
-            // console.log(posts[1].created)
-            // console.log(posts[2].created)
-            // for (let j = 0; j < posts.length ; j++) {
-            //   for (let p = 0; p < posts.length; p++) {
-            //     if(posts[j].created>posts[p].created){
-            //       let postPlace=posts[j]
-            //       posts[j]=posts[p]
-            //       posts[p]=postPlace
-            //     }
-                
-            //   }
-            // }
+            // console.log(posts[0].created);
+            // console.log(posts[1].created);
+            // console.log(posts[2].created);
+            for (let j = 0; j < posts.length; j++) {
+              for (let p = 0; p < posts.length; p++) {
+                if (posts[j].created > posts[p].created) {
+                  let postPlace = posts[j];
+                  posts[j] = posts[p];
+                  posts[p] = postPlace;
+                }
+              }
+            }
             setPosts(posts);
           }
         });
       });
   }, []);
-
+  console.log(posts)
   return (
     <>
       <div className="page">
@@ -91,9 +86,8 @@ export default function MainPage() {
                 index={post.idDoc}
                 time={post.time}
                 likes={post.likes}
-                comments={Object.values(post.commentsId[index])}
-                commentsId={Object.keys(post.commentsId[index])}
-                comment={Object.values(post.commentsId[index])[0]}
+                comments={post.comments}
+                
               />
             }
           </div>

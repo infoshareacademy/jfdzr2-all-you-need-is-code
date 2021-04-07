@@ -143,7 +143,7 @@ export default function Post(props) {
         setState("loading");
         setMyUser(user.data());
         setState("loaded");
-        console.log("yes");
+
       });
   }, [props.id]);
 
@@ -226,39 +226,15 @@ export default function Post(props) {
               </Button>
             </form>
 
-            {showComment === false && props.comment != null && (
-              <>
-                <div className="comment" id="firstcomment">
-                  <Link
-                    to={`/users-page/${props.commentsId[0].substring(0, 28)}`}
-                  >
-                    <Avatar
-                      className={classes.small}
-                      src={allUsersAvatar[props.commentsId[0].substring(0, 28)]}
-                    />
-                  </Link>
+            
 
-                  <div className="commentContent">
-                    <Link
-                      to={`/users-page/${props.commentsId[0].substring(0, 28)}`}
-                    >
-                      <Typography variant="body1" color="secondary">
-                        {allUsersName[props.commentsId[0].substring(0, 28)]}
-                      </Typography>
-                    </Link>
-                    <Typography variant="body2">{props.comment}</Typography>
-                  </div>
-                </div>
-              </>
-            )}
-
-            {showComment === true && (
-              <>
-                {props.comments.map((item, index) => (
+            
+              
+                {props.comments.slice(0, showComment === false ? 1 : undefined).map((comment, index) => (
                   <>
                     <div className="comment" id="allcomments">
                       <Link
-                        to={`/users-page/${props.commentsId[index].substring(
+                        to={`/users-page/${comment.id.substring(
                           0,
                           28
                         )}`}
@@ -267,7 +243,7 @@ export default function Post(props) {
                           className={classes.small}
                           src={
                             allUsersAvatar[
-                              props.commentsId[index].substring(0, 28)
+                              comment.id.substring(0, 28)
                             ]
                           }
                         />
@@ -275,7 +251,7 @@ export default function Post(props) {
 
                       <div className="commentContent">
                         <Link
-                          to={`/users-page/${props.commentsId[index].substring(
+                          to={`/users-page/${comment.id.substring(
                             0,
                             28
                           )}`}
@@ -283,18 +259,17 @@ export default function Post(props) {
                           <Typography variant="body1" color="secondary">
                             {
                               allUsersName[
-                                props.commentsId[index].substring(0, 28)
+                                comment.id.substring(0, 28)
                               ]
                             }
                           </Typography>
                         </Link>
-                        <Typography variant="body2">{item}</Typography>
+                        <Typography variant="body2">{comment.value}</Typography>
                       </div>
                     </div>
                   </>
                 ))}
-              </>
-            )}
+            
           </div>
         </Paper>
       )}
