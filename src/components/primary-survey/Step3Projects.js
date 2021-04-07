@@ -29,7 +29,6 @@ export const Step3Projects = ({step3ProjectsValues, state, onChange: handleStep3
         label=""
         multiline
         rows={2}
-        defaultValue=""
         variant="standard"
         value={state}
         onChange={handleStep3ProjectsChange}
