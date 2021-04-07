@@ -24,30 +24,25 @@ export default function MainPage() {
       .collection("Posts")
       .onSnapshot((querySnapshot) => {
         const posts = [];
-        const comments = [];
-        const commentsId = [];
         let i = 0;
         querySnapshot.forEach((doc) => {
           i++;
-          comments.push(Object.values(doc.data().comments));
-          commentsId.push(doc.data().comments);
+          
           posts.push({
             idDoc: doc.id,
             ...doc.data(),
             likes: Object.keys(doc.data().likes).length,
-            comments: comments,
-            commentsId: commentsId,
+            comments: Object.entries(doc.data().comments || {}).map(([id, value]) => ({ id, value })),
           });
 
           if (i === querySnapshot.size) {
-            for (let j = 0; j < posts.length ; j++) {
+            for (let j = 0; j < posts.length; j++) {
               for (let p = 0; p < posts.length; p++) {
-                if(posts[j].created>posts[p].created){
-                  let postPlace=posts[j]
-                  posts[j]=posts[p]
-                  posts[p]=postPlace
+                if (posts[j].created > posts[p].created) {
+                  let postPlace = posts[j];
+                  posts[j] = posts[p];
+                  posts[p] = postPlace;
                 }
-                
               }
             }
             setPosts(posts);
@@ -55,7 +50,7 @@ export default function MainPage() {
         });
       });
   }, []);
-
+  console.log(posts)
   return (
     <>
       <div className="page">
@@ -79,19 +74,17 @@ export default function MainPage() {
         </div>
 
         {posts.map((post, index) => (
-          <div key={index}>
+          <div>
             {
               <Post
-                key={post.id}
                 id={post.id}
                 title={post.title}
                 text={post.text}
                 index={post.idDoc}
                 time={post.time}
                 likes={post.likes}
-                comments={Object.values(post.commentsId[index])}
-                commentsId={Object.keys(post.commentsId[index])}
-                comment={Object.values(post.commentsId[index])[0]}
+                comments={post.comments}
+                
               />
             }
           </div>
@@ -105,3 +98,4 @@ export default function MainPage() {
     </>
   );
 }
+

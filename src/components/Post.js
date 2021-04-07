@@ -105,7 +105,6 @@ export default function Post(props) {
   const [myUser, setMyUser] = useState({});
   const [allUsersName, setAllUsersName] = useState({});
   const [allUsersAvatar, setAllUsersAvatar] = useState({});
-  const [array,setArray]=useState([])
   const useStyles = makeStyles((theme) => ({
     large: {
       width: theme.spacing(8),
@@ -117,7 +116,24 @@ export default function Post(props) {
     },
   }));
   const classes = useStyles();
-
+  useEffect(() => {
+    fire
+      .firestore()
+      .collection("Users")
+      .onSnapshot((querySnapshot) => {
+        let allUsersName = {};
+        let allUsersAvatar = {};
+        querySnapshot.docs.forEach((doc) => {
+          allUsersName = { ...allUsersName, [doc.id]: doc.data().name };
+          allUsersAvatar = {
+            ...allUsersAvatar,
+            [doc.id]: doc.data().avatarUrl,
+          };
+        });
+        setAllUsersName(allUsersName);
+        setAllUsersAvatar(allUsersAvatar);
+      });
+  }, []);
   useEffect(() => {
     fire
       .firestore()
@@ -129,32 +145,6 @@ export default function Post(props) {
         setState("loaded");
       });
   }, [props.id]);
-  useEffect(() => {
-    let i = 0;
-    let allUsersName = {};
-    let allUsersAvatar = {};
-    let userName = {};
-    let userAvatar = {};
-    fire
-      .firestore()
-      .collection("Users")
-      .onSnapshot((querySnapshot) => {
-        querySnapshot.docs.forEach((doc) => {
-          i++;
-
-          userName = { [doc.id]: doc.data().name };
-          userAvatar = { [doc.id]: doc.data().avatarUrl };
-          allUsersName = { ...allUsersName, ...userName };
-          allUsersAvatar = { ...allUsersAvatar, ...userAvatar };
-        });
-        if (i === querySnapshot.size) {
-          setAllUsersName(allUsersName);
-          setAllUsersAvatar(allUsersAvatar);
-          
-        }
-      });
-  }, [props.commentsId]);
-
   return (
     <>
       {state === "initial" && (
@@ -180,7 +170,7 @@ export default function Post(props) {
                   </Typography>
                 </Link>
                 <Typography variant="body1" color="secondary">
-                {props.time}
+                  {props.time}
                 </Typography>
               </div>
             </div>
@@ -206,8 +196,6 @@ export default function Post(props) {
                 <img className="comentPhoto" src={Coment}></img>
                 <p>More comments</p>
               </button>
-
-              
             </div>
             <form
               onSubmit={handleSubmit}
@@ -236,75 +224,29 @@ export default function Post(props) {
               </Button>
             </form>
 
-            {showComment === false && props.comment != null && (
-              <>
-                <div className="comment" id="firstcomment">
-                  <Link
-                    to={`/users-page/${props.commentsId[0].substring(0, 28)}`}
-                  >
-                    <Avatar
-                      className={classes.small}
-                      src={allUsersAvatar[props.commentsId[0].substring(0, 28)]}
-                    />
-                  </Link>
-
-                  <div className="commentContent">
-                    <Link
-                      to={`/users-page/${props.commentsId[0].substring(0, 28)}`}
-                    >
-                      <Typography variant="body1" color="secondary">
-                        {allUsersName[props.commentsId[0].substring(0, 28)]}
-                      </Typography>
+            {props.comments
+              .slice(0, showComment === false ? 1 : undefined)
+              .map((comment) => (
+                <>
+                  <div className="comment" id="allcomments">
+                    <Link to={`/users-page/${comment.id.substring(0, 28)}`}>
+                      <Avatar
+                        className={classes.small}
+                        src={allUsersAvatar[comment.id.substring(0, 28)]}
+                      />
                     </Link>
-                    <Typography variant="body2">{props.comment}</Typography>
-                  </div>
-                </div>
-              </>
-            )}
 
-            {showComment === true && (
-              <>
-                {props.comments.map((item, index) => (
-                  <>
-                    <div className="comment" id="allcomments">
-                      <Link
-                        to={`/users-page/${props.commentsId[index].substring(
-                          0,
-                          28
-                        )}`}
-                      >
-                        <Avatar
-                          className={classes.small}
-                          src={
-                            allUsersAvatar[
-                              props.commentsId[index].substring(0, 28)
-                            ]
-                          }
-                        />
+                    <div className="commentContent">
+                      <Link to={`/users-page/${comment.id.substring(0, 28)}`}>
+                        <Typography variant="body1" color="secondary">
+                          {allUsersName[comment.id.substring(0, 28)]}
+                        </Typography>
                       </Link>
-
-                      <div className="commentContent">
-                        <Link
-                          to={`/users-page/${props.commentsId[index].substring(
-                            0,
-                            28
-                          )}`}
-                        >
-                          <Typography variant="body1" color="secondary">
-                            {
-                              allUsersName[
-                                props.commentsId[index].substring(0, 28)
-                              ]
-                            }
-                          </Typography>
-                        </Link>
-                        <Typography variant="body2">{item}</Typography>
-                      </div>
+                      <Typography variant="body2">{comment.value}</Typography>
                     </div>
-                  </>
-                ))}
-              </>
-            )}
+                  </div>
+                </>
+              ))}
           </div>
         </Paper>
       )}
