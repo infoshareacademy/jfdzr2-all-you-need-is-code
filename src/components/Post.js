@@ -105,7 +105,6 @@ export default function Post(props) {
   const [myUser, setMyUser] = useState({});
   const [allUsersName, setAllUsersName] = useState({});
   const [allUsersAvatar, setAllUsersAvatar] = useState({});
-  const [array,setArray]=useState([])
   const useStyles = makeStyles((theme) => ({
     large: {
       width: theme.spacing(8),
@@ -117,7 +116,24 @@ export default function Post(props) {
     },
   }));
   const classes = useStyles();
-
+  useEffect(() => {
+    fire
+      .firestore()
+      .collection("Users")
+      .onSnapshot((querySnapshot) => {
+        let allUsersName = {};
+        let allUsersAvatar = {};
+        querySnapshot.docs.forEach((doc) => {
+          allUsersName = { ...allUsersName, [doc.id]: doc.data().name };
+          allUsersAvatar = {
+            ...allUsersAvatar,
+            [doc.id]: doc.data().avatarUrl,
+          };
+        });
+        setAllUsersName(allUsersName);
+        setAllUsersAvatar(allUsersAvatar);
+      });
+  }, []);
   useEffect(() => {
     fire
       .firestore()
@@ -127,33 +143,9 @@ export default function Post(props) {
         setState("loading");
         setMyUser(user.data());
         setState("loaded");
+        console.log("yes");
       });
   }, [props.id]);
-  useEffect(() => {
-    let i = 0;
-    let allUsersName = {};
-    let allUsersAvatar = {};
-    let userName = {};
-    let userAvatar = {};
-    fire
-      .firestore()
-      .collection("Users")
-      .onSnapshot((querySnapshot) => {
-        querySnapshot.docs.forEach((doc) => {
-          i++;
-
-          userName = { [doc.id]: doc.data().name };
-          userAvatar = { [doc.id]: doc.data().avatarUrl };
-          allUsersName = { ...allUsersName, ...userName };
-          allUsersAvatar = { ...allUsersAvatar, ...userAvatar };
-        });
-        if (i === querySnapshot.size) {
-          setAllUsersName(allUsersName);
-          setAllUsersAvatar(allUsersAvatar);
-          
-        }
-      });
-  }, [props.commentsId]);
 
   return (
     <>
@@ -180,7 +172,7 @@ export default function Post(props) {
                   </Typography>
                 </Link>
                 <Typography variant="body1" color="secondary">
-                {props.time}
+                  {props.time}
                 </Typography>
               </div>
             </div>
@@ -206,8 +198,6 @@ export default function Post(props) {
                 <img className="comentPhoto" src={Coment}></img>
                 <p>More comments</p>
               </button>
-
-              
             </div>
             <form
               onSubmit={handleSubmit}
