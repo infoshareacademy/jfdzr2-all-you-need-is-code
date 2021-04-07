@@ -143,10 +143,8 @@ export default function Post(props) {
         setState("loading");
         setMyUser(user.data());
         setState("loaded");
-
       });
   }, [props.id]);
-
   return (
     <>
       {state === "initial" && (
@@ -226,50 +224,29 @@ export default function Post(props) {
               </Button>
             </form>
 
-            
+            {props.comments
+              .slice(0, showComment === false ? 1 : undefined)
+              .map((comment) => (
+                <>
+                  <div className="comment" id="allcomments">
+                    <Link to={`/users-page/${comment.id.substring(0, 28)}`}>
+                      <Avatar
+                        className={classes.small}
+                        src={allUsersAvatar[comment.id.substring(0, 28)]}
+                      />
+                    </Link>
 
-            
-              
-                {props.comments.slice(0, showComment === false ? 1 : undefined).map((comment, index) => (
-                  <>
-                    <div className="comment" id="allcomments">
-                      <Link
-                        to={`/users-page/${comment.id.substring(
-                          0,
-                          28
-                        )}`}
-                      >
-                        <Avatar
-                          className={classes.small}
-                          src={
-                            allUsersAvatar[
-                              comment.id.substring(0, 28)
-                            ]
-                          }
-                        />
+                    <div className="commentContent">
+                      <Link to={`/users-page/${comment.id.substring(0, 28)}`}>
+                        <Typography variant="body1" color="secondary">
+                          {allUsersName[comment.id.substring(0, 28)]}
+                        </Typography>
                       </Link>
-
-                      <div className="commentContent">
-                        <Link
-                          to={`/users-page/${comment.id.substring(
-                            0,
-                            28
-                          )}`}
-                        >
-                          <Typography variant="body1" color="secondary">
-                            {
-                              allUsersName[
-                                comment.id.substring(0, 28)
-                              ]
-                            }
-                          </Typography>
-                        </Link>
-                        <Typography variant="body2">{comment.value}</Typography>
-                      </div>
+                      <Typography variant="body2">{comment.value}</Typography>
                     </div>
-                  </>
-                ))}
-            
+                  </div>
+                </>
+              ))}
           </div>
         </Paper>
       )}
