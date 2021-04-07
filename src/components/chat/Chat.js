@@ -141,7 +141,7 @@ function Chat() {
     scroll.current.scrollIntoView({ bahavior: "smooth" });
   }, [messages])
 
-
+  const activeMsg = (user) => (activeChatUser === user ? "active" : "nonactive")
 
   return (
     <>
@@ -157,7 +157,8 @@ function Chat() {
           <Divider />
           {chatList.map((user) => {
             return (
-              <ListItem
+               <div className={activeMsg(user)}>
+                <ListItem
                 button
                 key={user}
                 onClick={(e) => { 
@@ -173,9 +174,10 @@ function Chat() {
                 <ListItemText>{filterUser(user)}
                 </ListItemText>
                 {/* <Tooltip title={"DELETE CHAT"}> */}
-                  {activeChatUser===user ? <StarsIcon color="secondary"/> : ""}
                   {/* </Tooltip> */}
               </ListItem>
+              </div>
+
             )
           }
           )}
