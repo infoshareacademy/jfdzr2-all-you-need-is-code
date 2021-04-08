@@ -62,6 +62,20 @@ function Chat() {
   const [activeChatUser, setActiveChatUser] = useState("");
   const [allChatUsersInfo, setAllChatUsersInfo] = useState([]);
 
+
+  function usePrevious(value) {
+    const ref = useRef();
+    useEffect(() => {
+      ref.current = value
+    })
+    return ref.current
+  }
+
+  const prevChatList = usePrevious(chatList)
+
+
+
+
   const activateChat = (user) => {
     setChatUser(user)
     const msgId = makeMsgId(currentUser, user)
@@ -79,11 +93,14 @@ function Chat() {
           let object = { ...user.data(), ...userId };
           allChatUsersArray = [...allChatUsersArray, object];
           setAllChatUsersInfo(allChatUsersArray);
-
         });
-      });
+      console.log(prevChatList);
+      console.log(chatList)
+
+    });
   }, [chatList]);
 
+  
   const filterUser = (user) => {
     const userName = allChatUsersInfo.find(item => item.id === user)?.name
     return userName
