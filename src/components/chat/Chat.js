@@ -28,9 +28,9 @@ const makeMsgId = (userUid, chatUserUid) => [userUid, chatUserUid].sort().join('
 
 
 function ChatMessage(props) {
-  const { text, uid, photoURL, createdAt } = props.message;
+  const { text, uid, photoURL, createdAtString } = props.message;
   const messageClass = uid === auth.currentUser.uid ? "sent" : "received";
-  const formatedDate = Date(createdAt).toString().substr(4, 20)
+  // const formatedDate = Date(createdAt).toString().substr(4, 20);
   return (
     <>
       <div className={`message ${messageClass}`}>
@@ -42,7 +42,7 @@ function ChatMessage(props) {
         </Link>
         <div>
         <p className="chat-text">{text}</p>
-        <div className="date">{formatedDate}</div>
+        <div className="date">{createdAtString}</div>
         </div>
       </div>
     </>
@@ -100,6 +100,7 @@ function Chat() {
     await messagesRef.add({
       text: formValue,
       createdAt: Date.now(),
+      createdAtString: Date(Date.now()).toString().substr(4, 20),
       uid,
       photoURL: filterAvatar(uid),
     });
@@ -141,7 +142,7 @@ function Chat() {
     scroll.current.scrollIntoView({ bahavior: "smooth" });
   }, [messages])
 
-  const activeMsg = (user) => (activeChatUser === user ? "active" : "nonactive")
+  const activeMsg = (user) => (activeChatUser === user ? "chat-active" : "chat-nonactive")
 
   return (
     <>
