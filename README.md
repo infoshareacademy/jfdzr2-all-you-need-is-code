@@ -23,29 +23,29 @@ What you can do using FindIT app:
     - then you can edit your data on your profile page 
 
 <div display="flex">
-<img alt="survey1 photo" src="./src/photos/readme/survey0.png" width="386">
-<img alt="survey2 photo" src="./src/photos/readme/survey1.png" width="386">
+<img alt="survey1 photo" src="./src/photos/readme/survey0.png" width="80%">
+<img alt="survey2 photo" src="./src/photos/readme/survey1.png" width="80%">
 </div>
 
 2. Create posts
     - you can create posts that will be visable to all users
     - you can comment and react with likes on post created by other users
 
-<img alt="main1 photo" src="./src/photos/readme/main1.png" width="386">
+<img alt="main1 photo" src="./src/photos/readme/main1.png" width="80%">
 
 3. Chat with other users
     - you can search for user you'd like to text on the chat page
     - you can also go to chat with a selected user by clicking message button on profile page
 
-<img alt="chat1 photo" src="./src/photos/readme/chat.png" width="386">
+<img alt="chat1 photo" src="./src/photos/readme/chat.png" width="80%">
 
 4. Look for other users and check their profile pages
     - scroll the users page to find users you'd like to get in touch with
     - go to their profile pages to learn more about them
 
 <div display="flex">
-<img alt="profile1 photo" src="./src/photos/readme/profile1.png" width="386">
-<img alt="profile2 photo" src="./src/photos/readme/profile2.png" width="386">
+<img alt="profile1 photo" src="./src/photos/readme/profile1.png" width="80%">
+<img alt="profile2 photo" src="./src/photos/readme/profile2.png" width="80%">
 </div>
 
 ### Environment, backend & deployment
