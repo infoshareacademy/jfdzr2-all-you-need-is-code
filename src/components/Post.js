@@ -1,13 +1,16 @@
 import "../styles/Post.css";
 import profilePhoto from "../photos/profilePhotos/profilePhoto.jpeg";
 import Likes from "../photos/likes.png";
+import unLikes from "../photos/unlikes.png";
 import Coment from "../photos/coment.png";
 import fire from "../fire";
 import React, { useState, useEffect } from "react";
 import defaultAvatar from "../photos/profilePhotos/default.jpg";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import {
+  Icon,
   Button,
   TextField,
   Paper,
@@ -102,6 +105,7 @@ export default function Post(props) {
   }
 
   const [state, setState] = useState("initial");
+  const [state2, setState2] = useState("initial");
   const [myUser, setMyUser] = useState({});
   const [allUsersName, setAllUsersName] = useState({});
   const [allUsersAvatar, setAllUsersAvatar] = useState({});
@@ -121,6 +125,7 @@ export default function Post(props) {
       .firestore()
       .collection("Users")
       .onSnapshot((querySnapshot) => {
+        setState2("loading");
         let allUsersName = {};
         let allUsersAvatar = {};
         querySnapshot.docs.forEach((doc) => {
@@ -132,6 +137,7 @@ export default function Post(props) {
         });
         setAllUsersName(allUsersName);
         setAllUsersAvatar(allUsersAvatar);
+        setState2("loaded");
       });
   }, []);
   useEffect(() => {
@@ -145,6 +151,27 @@ export default function Post(props) {
         setState("loaded");
       });
   }, [props.id]);
+  const [postUlike, setPostuLike]=useState([])
+  function hanldePostLikes(){
+    
+  }
+  useEffect(() => {
+    const userUid = fire.auth().currentUser.uid.toString();
+    const docRef = fire.firestore().collection("Posts");
+    let postUlike = [];
+    docRef
+      .onSnapshot((snap) => {
+        snap.forEach((doc)=>{  
+          if (doc.data().likes.hasOwnProperty(userUid)) {
+            postUlike.push(doc.id)
+          }
+        })
+        setPostuLike(postUlike)
+        postUlike=[]
+      })
+    
+     
+  }, []);
   return (
     <>
       {state === "initial" && (
@@ -155,7 +182,8 @@ export default function Post(props) {
           </Paper>
         </div>
       )}
-      {state === "loaded" && (
+
+      {state === "loaded" && state2 === "loaded" && (
         <Paper elevation={3} className="Modal">
           <div className="modalOfPost">
             <div className="informationAboutTheWriter">
@@ -181,22 +209,42 @@ export default function Post(props) {
             <Typography variant="body1" style={{ textAlign: "left" }}>
               {props.text}
             </Typography>
-
-            <div className="postStatus">
-              <button onClick={handleLike} className="likesSection">
+            {postUlike.includes(props.index)&&(
+              <div className="postStatus">
+              <button onClick={handleLike} id={props.index} className="likesSection">
                 <img
                   className="likesPhoto"
                   id={props.index}
                   src={Likes}
                   alt="likes-counter"
                 ></img>
-                <p className="likesCounter">{props.likes}</p>
               </button>
+              <p  id={props.index} className="likesCounter">{props.likes}</p>
               <button onClick={handleComment} className="comentSection">
                 <img className="comentPhoto" src={Coment}></img>
                 <p>More comments</p>
               </button>
             </div>
+            )}
+            
+               {!postUlike.includes(props.index)&&(
+              <div id={props.index} className="postStatus">
+              <button id={props.index} onClick={handleLike} className="likesSection">
+                <img
+                  className="likesPhoto"
+                  id={props.index}
+                  src={unLikes}
+                  alt="likes-counter"
+                ></img>
+              </button>
+              <p id={props.index} className="likesCounter">{props.likes}</p>
+              <button onClick={handleComment} className="comentSection">
+                <img className="comentPhoto" src={Coment}></img>
+                <p>More comments</p>
+              </button>
+            </div>
+            )}
+            
             <form
               onSubmit={handleSubmit}
               id={props.index}
