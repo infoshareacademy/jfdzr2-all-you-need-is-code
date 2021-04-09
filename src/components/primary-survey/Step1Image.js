@@ -3,8 +3,6 @@ import firebase from "../../fire";
 
 export const Step1Image = ({currentAvatarUrl, changeAvatarUrl}) => {
     const user = firebase.auth().currentUser.uid;
-    
-    // const [avatarUrl, setAvatarUrl] = useState('');
 
     const handleUploadSuccess = (filename) => {
           firebase
@@ -16,8 +14,6 @@ export const Step1Image = ({currentAvatarUrl, changeAvatarUrl}) => {
             console.log(url);
             changeAvatarUrl(url);
             console.log(currentAvatarUrl);
-            // currentAvatarUrl = avatarUrl;
-            // console.log(currentAvatarUrl)
           })
       };
 

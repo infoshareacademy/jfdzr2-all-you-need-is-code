@@ -30,7 +30,6 @@ export const Step2Github = ({
         <TextField
           id="filled-basic"
           key="location"
-          // defaultValue="GitHub profile:"
           variant="standard"
           value={state}
           onChange={handleStep2GithubChange}
