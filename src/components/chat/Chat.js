@@ -144,7 +144,7 @@ function Chat() {
 
 
   return (
-    <>
+    <div style={{height: "96vh"}}>
       <Grid container className="chat-section">
         <Grid item xs={3} component={Paper} className="border-right500 border-top500">
           <div className="logo-cointainer">
@@ -219,7 +219,7 @@ function Chat() {
           </Grid>
         </Grid>
       </Grid>
-    </>
+    </div>
   );
 }
 
