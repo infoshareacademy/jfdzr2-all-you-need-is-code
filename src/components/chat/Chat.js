@@ -18,7 +18,7 @@ import { Search } from "../../common/Search";
 import logo from "../../logo/sayIT.png";
 import defaultAvatar from "../../photos/profilePhotos/default.jpg";
 import { Link } from "react-router-dom";
-import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+import DeleteSweepOutlinedIcon from '@material-ui/icons/DeleteSweepOutlined';
 
 const auth = fire.auth();
 const makeMsgId = (userUid, chatUserUid) =>
@@ -150,8 +150,8 @@ function Chat() {
 
   const hanldeOnDelete = (user, currentUser) => {
     const collection = [user, currentUser].sort().join("-");
-    let filteredChatListArray = chatList.filter((item) => item !== user);
-    setChatList(filteredChatListArray);
+    // let filteredChatListArray = chatList.filter((item) => item !== user);
+    // setChatList(filteredChatListArray);
     fire.firestore().collection("Messages").doc(collection).delete();
   };
 
@@ -198,7 +198,9 @@ function Chat() {
                   >
                     {filterUser(user)}
                   </ListItemText>
-                  <HighlightOffIcon
+                  <DeleteSweepOutlinedIcon
+                    color = "action"
+                    fontSize = "small"
                     onClick={(e) => hanldeOnDelete(user, currentUser)}
                   />
                 </ListItem>
