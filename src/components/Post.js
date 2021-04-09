@@ -121,7 +121,8 @@ export default function Post(props) {
   }));
   const classes = useStyles();
   useEffect(() => {
-    fire
+    
+    const unsubscribe =fire
       .firestore()
       .collection("Users")
       .onSnapshot((querySnapshot) => {
@@ -139,9 +140,14 @@ export default function Post(props) {
         setAllUsersAvatar(allUsersAvatar);
         setState2("loaded");
       });
+      return () => {
+        if (unsubscribe) {
+          unsubscribe();
+        }
+      };
   }, []);
   useEffect(() => {
-    fire
+    const unsubscribe =fire
       .firestore()
       .collection("Users")
       .doc(props.id)
@@ -150,6 +156,11 @@ export default function Post(props) {
         setMyUser(user.data());
         setState("loaded");
       });
+      return () => {
+        if (unsubscribe) {
+          unsubscribe();
+        }
+      };
   }, [props.id]);
   const [postUlike, setPostuLike]=useState([])
   function hanldePostLikes(){
@@ -159,7 +170,7 @@ export default function Post(props) {
     const userUid = fire.auth().currentUser.uid.toString();
     const docRef = fire.firestore().collection("Posts");
     let postUlike = [];
-    docRef
+    const unsubscribe =docRef
       .onSnapshot((snap) => {
         snap.forEach((doc)=>{  
           if (doc.data().likes.hasOwnProperty(userUid)) {
@@ -169,7 +180,11 @@ export default function Post(props) {
         setPostuLike(postUlike)
         postUlike=[]
       })
-    
+      return () => {
+        if (unsubscribe) {
+          unsubscribe();
+        }
+      };
      
   }, []);
   return (
@@ -222,13 +237,25 @@ export default function Post(props) {
               <p  id={props.index} className="likesCounter">{props.likes}</p>
               <button onClick={handleComment} className="comentSection">
                 <img className="comentPhoto" src={Coment}></img>
-                <p>More comments</p>
+                {props.comments.length>1 &&(
+                  <p>More {props.comments.length-1} comments</p>
+                )}
+                
+                {props.comments.length===0 &&(
+                  <p>No more comments</p>
+                )}
+                 {props.comments.length===1 &&(
+                  <p>No more comments</p>
+                )}
+               
+              
               </button>
             </div>
             )}
             
                {!postUlike.includes(props.index)&&(
               <div id={props.index} className="postStatus">
+              
               <button id={props.index} onClick={handleLike} className="likesSection">
                 <img
                   className="likesPhoto"
@@ -240,7 +267,18 @@ export default function Post(props) {
               <p id={props.index} className="likesCounter">{props.likes}</p>
               <button onClick={handleComment} className="comentSection">
                 <img className="comentPhoto" src={Coment}></img>
-                <p>More comments</p>
+                {props.comments.length>1 &&(
+                  <p>More {props.comments.length-1} comments</p>
+                )}
+                
+                {props.comments.length===0 &&(
+                  <p>No more comments</p>
+                )}
+                 {props.comments.length===1 &&(
+                  <p>No more comments</p>
+                )}
+               
+               
               </button>
             </div>
             )}
