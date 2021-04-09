@@ -96,7 +96,7 @@ export const AllUsersInfo = () => {
             value={filter}
             onChange={handleOnChange}
             fullWidth
-            style={{ marginBottom: "30px", marginRight: "2px" }}
+            style={{ marginBottom: "30px", marginRight: "5px" }}
           />
           <TextField
             type="search"
@@ -105,7 +105,7 @@ export const AllUsersInfo = () => {
             value={skills}
             onChange={handleOnSkillsChange}
             fullWidth
-            style={{ marginBottom: "30px", marginLeft: "2px" }}
+            style={{ marginBottom: "30px", marginLeft: "5px" }}
           />
           </div>
           <div className="users-profiles-container">
