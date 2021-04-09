@@ -29,6 +29,7 @@ export const AllUsersInfo = () => {
   const [state, setState] = useState("initial");
   const classes = useStyles();
   const [filter, setFilter] = useState("");
+  const [technologiesFilter, setTechnologiesFilter] = useState("");
 
   useEffect(() => {
     firebase
@@ -44,14 +45,34 @@ export const AllUsersInfo = () => {
         });
       });
   }, []);
+
   const handleOnChange = (event) => {
     setFilter(event.target.value);
+  };
+
+  const handleOnTechnologiesChange = (event) => {
+    setTechnologiesFilter(event.target.value);
   };
 
   const filterByName = ({ name }) => {
     const lowerCaseFilter = filter.toLowerCase();
     return name.toLowerCase().includes(lowerCaseFilter);
   };
+
+  // const filterByTechnology = ( { technologies } ) => {
+  //   const lowerCaseFilter = filter.toLowerCase();
+  //   const array = []
+  //   technologies?.forEach((technology) => {
+  //     if (technology.toLowerCase().includes(lowerCaseFilter)) {
+  //       console.log()
+  //       array.push(technology.toLowerCase())
+  //     }
+  //     array.push(technology.toLowerCase().includes(lowerCaseFilter));
+  //     console.log(technology.toLowerCase().includes(lowerCaseFilter))
+  //   })
+  //   console.log(array);
+  //   return array;
+  // };
 
   return (
     <>
@@ -77,6 +98,17 @@ export const AllUsersInfo = () => {
             fullWidth
             style={{ marginBottom: "30px" }}
           />
+          <TextField
+            name="search"
+            type="search"
+            id="search"
+            variant="outlined"
+            label="Search"
+            value={technologiesFilter}
+            onChange={handleOnTechnologiesChange}
+            fullWidth
+            style={{ marginBottom: "30px" }}
+          />
           <div className="users-profiles-container">
             {allUsersInfo
               ?.filter((user) => {
@@ -89,6 +121,7 @@ export const AllUsersInfo = () => {
                 return user.userUid !== currentUser;
               })
               .filter(filterByName)
+              // .filter(filterByTechnology())
               .sort((user1, user2) => user2.name.length - user1.name.length)
               .map((user) => {
                 return (
