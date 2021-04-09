@@ -44,6 +44,7 @@ export default function LogIn(props) {
         </Typography>
      <form className={classes.theme} noValidate>
           <TextField
+            error = {emailError ? true : false}
             variant="outlined"
             margin="normal"
             required
@@ -55,8 +56,9 @@ export default function LogIn(props) {
             autoFocus
             onChange={(e) => setEmail(e.target.value)}
           />
-          <p error>{emailError}</p>
+          <p style={{color:"red"}}>{emailError}</p>
           <TextField
+            error = {passwordError ? true : false}
             variant="outlined"
             margin="normal"
             required
@@ -69,7 +71,7 @@ export default function LogIn(props) {
             onChange={(e) => setPassword(e.target.value)}
           /> 
 
-          <p>{passwordError}</p>
+          <p style={{color:"red"}}>{passwordError}</p>
           
           <div> 
           <Button 
