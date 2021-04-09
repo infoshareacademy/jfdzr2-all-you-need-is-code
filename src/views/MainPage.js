@@ -50,7 +50,7 @@ export default function MainPage() {
         });
       });
   }, []);
-  console.log(posts)
+
   return (
     <>
       <div className="page">
@@ -91,7 +91,7 @@ export default function MainPage() {
         ))}
       </div>
       {/* {posts.map((post, index) => {
-          console.log(Object.keys(post.commentsId[0])[0])
+          console.log(post.idDoc)
           
       })} */}
       <ModalToCreatePost isModalOpen={isModalOpen} toggleModal={toggleModal} />
