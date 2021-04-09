@@ -10,16 +10,13 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Avatar from "@material-ui/core/Avatar";
 import Fab from "@material-ui/core/Fab";
 import SendIcon from "@material-ui/icons/Send";
-// import db from "../../fire";
 import fire from "../../fire";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useState, useRef, useEffect } from "react";
 import "../../styles/Chat.css";
 import { Search } from "../../common/Search"
-// import Tooltip from '@material-ui/core/Tooltip';
 import logo from "../../logo/sayIT.png";
 import defaultAvatar from "../../photos/profilePhotos/default.jpg";
-import StarsIcon from '@material-ui/icons/Stars';
 import { Link } from "react-router-dom";
 
 const auth = fire.auth();
@@ -94,9 +91,13 @@ function Chat() {
           allChatUsersArray = [...allChatUsersArray, object];
           setAllChatUsersInfo(allChatUsersArray);
         });
-      console.log(prevChatList);
-      console.log(chatList)
 
+      const newUser = chatList.filter(i=>!prevChatList.includes(i))
+      setActiveChatUser(newUser)
+      // console.log(prevChatList);
+      // console.log(newUser)
+      console.log(activeChatUser)
+      
     });
   }, [chatList]);
 
@@ -147,17 +148,18 @@ function Chat() {
   const hanldeOnDelete = (user, currentUser) => {
     const collection = currentUser + user
     console.log(collection)
-    fire.firestore().collection("Messages").doc(collection).delete().then(() => {
-      console.log("Document successfully deleted!");
-    }).catch((error) => {
-      console.error("Error removing document: ", error);
-    })
+    // fire.firestore().collection("Messages").doc(collection).delete().then(() => {
+    //   console.log("Document successfully deleted!");
+    // }).catch((error) => {
+    //   console.error("Error removing document: ", error);
+    // })
   }
 
 
   useEffect(() => {
     scroll.current.scrollIntoView({ bahavior: "smooth" });
   }, [messages])
+
 
   const activeMsg = (user) => (activeChatUser === user ? "chat-active" : "chat-nonactive")
 
