@@ -14,6 +14,7 @@ import {
   labelFromPurpose,
   labelFromExperience,
   useUser,
+  technologies,
 } from "../user-context/UserContextProvider";
 
 const useStyles = makeStyles((theme) => ({
@@ -29,6 +30,7 @@ export const AllUsersInfo = () => {
   const [state, setState] = useState("initial");
   const classes = useStyles();
   const [filter, setFilter] = useState("");
+  const [skills, setSkills] = useState("");
 
   useEffect(() => {
     firebase
@@ -44,13 +46,19 @@ export const AllUsersInfo = () => {
         });
       });
   }, []);
+  
   const handleOnChange = (event) => {
     setFilter(event.target.value);
   };
 
+
+  const handleOnSkillsChange = (event) => {
+    setSkills(event.target.value);
+  };
+
   const filterByName = ({ name }) => {
     const lowerCaseFilter = filter.toLowerCase();
-    return name.toLowerCase().includes(lowerCaseFilter);
+    return name.toLowerCase().includes(lowerCaseFilter)
   };
 
   return (
@@ -66,17 +74,26 @@ export const AllUsersInfo = () => {
 
       {state === "loaded" && (
         <div className="users-info-container">
+          <div className="search-bar-cointainer">
           <TextField
-            name="search"
             type="search"
-            id="search"
             variant="outlined"
-            label="Search"
+            label="Search by name..."
             value={filter}
             onChange={handleOnChange}
             fullWidth
-            style={{ marginBottom: "30px" }}
+            style={{ marginBottom: "30px", marginRight: "2px" }}
           />
+          <TextField
+            type="search"
+            variant="outlined"
+            label="Search by technology..."
+            value={skills}
+            onChange={handleOnSkillsChange}
+            fullWidth
+            style={{ marginBottom: "30px", marginLeft: "2px" }}
+          />
+          </div>
           <div className="users-profiles-container">
             {allUsersInfo
               ?.filter((user) => {
@@ -89,6 +106,7 @@ export const AllUsersInfo = () => {
                 return user.userUid !== currentUser;
               })
               .filter(filterByName)
+              .filter(data => data.technologies?.some(t=>t.toLowerCase().includes(skills)))
               .sort((user1, user2) => user2.name.length - user1.name.length)
               .map((user) => {
                 return (

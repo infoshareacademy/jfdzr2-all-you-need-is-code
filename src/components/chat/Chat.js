@@ -10,13 +10,16 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Avatar from "@material-ui/core/Avatar";
 import Fab from "@material-ui/core/Fab";
 import SendIcon from "@material-ui/icons/Send";
+// import db from "../../fire";
 import fire from "../../fire";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useState, useRef, useEffect } from "react";
 import "../../styles/Chat.css";
 import { Search } from "../../common/Search"
+// import Tooltip from '@material-ui/core/Tooltip';
 import logo from "../../logo/sayIT.png";
 import defaultAvatar from "../../photos/profilePhotos/default.jpg";
+import StarsIcon from '@material-ui/icons/Stars';
 import { Link } from "react-router-dom";
 
 const auth = fire.auth();
@@ -25,9 +28,9 @@ const makeMsgId = (userUid, chatUserUid) => [userUid, chatUserUid].sort().join('
 
 
 function ChatMessage(props) {
-  const { text, uid, photoURL, createdAtString } = props.message;
+  const { text, uid, photoURL, createdAt } = props.message;
   const messageClass = uid === auth.currentUser.uid ? "sent" : "received";
-  // const formatedDate = Date(createdAt).toString().substr(4, 20);
+  const formatedDate = Date(createdAt).toString().substr(4, 20)
   return (
     <>
       <div className={`message ${messageClass}`}>
@@ -39,7 +42,7 @@ function ChatMessage(props) {
         </Link>
         <div>
         <p className="chat-text">{text}</p>
-        <div className="date">{createdAtString}</div>
+        <div className="date">{formatedDate}</div>
         </div>
       </div>
     </>
@@ -59,20 +62,6 @@ function Chat() {
   const [activeChatUser, setActiveChatUser] = useState("");
   const [allChatUsersInfo, setAllChatUsersInfo] = useState([]);
 
-
-  function usePrevious(value) {
-    const ref = useRef();
-    useEffect(() => {
-      ref.current = value
-    })
-    return ref.current
-  }
-
-  const prevChatList = usePrevious(chatList)
-
-
-
-
   const activateChat = (user) => {
     setChatUser(user)
     const msgId = makeMsgId(currentUser, user)
@@ -90,18 +79,11 @@ function Chat() {
           let object = { ...user.data(), ...userId };
           allChatUsersArray = [...allChatUsersArray, object];
           setAllChatUsersInfo(allChatUsersArray);
-        });
 
-      const newUser = chatList.filter(i=>!prevChatList.includes(i))
-      setActiveChatUser(newUser)
-      // console.log(prevChatList);
-      // console.log(newUser)
-      console.log(activeChatUser)
-      
-    });
+        });
+      });
   }, [chatList]);
 
-  
   const filterUser = (user) => {
     const userName = allChatUsersInfo.find(item => item.id === user)?.name
     return userName
@@ -118,7 +100,6 @@ function Chat() {
     await messagesRef.add({
       text: formValue,
       createdAt: Date.now(),
-      createdAtString: Date(Date.now()).toString().substr(4, 20),
       uid,
       photoURL: filterAvatar(uid),
     });
@@ -148,11 +129,11 @@ function Chat() {
   const hanldeOnDelete = (user, currentUser) => {
     const collection = currentUser + user
     console.log(collection)
-    // fire.firestore().collection("Messages").doc(collection).delete().then(() => {
-    //   console.log("Document successfully deleted!");
-    // }).catch((error) => {
-    //   console.error("Error removing document: ", error);
-    // })
+    fire.firestore().collection("Messages").doc(collection).delete().then(() => {
+      console.log("Document successfully deleted!");
+    }).catch((error) => {
+      console.error("Error removing document: ", error);
+    })
   }
 
 
@@ -161,7 +142,6 @@ function Chat() {
   }, [messages])
 
 
-  const activeMsg = (user) => (activeChatUser === user ? "chat-active" : "chat-nonactive")
 
   return (
     <>
@@ -177,11 +157,9 @@ function Chat() {
           <Divider />
           {chatList.map((user) => {
             return (
-               <div className={activeMsg(user)}>
-                <ListItem
-                style={{ textOverflow: "ellipsis", overflow: "hidden" }}
-                button
+              <ListItem
                 key={user}
+                button
                 onClick={(e) => { 
                   activateChat(user);
                   setActiveChatUser(user);
@@ -195,10 +173,9 @@ function Chat() {
                 <ListItemText>{filterUser(user)}
                 </ListItemText>
                 {/* <Tooltip title={"DELETE CHAT"}> */}
+                  {activeChatUser===user ? <StarsIcon color="secondary"/> : ""}
                   {/* </Tooltip> */}
               </ListItem>
-              </div>
-
             )
           }
           )}
