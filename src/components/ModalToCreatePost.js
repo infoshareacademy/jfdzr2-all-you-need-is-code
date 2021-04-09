@@ -34,8 +34,14 @@ export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
     else{
       var day=date.getMonth();
     }
+    if(date.getMinutes()<10){
+      var minutes="0"+date.getMinutes()
+    }
+    else{
+      var minutes=date.getMinutes()
+    }
     var hours=date.getHours()
-    var minutes=date.getMinutes()
+
     console.log(day+"."+month+"."+year+","+hours+":"+minutes)
     return day+"."+month+"."+year+","+hours+":"+minutes
   }

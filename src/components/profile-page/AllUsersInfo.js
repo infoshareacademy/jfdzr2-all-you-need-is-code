@@ -14,7 +14,7 @@ import {
   labelFromPurpose,
   labelFromExperience,
   useUser,
-  technologies,
+  technologies
 } from "../user-context/UserContextProvider";
 
 const useStyles = makeStyles((theme) => ({
@@ -50,7 +50,6 @@ export const AllUsersInfo = () => {
   const handleOnChange = (event) => {
     setFilter(event.target.value);
   };
-
 
   const handleOnSkillsChange = (event) => {
     setSkills(event.target.value);
