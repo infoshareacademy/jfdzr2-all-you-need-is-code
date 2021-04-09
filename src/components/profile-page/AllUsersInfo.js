@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import {
   Paper,
   Typography,
-  Button,
   Avatar,
   TextField,
   CircularProgress,
@@ -11,6 +10,11 @@ import firebase from "../../fire";
 import defaultAvatar from "../../photos/profilePhotos/default.jpg";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+import {
+  labelFromPurpose,
+  labelFromExperience,
+  useUser,
+} from "../user-context/UserContextProvider";
 
 const useStyles = makeStyles((theme) => ({
   large: {
@@ -44,10 +48,10 @@ export const AllUsersInfo = () => {
     setFilter(event.target.value);
   };
 
-  const filterByName = ({name}) => {
+  const filterByName = ({ name }) => {
     const lowerCaseFilter = filter.toLowerCase();
     return name.toLowerCase().includes(lowerCaseFilter);
-  }
+  };
 
   return (
     <>
@@ -85,22 +89,25 @@ export const AllUsersInfo = () => {
                 return user.userUid !== currentUser;
               })
               .filter(filterByName)
-              .sort((user1,user2) => user2.name.length - user1.name.length)
+              .sort((user1, user2) => user2.name.length - user1.name.length)
               .map((user) => {
                 return (
                   <Paper elevation={3} className="user-section">
-                    <Link to={`/users-page/${user?.userUid}`} className="user-name-link">
-                    <Avatar
-                      className={classes.large}
-                      src={user?.avatarUrl ? user.avatarUrl : defaultAvatar}
-                    />
-                    <Typography
-                      variant="body1"
-                      color="secondary"
-                      style={{ fontWeight: "bold", margin: "6px 0" }}
+                    <Link
+                      to={`/users-page/${user?.userUid}`}
+                      className="user-name-link"
                     >
-                      {user?.name}
-                    </Typography>
+                      <Avatar
+                        className={classes.large}
+                        src={user?.avatarUrl ? user.avatarUrl : defaultAvatar}
+                      />
+                      <Typography
+                        variant="body1"
+                        color="secondary"
+                        style={{ fontWeight: "bold", margin: "6px 0" }}
+                      >
+                        {user?.name}
+                      </Typography>
                     </Link>
 
                     <div className="profile-content">
@@ -120,7 +127,8 @@ export const AllUsersInfo = () => {
                             fontWeight: "900",
                           }}
                         >
-                          {user?.experience}
+                          {" "}
+                          {labelFromExperience(user?.experience)}
                         </Typography>
                       </div>
 
@@ -140,12 +148,8 @@ export const AllUsersInfo = () => {
                             fontWeight: "900",
                           }}
                         >
-                          {user?.purpose?.[0] === "projectpartner" &&
-                            ` Project partner`}
-                          {user?.purpose?.[0] === "projecttojoin" &&
-                            ` Project to join`}
-                          {user?.purpose?.[0] === "lookingaround" &&
-                            ` Looking around`}
+                          {" "}
+                          {labelFromPurpose(user?.purpose)}
                         </Typography>
                       </div>
 
@@ -165,7 +169,7 @@ export const AllUsersInfo = () => {
                             fontWeight: "900",
                           }}
                         >
-                          {user?.location}
+                          {user?.location ? user.location : "unknown"}
                         </Typography>
                       </div>
 
@@ -173,19 +177,21 @@ export const AllUsersInfo = () => {
                         className="technologies-list-small"
                         style={{ color: "black" }}
                       >
-                        {user?.technologies?.slice(0,4).map((technology, index) => {
-                          return (
-                            <img
-                              key={index}
-                              className="technology-icon-small"
-                              alt={technology}
-                              src={
-                                process.env.PUBLIC_URL +
-                                `/technologies/${technology}.png`
-                              }
-                            />
-                          );
-                        })}
+                        {user?.technologies
+                          ?.slice(0, 4)
+                          .map((technology, index) => {
+                            return (
+                              <img
+                                key={index}
+                                className="technology-icon-small"
+                                alt={technology}
+                                src={
+                                  process.env.PUBLIC_URL +
+                                  `/technologies/${technology}.png`
+                                }
+                              />
+                            );
+                          })}
                         <p>...</p>
                       </div>
                     </div>

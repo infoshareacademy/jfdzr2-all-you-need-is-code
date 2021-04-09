@@ -30,7 +30,6 @@ export const Step2LinkedIn = ({
         <TextField
           id="filled-basic"
           key="location"
-          // defaultValue="LinkedIn profile:"
           variant="standard"
           value={state}
           onChange={handleStep2LinkedInChange}

@@ -30,7 +30,6 @@ export const Step4Location = ({
         <TextField
           id="filled-basic"
           key="location"
-          defaultValue="City, country of residence"
           variant="standard"
           value={state}
           onChange={handleStep4LocationChange}

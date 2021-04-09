@@ -28,9 +28,9 @@ const makeMsgId = (userUid, chatUserUid) => [userUid, chatUserUid].sort().join('
 
 
 function ChatMessage(props) {
-  const { text, uid, photoURL, createdAt } = props.message;
+  const { text, uid, photoURL, createdAtString } = props.message;
   const messageClass = uid === auth.currentUser.uid ? "sent" : "received";
-  const formatedDate = Date(createdAt).toString().substr(4, 20)
+  // const formatedDate = Date(createdAt).toString().substr(4, 20);
   return (
     <>
       <div className={`message ${messageClass}`}>
@@ -42,7 +42,7 @@ function ChatMessage(props) {
         </Link>
         <div>
         <p className="chat-text">{text}</p>
-        <div className="date">{formatedDate}</div>
+        <div className="date">{createdAtString}</div>
         </div>
       </div>
     </>
@@ -62,6 +62,20 @@ function Chat() {
   const [activeChatUser, setActiveChatUser] = useState("");
   const [allChatUsersInfo, setAllChatUsersInfo] = useState([]);
 
+
+  function usePrevious(value) {
+    const ref = useRef();
+    useEffect(() => {
+      ref.current = value
+    })
+    return ref.current
+  }
+
+  const prevChatList = usePrevious(chatList)
+
+
+
+
   const activateChat = (user) => {
     setChatUser(user)
     const msgId = makeMsgId(currentUser, user)
@@ -79,11 +93,14 @@ function Chat() {
           let object = { ...user.data(), ...userId };
           allChatUsersArray = [...allChatUsersArray, object];
           setAllChatUsersInfo(allChatUsersArray);
-
         });
-      });
+      console.log(prevChatList);
+      console.log(chatList)
+
+    });
   }, [chatList]);
 
+  
   const filterUser = (user) => {
     const userName = allChatUsersInfo.find(item => item.id === user)?.name
     return userName
@@ -100,6 +117,7 @@ function Chat() {
     await messagesRef.add({
       text: formValue,
       createdAt: Date.now(),
+      createdAtString: Date(Date.now()).toString().substr(4, 20),
       uid,
       photoURL: filterAvatar(uid),
     });
@@ -141,7 +159,7 @@ function Chat() {
     scroll.current.scrollIntoView({ bahavior: "smooth" });
   }, [messages])
 
-
+  const activeMsg = (user) => (activeChatUser === user ? "chat-active" : "chat-nonactive")
 
   return (
     <>
@@ -157,7 +175,9 @@ function Chat() {
           <Divider />
           {chatList.map((user) => {
             return (
-              <ListItem
+               <div className={activeMsg(user)}>
+                <ListItem
+                style={{ textOverflow: "ellipsis", overflow: "hidden" }}
                 button
                 key={user}
                 onClick={(e) => { 
@@ -173,9 +193,10 @@ function Chat() {
                 <ListItemText>{filterUser(user)}
                 </ListItemText>
                 {/* <Tooltip title={"DELETE CHAT"}> */}
-                  {activeChatUser===user ? <StarsIcon color="secondary"/> : ""}
                   {/* </Tooltip> */}
               </ListItem>
+              </div>
+
             )
           }
           )}
