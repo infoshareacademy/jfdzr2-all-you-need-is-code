@@ -56,9 +56,19 @@ export const YourPosts = () => {
       };
   }, []);
   return (
+   
+
+   
+    
     <>
-      {" "}
-      {}
+      {posts.length===0 &&(
+          
+          <div style={{display:"flex", marginLeft:"20%" ,justifyContent:"center", alignItems:"center",height:"70vh"}}>
+              <h1 style={{letterSpacing:4,color: "#4853A4",fontWeight:"500;",fontFamily:"-apple-system, BlinkMacSystemFont, Segoe UI, Roboto"}}>You don't have any posts yet</h1>
+          </div>
+          
+      )}
+      
       {posts.map((post, index) => (
         <div style={{ display: "flex", justifyContent: "center" }}>
           {
