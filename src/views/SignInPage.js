@@ -66,6 +66,7 @@ export default function SignInPage() {
   }
 
   const handleSignup = (e) => {
+    const unsubscribe =   
     e.preventDefault();
     setEmailError("");
     setPasswordError("");
@@ -82,6 +83,12 @@ export default function SignInPage() {
             setPasswordError(err.message);
             break;
         }
+        return () => {
+          if (unsubscribe) {
+            unsubscribe();
+          }
+        };
+  
       });
     };
 
