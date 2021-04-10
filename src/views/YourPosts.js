@@ -68,7 +68,6 @@ export const YourPosts = () => {
           </div>
           
       )}
-      
       {posts.map((post, index) => (
         <div style={{ display: "flex", justifyContent: "center" }}>
           {
@@ -82,6 +81,7 @@ export const YourPosts = () => {
               comments={post.comments}
             />
           }
+          
         </div>
       ))}
     </>
