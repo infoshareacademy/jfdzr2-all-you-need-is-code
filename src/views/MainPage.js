@@ -71,10 +71,7 @@ export default function MainPage() {
           >
             Create new post
           </Button>
-          <button className="btn-sortBy">
-            Sort by: <b>Popular</b>
-            <ArrowDropDownIcon />
-          </button>
+          
         </div>
 
         {posts.map((post, index) => (
