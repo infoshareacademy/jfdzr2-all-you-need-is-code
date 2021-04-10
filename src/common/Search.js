@@ -65,11 +65,11 @@ export const Search = ({ onResultSelect }) => {
             })
             .filter(filterByName)
             .map((user) => {
-              const clickedUser = {
-                userName: user.name,
-                userId: user.id,
-                avatarUrl: user.avatarUrl,
-              };
+              // const clickedUser = {
+              //   userName: user.name,
+              //   userId: user.id,
+              //   avatarUrl: user.avatarUrl,
+              // };
 
               return (
                 <Paper elevation={2} className="search-container">
@@ -81,7 +81,7 @@ export const Search = ({ onResultSelect }) => {
                   <Button
                     color="primary"
                     style={{ backgroundColor: "#6C7ED6" }}
-                    clickedUser={clickedUser}
+                    // clickedUser={clickedUser}
                     onClick={(e) => {onResultSelect(user.id)}}
                     >
                     Message
