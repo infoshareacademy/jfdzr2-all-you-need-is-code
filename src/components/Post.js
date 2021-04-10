@@ -30,44 +30,45 @@ export default function Post(props) {
     }
   }
   function handleLike(e) {
-    const userUid = fire.auth().currentUser.uid.toString();
-    const docRef = fire.firestore().collection("Posts").doc(e.target.id);
-    var likeByYou = false;
-    let arrayPeopleLike = [];
-    let likes = {};
-    docRef
-      .get()
-      .then((snap) => {
-        arrayPeopleLike = Object.keys(snap.data().likes);
-        if (arrayPeopleLike.includes(userUid)) {
-          likeByYou = true;
-        }
-      })
-      .then(() => {
-        let data = {};
-        docRef
-          .get()
-          .then((query) => {
-            if (likeByYou) {
-              data = query.data().likes;
-              delete data[userUid.toString()];
-              likes = { ...data };
-            } else {
-              data = query.data().likes;
-              likes = { ...data, ...{ [userUid]: true } };
-            }
-          })
-          .then(() => {
-            fire.firestore().runTransaction(function (transaction) {
-              // This code may get re-run multiple times if there are conflicts.
-              return transaction.get(docRef).then(function (doc) {
-                transaction.update(docRef, {
-                  likes,
-                });
-              });
-            });
-          });
-      });
+    console.log(e.target)
+    // const userUid = fire.auth().currentUser.uid.toString();
+    // const docRef = fire.firestore().collection("Posts").doc(e.target.id);
+    // var likeByYou = false;
+    // let arrayPeopleLike = [];
+    // let likes = {};
+    // docRef
+    //   .get()
+    //   .then((snap) => {
+    //     arrayPeopleLike = Object.keys(snap.data().likes);
+    //     if (arrayPeopleLike.includes(userUid)) {
+    //       likeByYou = true;
+    //     }
+    //   })
+    //   .then(() => {
+    //     let data = {};
+    //     docRef
+    //       .get()
+    //       .then((query) => {
+    //         if (likeByYou) {
+    //           data = query.data().likes;
+    //           delete data[userUid.toString()];
+    //           likes = { ...data };
+    //         } else {
+    //           data = query.data().likes;
+    //           likes = { ...data, ...{ [userUid]: true } };
+    //         }
+    //       })
+    //       .then(() => {
+    //         fire.firestore().runTransaction(function (transaction) {
+    //           // This code may get re-run multiple times if there are conflicts.
+    //           return transaction.get(docRef).then(function (doc) {
+    //             transaction.update(docRef, {
+    //               likes,
+    //             });
+    //           });
+    //         });
+    //       });
+    //   });
   }
   function handleSubmit(e) {
     const userUid = fire.auth().currentUser.uid.toString();
@@ -163,9 +164,7 @@ export default function Post(props) {
       };
   }, [props.id]);
   const [postUlike, setPostuLike]=useState([])
-  function hanldePostLikes(){
-    
-  }
+  
   useEffect(() => {
     const userUid = fire.auth().currentUser.uid.toString();
     const docRef = fire.firestore().collection("Posts");
@@ -227,12 +226,13 @@ export default function Post(props) {
             {postUlike.includes(props.index)&&(
               <div className="postStatus">
               <button onClick={handleLike} id={props.index} className="likesSection">
-                <img
+                {/* <img
                   className="likesPhoto"
                   id={props.index}
                   src={Likes}
                   alt="likes-counter"
-                ></img>
+                ></img> */}
+                <FavoriteIcon id={props.id}/>
               </button>
               <p  id={props.index} className="likesCounter">{props.likes}</p>
               <button onClick={handleComment} className="comentSection">
@@ -257,12 +257,13 @@ export default function Post(props) {
               <div id={props.index} className="postStatus">
               
               <button id={props.index} onClick={handleLike} className="likesSection">
-                <img
+                {/* <img
                   className="likesPhoto"
                   id={props.index}
                   src={unLikes}
                   alt="likes-counter"
-                ></img>
+                ></img> */}
+                 <FavoriteIcon id={props.id}/>
               </button>
               <p id={props.index} className="likesCounter">{props.likes}</p>
               <button onClick={handleComment} className="comentSection">
