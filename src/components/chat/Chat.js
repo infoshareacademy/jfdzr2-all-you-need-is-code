@@ -183,7 +183,9 @@ function Chat() {
                   key={user}
                 >
                   <ListItemIcon>
+                  <Link to={`/users-page/${user}`}>
                     <Avatar src={filterAvatar(user)} />
+                    </Link>
                   </ListItemIcon>
                   <ListItemText
                     onClick={(e) => {
