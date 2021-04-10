@@ -60,6 +60,7 @@ function Chat() {
   const [chatList, setChatList] = useState([]);
   const [activeChatUser, setActiveChatUser] = useState("");
   const [allChatUsersInfo, setAllChatUsersInfo] = useState([]);
+  const [deleted, setDeleted] = useState(false);
 
   function usePrevious(value) {
     const ref = useRef();
@@ -75,6 +76,7 @@ function Chat() {
     setChatUser(user);
     const msgId = makeMsgId(currentUser, user);
     fire.firestore().collection("Messages").doc(msgId).set({});
+    setDeleted(false)
   };
 
   useEffect(() => {
@@ -145,10 +147,13 @@ function Chat() {
     scroll.current.scrollIntoView({ bahavior: "smooth" });
   }, [messages]);
 
+
   const hanldeOnDelete = (user, currentUser) => {
     const collection = [user, currentUser].sort().join("-");
     fire.firestore().collection("Messages").doc(collection).delete();
+    setDeleted(true)
   };
+
 
   useEffect(() => {
     scroll.current.scrollIntoView({ bahavior: "smooth" });
@@ -174,7 +179,8 @@ function Chat() {
             <Search onResultSelect={activateChat} />
           </Grid>
           <Divider />
-          {chatList.map((user) => {
+          {chatList
+          .map((user) => {
             return (
               <div className={activeMsg(user)}>
                 <ListItem
@@ -211,10 +217,11 @@ function Chat() {
             <ListItem key="1">
               <section className="chat-section">
                 <main className="chat-main">
-                  {messages &&
+                  {deleted === true ? ("") :
+                  (messages &&
                     messages.map((msg) => (
                       <ChatMessage key={msg.id} message={msg} />
-                    ))}
+                    )))}
                   <span className="chat-span" ref={scroll}></span>
                 </main>
               </section>
