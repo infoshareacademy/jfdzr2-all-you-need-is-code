@@ -49,6 +49,11 @@ export default function MainPage() {
           }
         });
       });
+      return () => {
+        if (unsubscribe) {
+          unsubscribe();
+        }
+      };
   }, []);
 
   return (
