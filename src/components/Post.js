@@ -187,7 +187,7 @@ export default function Post(props) {
     let confirm = window.confirm('Do you really want to delete our post?');
     if(confirm){
       fire.firestore().collection("Posts").doc(e.currentTarget.id).delete().then(()=>{
-        console.log('delete')
+       
       })
     }
    
