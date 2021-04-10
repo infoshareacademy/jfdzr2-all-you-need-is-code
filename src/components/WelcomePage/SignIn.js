@@ -19,9 +19,7 @@ const theme = createMuiTheme({
 
 export default function SignIn(props) {
   const {
-    email,
     setEmail,
-    password,
     setPassword,
     handleSignup,
     emailError,

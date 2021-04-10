@@ -18,7 +18,7 @@ import { Search } from "../../common/Search";
 import logo from "../../logo/sayIT.png";
 import defaultAvatar from "../../photos/profilePhotos/default.jpg";
 import { Link } from "react-router-dom";
-import DeleteSweepOutlinedIcon from '@material-ui/icons/DeleteSweepOutlined';
+import RemoveIcon from '@material-ui/icons/Remove';
 
 const auth = fire.auth();
 const makeMsgId = (userUid, chatUserUid) =>
@@ -27,13 +27,11 @@ const makeMsgId = (userUid, chatUserUid) =>
 function ChatMessage(props) {
   const { text, uid, photoURL, createdAtString } = props.message;
   const messageClass = uid === auth.currentUser.uid ? "sent" : "received";
-  // const formatedDate = Date(createdAt).toString().substr(4, 20);
   return (
     <>
       <div className={`message ${messageClass}`}>
         <Link to={`/users-page/${uid}`}>
           <Avatar
-            onClick={(e) => console.log(uid)}
             src={photoURL || defaultAvatar}
           />
         </Link>
@@ -93,7 +91,6 @@ function Chat() {
         });
         const newUser = chatList.filter((i) => !prevChatList.includes(i));
         setActiveChatUser(newUser);
-        console.log(activeChatUser);
         return () => {
           if (unsubscribe) {
             unsubscribe();
@@ -150,8 +147,6 @@ function Chat() {
 
   const hanldeOnDelete = (user, currentUser) => {
     const collection = [user, currentUser].sort().join("-");
-    // let filteredChatListArray = chatList.filter((item) => item !== user);
-    // setChatList(filteredChatListArray);
     fire.firestore().collection("Messages").doc(collection).delete();
   };
 
@@ -198,7 +193,7 @@ function Chat() {
                   >
                     {filterUser(user)}
                   </ListItemText>
-                  <DeleteSweepOutlinedIcon
+                  <RemoveIcon
                     color = "action"
                     fontSize = "small"
                     onClick={(e) => hanldeOnDelete(user, currentUser)}
@@ -210,7 +205,6 @@ function Chat() {
         </Grid>
 
         <Grid item xs={9} component={Paper} className="border-top500">
-          <p></p>
           <List className="message-area">
             <ListItem key="1">
               <section className="chat-section">
