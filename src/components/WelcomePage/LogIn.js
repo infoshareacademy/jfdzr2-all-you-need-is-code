@@ -20,9 +20,7 @@ const theme = createMuiTheme({
 
 export default function LogIn(props) {
   const {
-    email,
     setEmail,
-    password,
     setPassword,
     handleLogin,
     emailError,
