@@ -17,7 +17,7 @@ import "../../styles/Chat.css";
 import { Search } from "../../common/Search";
 import logo from "../../logo/sayIT.png";
 import defaultAvatar from "../../photos/profilePhotos/default.jpg";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import RemoveIcon from '@material-ui/icons/Remove';
 
 const auth = fire.auth();
@@ -44,7 +44,7 @@ function ChatMessage(props) {
   );
 }
 
-function Chat() {
+function Chat({ newId }) {
   const scroll = useRef();
   const currentUser = auth.currentUser.uid;
   const [chatUser, setChatUser] = useState("");
@@ -61,6 +61,11 @@ function Chat() {
   const [activeChatUser, setActiveChatUser] = useState("");
   const [allChatUsersInfo, setAllChatUsersInfo] = useState([]);
   const [deleted, setDeleted] = useState(false);
+  
+  useEffect(() => {
+  setActiveChatUser(newId)
+  console.log(newId)
+  }, [chatList])
 
   function usePrevious(value) {
     const ref = useRef();
