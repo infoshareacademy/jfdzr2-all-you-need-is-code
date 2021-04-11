@@ -17,7 +17,7 @@ import "../../styles/Chat.css";
 import { Search } from "../../common/Search";
 import logo from "../../logo/sayIT.png";
 import defaultAvatar from "../../photos/profilePhotos/default.jpg";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import RemoveIcon from '@material-ui/icons/Remove';
 
 const auth = fire.auth();
@@ -60,6 +60,12 @@ function Chat() {
   const [chatList, setChatList] = useState([]);
   const [activeChatUser, setActiveChatUser] = useState("");
   const [allChatUsersInfo, setAllChatUsersInfo] = useState([]);
+  const [deleted, setDeleted] = useState(false);
+  
+  // useEffect(() => {
+  // setActiveChatUser(newId)
+  // console.log(newId)
+  // }, [chatList])
 
   function usePrevious(value) {
     const ref = useRef();
@@ -75,6 +81,7 @@ function Chat() {
     setChatUser(user);
     const msgId = makeMsgId(currentUser, user);
     fire.firestore().collection("Messages").doc(msgId).set({});
+    setDeleted(false)
   };
 
   useEffect(() => {
@@ -145,10 +152,13 @@ function Chat() {
     scroll.current.scrollIntoView({ bahavior: "smooth" });
   }, [messages]);
 
+
   const hanldeOnDelete = (user, currentUser) => {
     const collection = [user, currentUser].sort().join("-");
     fire.firestore().collection("Messages").doc(collection).delete();
+    setDeleted(true)
   };
+
 
   useEffect(() => {
     scroll.current.scrollIntoView({ bahavior: "smooth" });
@@ -165,6 +175,7 @@ function Chat() {
           xs={3}
           component={Paper}
           className="border-right500 border-top500"
+          style={{overflowX: "scroll"  }}
         >
           <div className="logo-cointainer">
             <img className="logo" src={logo} />
@@ -174,11 +185,12 @@ function Chat() {
             <Search onResultSelect={activateChat} />
           </Grid>
           <Divider />
-          {chatList.map((user) => {
+          {chatList
+          .map((user) => {
             return (
               <div className={activeMsg(user)}>
                 <ListItem
-                  style={{ textOverflow: "ellipsis", overflow: "hidden" }}
+                  style={{textOverflow: "ellipsis"}}
                   button
                   key={user}
                 >
@@ -201,9 +213,11 @@ function Chat() {
                     onClick={(e) => hanldeOnDelete(user, currentUser)}
                   />
                 </ListItem>
+
               </div>
             );
           })}
+          {/* </Grid> */}
         </Grid>
 
         <Grid item xs={9} component={Paper} className="border-top500">
@@ -211,10 +225,11 @@ function Chat() {
             <ListItem key="1">
               <section className="chat-section">
                 <main className="chat-main">
-                  {messages &&
+                  {deleted === true ? ("") :
+                  (messages &&
                     messages.map((msg) => (
                       <ChatMessage key={msg.id} message={msg} />
-                    ))}
+                    )))}
                   <span className="chat-span" ref={scroll}></span>
                 </main>
               </section>

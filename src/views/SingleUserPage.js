@@ -220,12 +220,11 @@ export const SingleUserPage = ({
                   </div>
                 )}
               </div>
-              <Link to="/chat" params={{userUid}}>
+              <Link to ="/chat">
                 <Button
                   color="primary"
                   style={{ backgroundColor: "#6C7ED6", margin: "6px 0 0" }}
-                  onClick={(e) => handleOnClick(userUid)}
-                >
+                  onClick={(e) => handleOnClick(userUid)}>
                   Message
                 </Button>
               </Link>
