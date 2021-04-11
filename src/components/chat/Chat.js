@@ -62,14 +62,18 @@ function Chat() {
   const [allChatUsersInfo, setAllChatUsersInfo] = useState([]);
   const [deleted, setDeleted] = useState(false);
   const location = useLocation();
-  const incomingChatUser = location.state.id
+  
+useEffect(() => {
+function setAll(locationUser) {
+setChatUser(locationUser);
+activateChat(locationUser)
+} 
+ if (typeof(location?.state?.id) !== "undefined") 
+ return setAll(location.state.id)
+}, [])  
 
-
-  useEffect(() => {
-  activateChat(incomingChatUser)
-  setActiveChatUser(incomingChatUser)
-  console.log(incomingChatUser)
-  }, [])
+// activateChat(incomingChatUser)
+  
 
   function usePrevious(value) {
     const ref = useRef();
