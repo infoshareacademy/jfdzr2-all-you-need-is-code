@@ -65,7 +65,7 @@ function Chat() {
   
 useEffect(() => {
 function setAll(locationUser) {
-setChatUser(locationUser);
+setActiveChatUser(locationUser);
 activateChat(locationUser)
 } 
  if (typeof(location?.state?.id) !== "undefined") 
@@ -87,6 +87,8 @@ activateChat(locationUser)
 
   const activateChat = (user) => {
     setChatUser(user);
+    setActiveChatUser(user);
+
     const msgId = makeMsgId(currentUser, user);
     fire.firestore().collection("Messages").doc(msgId).set({});
     setDeleted(false)
