@@ -66,10 +66,10 @@ export default function SignInPage() {
   }
 
   const handleSignup = (e) => {
-    const unsubscribe =   
     e.preventDefault();
     setEmailError("");
     setPasswordError("");
+    const unsubscribe =   
     fire
       .auth()
       .createUserWithEmailAndPassword(email, password)

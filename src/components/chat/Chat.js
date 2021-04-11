@@ -14,32 +14,30 @@ import fire from "../../fire";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useState, useRef, useEffect } from "react";
 import "../../styles/Chat.css";
-import { Search } from "../../common/Search"
+import { Search } from "../../common/Search";
 import logo from "../../logo/sayIT.png";
 import defaultAvatar from "../../photos/profilePhotos/default.jpg";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import RemoveIcon from '@material-ui/icons/Remove';
 
 const auth = fire.auth();
-const makeMsgId = (userUid, chatUserUid) => [userUid, chatUserUid].sort().join('-')
-
-
+const makeMsgId = (userUid, chatUserUid) =>
+  [userUid, chatUserUid].sort().join("-");
 
 function ChatMessage(props) {
   const { text, uid, photoURL, createdAtString } = props.message;
   const messageClass = uid === auth.currentUser.uid ? "sent" : "received";
-  // const formatedDate = Date(createdAt).toString().substr(4, 20);
   return (
     <>
       <div className={`message ${messageClass}`}>
-      <Link to={`/users-page/${uid}`}>
-        <Avatar
-        onClick = {(e)=> console.log(uid)}
-        src={photoURL || defaultAvatar}
-        />
+        <Link to={`/users-page/${uid}`}>
+          <Avatar
+            src={photoURL || defaultAvatar}
+          />
         </Link>
         <div>
-        <p className="chat-text">{text}</p>
-        <div className="date">{createdAtString}</div>
+          <p className="chat-text">{text}</p>
+          <div className="date">{createdAtString}</div>
         </div>
       </div>
     </>
@@ -50,37 +48,44 @@ function Chat() {
   const scroll = useRef();
   const currentUser = auth.currentUser.uid;
   const [chatUser, setChatUser] = useState("");
-  const msgId = makeMsgId(currentUser, chatUser)
+  const msgId = makeMsgId(currentUser, chatUser);
   const [formValue, setFormValue] = useState("");
-  const messagesRef = fire.firestore().collection("Messages").doc(msgId).collection(msgId);
+  const messagesRef = fire
+    .firestore()
+    .collection("Messages")
+    .doc(msgId)
+    .collection(msgId);
   const query = messagesRef.orderBy("createdAt").limit(250);
   const [messages] = useCollectionData(query, { idField: "id" });
-  const [chatList, setChatList] = useState([])
+  const [chatList, setChatList] = useState([]);
   const [activeChatUser, setActiveChatUser] = useState("");
   const [allChatUsersInfo, setAllChatUsersInfo] = useState([]);
-
+  const [deleted, setDeleted] = useState(false);
+  
+  // useEffect(() => {
+  // setActiveChatUser(newId)
+  // console.log(newId)
+  // }, [chatList])
 
   function usePrevious(value) {
     const ref = useRef();
     useEffect(() => {
-      ref.current = value
-    })
-    return ref.current
+      ref.current = value;
+    });
+    return ref.current;
   }
 
-  const prevChatList = usePrevious(chatList)
-
-
-
+  const prevChatList = usePrevious(chatList);
 
   const activateChat = (user) => {
-    setChatUser(user)
-    const msgId = makeMsgId(currentUser, user)
-    fire.firestore().collection("Messages").doc(msgId).set({})
-  }
+    setChatUser(user);
+    const msgId = makeMsgId(currentUser, user);
+    fire.firestore().collection("Messages").doc(msgId).set({});
+    setDeleted(false)
+  };
 
   useEffect(() => {
-    fire
+    const unsubscribe = fire
       .firestore()
       .collection("Users")
       .onSnapshot((users) => {
@@ -91,26 +96,26 @@ function Chat() {
           allChatUsersArray = [...allChatUsersArray, object];
           setAllChatUsersInfo(allChatUsersArray);
         });
-
-      const newUser = chatList.filter(i=>!prevChatList.includes(i))
-      setActiveChatUser(newUser)
-      // console.log(prevChatList);
-      // console.log(newUser)
-      console.log(activeChatUser)
-      
-    });
+        const newUser = chatList.filter((i) => !prevChatList.includes(i));
+        setActiveChatUser(newUser);
+        return () => {
+          if (unsubscribe) {
+            unsubscribe();
+          }
+        };
+      });
   }, [chatList]);
 
-  
   const filterUser = (user) => {
-    const userName = allChatUsersInfo.find(item => item.id === user)?.name
-    return userName
-  }
+    const userName = allChatUsersInfo.find((item) => item.id === user)?.name;
+    return userName;
+  };
 
   const filterAvatar = (user) => {
-    const userAvatar = allChatUsersInfo.find(item => item.id === user)?.avatarUrl
-    return userAvatar
-  }
+    const userAvatar = allChatUsersInfo.find((item) => item.id === user)
+      ?.avatarUrl;
+    return userAvatar;
+  };
 
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -133,7 +138,9 @@ function Chat() {
         let allMsgArray = [];
         msg.forEach((userMsg) => {
           if (userMsg.id.includes(auth.currentUser.uid)) {
-            let userMsgId = userMsg.id.replace(auth.currentUser.uid, "").replace("-", "");
+            let userMsgId = userMsg.id
+              .replace(auth.currentUser.uid, "")
+              .replace("-", "");
             allMsgArray.push(userMsgId);
           }
         });
@@ -143,66 +150,74 @@ function Chat() {
 
   useEffect(() => {
     scroll.current.scrollIntoView({ bahavior: "smooth" });
-  }, [messages])
+  }, [messages]);
+
 
   const hanldeOnDelete = (user, currentUser) => {
-    const collection = currentUser + user
-    console.log(collection)
-    // fire.firestore().collection("Messages").doc(collection).delete().then(() => {
-    //   console.log("Document successfully deleted!");
-    // }).catch((error) => {
-    //   console.error("Error removing document: ", error);
-    // })
-  }
+    const collection = [user, currentUser].sort().join("-");
+    fire.firestore().collection("Messages").doc(collection).delete();
+    setDeleted(true)
+  };
 
 
   useEffect(() => {
     scroll.current.scrollIntoView({ bahavior: "smooth" });
-  }, [messages])
+  }, [messages]);
 
-
-  const activeMsg = (user) => (activeChatUser === user ? "chat-active" : "chat-nonactive")
+  const activeMsg = (user) =>
+    activeChatUser === user ? "chat-active" : "chat-nonactive";
 
   return (
     <>
       <Grid container className="chat-section">
-        <Grid item xs={3} component={Paper} className="border-right500 border-top500">
+        <Grid
+          item
+          xs={3}
+          component={Paper}
+          className="border-right500 border-top500"
+          style={{overflowX: "scroll"  }}
+        >
           <div className="logo-cointainer">
-          <img className="logo" src={logo} />
+            <img className="logo" src={logo} />
           </div>
           <Divider />
           <Grid item xs={12} style={{ padding: "10px" }}>
             <Search onResultSelect={activateChat} />
           </Grid>
           <Divider />
-          {chatList.map((user) => {
+          {chatList
+          .map((user) => {
             return (
-               <div className={activeMsg(user)}>
+              <div className={activeMsg(user)}>
                 <ListItem
-                style={{ textOverflow: "ellipsis", overflow: "hidden" }}
-                button
-                key={user}
-                onClick={(e) => { 
-                  activateChat(user);
-                  setActiveChatUser(user);
-                }}
-              >
-                <ListItemIcon>
-                  <Avatar
-                    src={filterAvatar(user)}
+                  style={{textOverflow: "ellipsis"}}
+                  button
+                  key={user}
+                >
+                  <ListItemIcon>
+                  <Link to={`/users-page/${user}`}>
+                    <Avatar src={filterAvatar(user)} />
+                    </Link>
+                  </ListItemIcon>
+                  <ListItemText
+                    onClick={(e) => {
+                      activateChat(user);
+                      setActiveChatUser(user);
+                    }}
+                  >
+                    {filterUser(user)}
+                  </ListItemText>
+                  <RemoveIcon
+                    color = "action"
+                    fontSize = "small"
+                    onClick={(e) => hanldeOnDelete(user, currentUser)}
                   />
-                </ListItemIcon>
-                <ListItemText>{filterUser(user)}
-                </ListItemText>
-                {/* <Tooltip title={"DELETE CHAT"}> */}
-                  {/* </Tooltip> */}
-              </ListItem>
+                </ListItem>
+
               </div>
-
-            )
-          }
-          )}
-
+            );
+          })}
+          {/* </Grid> */}
         </Grid>
 
         <Grid item xs={9} component={Paper} className="border-top500">
@@ -210,10 +225,11 @@ function Chat() {
             <ListItem key="1">
               <section className="chat-section">
                 <main className="chat-main">
-                  {messages &&
+                  {deleted === true ? ("") :
+                  (messages &&
                     messages.map((msg) => (
                       <ChatMessage key={msg.id} message={msg} />
-                    ))}
+                    )))}
                   <span className="chat-span" ref={scroll}></span>
                 </main>
               </section>

@@ -36,7 +36,7 @@
 }
 .likesPhoto {
   margin: -7px 6px 0 0;
-  width: 40px;
+  width: 35px;
   height: auto;
 }
 .comentPhoto {
@@ -51,7 +51,7 @@
   display: flex;
   outline: none;
   justify-content: flex-start;
-  width: 400px;
+  margin-left: 10%;
 }
 
 .comentSection > * {
@@ -59,9 +59,9 @@
 }
 .postStatus {
   margin-top: 10px;
-  width: 70%;
+  
   display: flex;
-  justify-content: space-between;
+  
 }
 
 
