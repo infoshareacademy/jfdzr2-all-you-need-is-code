@@ -17,7 +17,7 @@ import "../../styles/Chat.css";
 import { Search } from "../../common/Search";
 import logo from "../../logo/sayIT.png";
 import defaultAvatar from "../../photos/profilePhotos/default.jpg";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import RemoveIcon from '@material-ui/icons/Remove';
 
 const auth = fire.auth();
@@ -61,11 +61,19 @@ function Chat() {
   const [activeChatUser, setActiveChatUser] = useState("");
   const [allChatUsersInfo, setAllChatUsersInfo] = useState([]);
   const [deleted, setDeleted] = useState(false);
+  const location = useLocation();
   
-  // useEffect(() => {
-  // setActiveChatUser(newId)
-  // console.log(newId)
-  // }, [chatList])
+useEffect(() => {
+function setAll(locationUser) {
+setActiveChatUser(locationUser);
+activateChat(locationUser)
+} 
+ if (typeof(location?.state?.id) !== "undefined") 
+ return setAll(location.state.id)
+}, [])  
+
+// activateChat(incomingChatUser)
+  
 
   function usePrevious(value) {
     const ref = useRef();
@@ -79,6 +87,8 @@ function Chat() {
 
   const activateChat = (user) => {
     setChatUser(user);
+    setActiveChatUser(user);
+
     const msgId = makeMsgId(currentUser, user);
     fire.firestore().collection("Messages").doc(msgId).set({});
     setDeleted(false)
@@ -96,8 +106,8 @@ function Chat() {
           allChatUsersArray = [...allChatUsersArray, object];
           setAllChatUsersInfo(allChatUsersArray);
         });
-        const newUser = chatList.filter((i) => !prevChatList.includes(i));
-        setActiveChatUser(newUser);
+        // const newUser = chatList.filter((i) => !prevChatList.includes(i));
+        // setActiveChatUser(newUser);
         return () => {
           if (unsubscribe) {
             unsubscribe();

@@ -220,7 +220,7 @@ export const SingleUserPage = ({
                   </div>
                 )}
               </div>
-              <Link to ="/chat">
+              <Link to ={{pathname: "/chat", state: {id: userUid}}}>
                 <Button
                   color="primary"
                   style={{ backgroundColor: "#6C7ED6", margin: "6px 0 0" }}
