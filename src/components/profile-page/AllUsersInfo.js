@@ -60,6 +60,21 @@ export const AllUsersInfo = () => {
     return name.toLowerCase().includes(lowerCaseFilter)
   };
 
+  // const filterByTechnology = ( { technologies } ) => {
+  //   const lowerCaseFilter = filter.toLowerCase();
+  //   const array = []
+  //   technologies?.forEach((technology) => {
+  //     if (technology.toLowerCase().includes(lowerCaseFilter)) {
+  //       console.log()
+  //       array.push(technology.toLowerCase())
+  //     }
+  //     array.push(technology.toLowerCase().includes(lowerCaseFilter));
+  //     console.log(technology.toLowerCase().includes(lowerCaseFilter))
+  //   })
+  //   console.log(array);
+  //   return array;
+  // };
+
   return (
     <>
       {state === "initial" && (
@@ -81,7 +96,7 @@ export const AllUsersInfo = () => {
             value={filter}
             onChange={handleOnChange}
             fullWidth
-            style={{ marginBottom: "30px", marginRight: "2px" }}
+            style={{ marginBottom: "30px", marginRight: "5px" }}
           />
           <TextField
             type="search"
@@ -90,7 +105,7 @@ export const AllUsersInfo = () => {
             value={skills}
             onChange={handleOnSkillsChange}
             fullWidth
-            style={{ marginBottom: "30px", marginLeft: "2px" }}
+            style={{ marginBottom: "30px", marginLeft: "5px" }}
           />
           </div>
           <div className="users-profiles-container">
