@@ -42,7 +42,6 @@ export default function ModalToCreatePost({ isModalOpen, toggleModal }) {
     }
     var hours=date.getHours()
 
-    console.log(day+"."+month+"."+year+","+hours+":"+minutes)
     return day+"."+month+"."+year+","+hours+":"+minutes
   }
   const classes = useStyles();
