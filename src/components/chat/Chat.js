@@ -17,7 +17,7 @@ import "../../styles/Chat.css";
 import { Search } from "../../common/Search";
 import logo from "../../logo/sayIT.png";
 import defaultAvatar from "../../photos/profilePhotos/default.jpg";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import RemoveIcon from '@material-ui/icons/Remove';
 
 const auth = fire.auth();
@@ -61,11 +61,15 @@ function Chat() {
   const [activeChatUser, setActiveChatUser] = useState("");
   const [allChatUsersInfo, setAllChatUsersInfo] = useState([]);
   const [deleted, setDeleted] = useState(false);
-  
-  // useEffect(() => {
-  // setActiveChatUser(newId)
-  // console.log(newId)
-  // }, [chatList])
+  const location = useLocation();
+  const incomingChatUser = location.state.id
+
+
+  useEffect(() => {
+  activateChat(incomingChatUser)
+  setActiveChatUser(incomingChatUser)
+  console.log(incomingChatUser)
+  }, [])
 
   function usePrevious(value) {
     const ref = useRef();
@@ -96,8 +100,8 @@ function Chat() {
           allChatUsersArray = [...allChatUsersArray, object];
           setAllChatUsersInfo(allChatUsersArray);
         });
-        const newUser = chatList.filter((i) => !prevChatList.includes(i));
-        setActiveChatUser(newUser);
+        // const newUser = chatList.filter((i) => !prevChatList.includes(i));
+        // setActiveChatUser(newUser);
         return () => {
           if (unsubscribe) {
             unsubscribe();
