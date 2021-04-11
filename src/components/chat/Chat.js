@@ -44,7 +44,7 @@ function ChatMessage(props) {
   );
 }
 
-function Chat({ newId }) {
+function Chat() {
   const scroll = useRef();
   const currentUser = auth.currentUser.uid;
   const [chatUser, setChatUser] = useState("");
@@ -62,10 +62,10 @@ function Chat({ newId }) {
   const [allChatUsersInfo, setAllChatUsersInfo] = useState([]);
   const [deleted, setDeleted] = useState(false);
   
-  useEffect(() => {
-  setActiveChatUser(newId)
-  console.log(newId)
-  }, [chatList])
+  // useEffect(() => {
+  // setActiveChatUser(newId)
+  // console.log(newId)
+  // }, [chatList])
 
   function usePrevious(value) {
     const ref = useRef();
@@ -175,6 +175,7 @@ function Chat({ newId }) {
           xs={3}
           component={Paper}
           className="border-right500 border-top500"
+          style={{overflowX: "scroll"  }}
         >
           <div className="logo-cointainer">
             <img className="logo" src={logo} />
@@ -189,7 +190,7 @@ function Chat({ newId }) {
             return (
               <div className={activeMsg(user)}>
                 <ListItem
-                  style={{ textOverflow: "ellipsis", overflow: "hidden" }}
+                  style={{textOverflow: "ellipsis"}}
                   button
                   key={user}
                 >
@@ -212,9 +213,11 @@ function Chat({ newId }) {
                     onClick={(e) => hanldeOnDelete(user, currentUser)}
                   />
                 </ListItem>
+
               </div>
             );
           })}
+          {/* </Grid> */}
         </Grid>
 
         <Grid item xs={9} component={Paper} className="border-top500">
